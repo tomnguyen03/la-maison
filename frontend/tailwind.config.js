@@ -55,7 +55,9 @@ module.exports = {
       'yellow-ff': '#ffdc23',
       'yellow-fe': '#fee560',
       'yellow-fc': '#fced9e',
-      'yellow-fb': '#fbf6db'
+      'yellow-fb': '#fbf6db',
+      black: '#000',
+      white: '#fff'
     },
     fontSize: {
       xs: ['12px', '18px'],

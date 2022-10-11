@@ -1,21 +1,14 @@
-import './App.css'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+import RoutesComponent from 'src/routes'
+// import Loading from './components/Loading/Loading'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edasdasdit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Loading /> */}
+      <RoutesComponent />
+      <ToastContainer />
     </div>
   )
 }
