@@ -3,8 +3,14 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import InputField from 'src/components/InputField/InputField'
+import { useDispatch } from 'react-redux'
+import { login } from './auth.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
-export default function Login() {
+export default function Login({ closeModal }) {
+  const dispatch = useDispatch()
+
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -25,7 +31,22 @@ export default function Login() {
   })
 
   const handleSubmit = async data => {
-    console.log(data)
+    try {
+      const res = await dispatch(login(data))
+      unwrapResult(res)
+      closeModal()
+      toast.success('Đăng nhập thành công', {
+        position: 'top-right',
+        autoClose: 1500
+      })
+    } catch (error) {
+      if (error.status === 403) {
+        form.setError('password', {
+          type: 'server',
+          message: error.message
+        })
+      }
+    }
   }
 
   return (

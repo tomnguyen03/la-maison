@@ -8,6 +8,10 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false)
   const [auth, setAuth] = useState('login')
 
+  const callbackShowModal = () => {
+    setShowModal(false)
+  }
+
   return (
     <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9">
       <div className="text-2xl">
@@ -65,7 +69,11 @@ export default function Header() {
                       Đăng ký
                     </div>
                   </div>
-                  {auth === 'login' ? <Login /> : <Register />}
+                  {auth === 'login' ? (
+                    <Login closeModal={callbackShowModal} />
+                  ) : (
+                    <Register closeModal={callbackShowModal} />
+                  )}
                   <div className="pt-6">
                     <button className="w-full flex items-center px-3 py-1 bg-white text-grey-3 border border-grey-9 text-sm gap-[10px] rounded">
                       <i className="bx bxl-facebook-circle text-red-e5 text-2xl"></i>
