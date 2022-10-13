@@ -11,7 +11,7 @@ const AuthController = {
       }
       const isExistEmail = await accountService.findOne({ email: req.body.email });
       if (isExistEmail) {
-        return res.json({ message: "Email đã tồn tại" });
+        return res.status(403).json({ message: "Email đã tồn tại", key: "email" });
       }
       const role = await roleService.findOne({ name: ROLE.USER });
 
@@ -29,7 +29,7 @@ const AuthController = {
     try {
       const loginResult = await authHelper.login(req, res);
       if (!loginResult) {
-        throw new Error("Login failed");
+        throw new Error("Sai tài khoản hoặc mật khẩu");
       }
 
       return res.json({ message: "Successfully", data: loginResult });

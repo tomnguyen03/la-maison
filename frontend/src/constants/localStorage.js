@@ -1,13 +1,5 @@
 const LocalStorage = {
-  user: 'user',
-  accessToken: 'access_token',
-  cart: 'cart',
-  products: 'products',
-  categories: 'categories',
-  orders: 'orders',
-  income: 'income',
-  totalSales: 'totalSales',
-  topCustomers: 'topCustomers',
-  incomeByMonth: 'incomeByMonth'
+  EMAIL: 'email',
+  ACCESS_TOKEN: 'access_token'
 }
 export default LocalStorage
