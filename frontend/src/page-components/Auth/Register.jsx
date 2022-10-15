@@ -46,7 +46,7 @@ export default function Register({ closeModal }) {
       unwrapResult(res)
       closeModal()
       toast.success('Đăng ký thành công', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1500
       })
     } catch (error) {

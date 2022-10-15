@@ -1,32 +1,80 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+
 import backgroundAuth from 'src/assets/background_coffee.jpg'
 import Login from 'src/page-components/Auth/Login'
 import Register from 'src/page-components/Auth/Register'
+import { useAuthenticated } from 'src/hooks/useAuthenticated'
+import Logo from 'src/components/Logo/Logo'
+import listenForOutsideClick from 'src/hooks/listenForOutsideClick'
+import { logout } from 'src/page-components/Auth/auth.slice'
 
 export default function Header() {
+  const dispatch = useDispatch()
+
   const [showModal, setShowModal] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
   const [auth, setAuth] = useState('login')
+  const menuRef = useRef(null)
+  const authenticated = useAuthenticated()
 
   const callbackShowModal = () => {
     setShowModal(false)
   }
 
+  const checkAuthenticated = () => {
+    authenticated ? setShowDropdown(true) : setShowModal(true)
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    setShowDropdown(false)
+
+    toast.success('Đăng xuất thành công', {
+      position: 'top-center',
+      autoClose: 1500
+    })
+  }
+
+  useEffect(() => {
+    listenForOutsideClick(menuRef, setShowDropdown)
+  }, [setShowDropdown])
+
   return (
     <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9">
-      <div className="text-2xl">
-        La
-        <br />
-        Maison
-      </div>
+      <Logo />
       <div className="text-sm font-medium flex items-center gap-[30px]">
         <Link to="/">VỀ LA MAISON</Link>
         <Link to="/">BẢN ĐỒ</Link>
-        <div
-          className="flex items-center cursor-pointer"
-          onClick={() => setShowModal(true)}
-        >
-          <i className="bx bx-user-circle text-[27px]"></i>
+        <div className="relative" ref={menuRef}>
+          <button
+            className="flex items-center cursor-pointer"
+            onClick={checkAuthenticated}
+          >
+            <i className="bx bx-user-circle text-[27px]"></i>
+          </button>
+          <div
+            className={`${
+              showDropdown === false && 'hidden'
+            } z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 absolute right-0 mt-[5px]`}
+          >
+            <ul className="text-sm text-gray-700 dark:text-gray-200">
+              <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
+                Trang cá nhân
+              </li>
+              <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
+                Cài đặt
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
+                onClick={handleLogout}
+              >
+                Đăng xuất
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       {showModal ? (

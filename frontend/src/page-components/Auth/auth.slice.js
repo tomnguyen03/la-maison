@@ -25,13 +25,13 @@ const handleAuthFulfilled = (state, action) => {
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    profile:
-      JSON.parse(localStorage.getItem(LocalStorage.EMAIL)) || {}
+    email: JSON.parse(localStorage.getItem(LocalStorage.EMAIL)) || {}
   },
   reducers: {
     logout(state) {
       localStorage.removeItem(LocalStorage.EMAIL)
       localStorage.removeItem(LocalStorage.ACCESS_TOKEN)
+      state.email = {}
     }
   },
   extraReducers: {
