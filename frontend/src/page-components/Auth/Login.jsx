@@ -36,8 +36,8 @@ export default function Login({ closeModal }) {
       unwrapResult(res)
       closeModal()
       toast.success('Đăng nhập thành công', {
-        position: 'top-center',
-        autoClose: 1500
+        position: 'top-right',
+        autoClose: 1000
       })
     } catch (error) {
       if (error.status === 403) {
