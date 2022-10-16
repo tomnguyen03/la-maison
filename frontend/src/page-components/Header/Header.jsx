@@ -10,6 +10,7 @@ import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import Logo from 'src/components/Logo/Logo'
 import listenForOutsideClick from 'src/hooks/listenForOutsideClick'
 import { logout } from 'src/page-components/Auth/auth.slice'
+import LocalStorage from '../../constants/localStorage'
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -33,7 +34,7 @@ export default function Header() {
     setShowDropdown(false)
 
     toast.success('Đăng xuất thành công', {
-      position: 'top-center',
+      position: 'top-right',
       autoClose: 1500
     })
   }
@@ -41,6 +42,21 @@ export default function Header() {
   useEffect(() => {
     listenForOutsideClick(menuRef, setShowDropdown)
   }, [setShowDropdown])
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      localStorage.setItem(
+        LocalStorage.LOCATION,
+        JSON.stringify({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        })
+      )
+    })
+    // console.log(
+    //   JSON.parse(localStorage.getItem(LocalStorage.LOCATION)).latitude
+    // )
+  }, [])
 
   return (
     <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9">

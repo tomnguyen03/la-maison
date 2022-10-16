@@ -4,7 +4,7 @@ const app = createSlice({
   name: 'app',
   initialState: {
     status: 200,
-    loading: true
+    loading: false
   },
   extraReducers: builder => {
     builder
