@@ -21,7 +21,7 @@ function InputField(props) {
             placeholder={placeholder}
             onChange={field.onChange}
             value={form.getValues(name)}
-            className="w-full border border-grey-9 text-sm rounded mt-4 px-5 py-3 bg-white shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-red-ee focus:ring-red-ee focus:ring-1"
+            className="w-full border border-grey-9 text-sm rounded mt-4 px-5 py-3 bg-white shadow-sm focus:outline-none focus:border-red-ee focus:ring-red-ee focus:ring-1"
           />
         )}
       />
