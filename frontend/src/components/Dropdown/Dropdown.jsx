@@ -35,7 +35,7 @@ export default function Dropdown(props) {
 
   return (
     <>
-      <ul className="text-sm text-gray-700 dark:text-gray-200 bg-white w-36 rounded h-[144px] overflow-scroll">
+      <ul className="text-sm bg-white w-36 rounded h-[144px] overflow-scroll">
         {listDropdown.list.map((item, index) => (
           <li
             className={`px-4 py-2 hover:bg-red-f8 cursor-pointer ${
