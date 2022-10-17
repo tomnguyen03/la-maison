@@ -9,8 +9,6 @@ export default function Dropdown(props) {
   const query = useQuery()
   const navigate = useNavigate()
 
-  const { location, style, vibe } = query
-
   const handleClick = item => {
     let params = {}
     if (listDropdown.title === 'location') {
@@ -38,12 +36,7 @@ export default function Dropdown(props) {
       <ul className="text-sm text-gray-700 dark:text-gray-200 bg-white w-36 rounded h-[144px] overflow-scroll">
         {listDropdown.list.map((item, index) => (
           <li
-            className={`px-4 py-2 hover:bg-red-f8 cursor-pointer ${
-              (location === item._id ||
-                style === item._id ||
-                vibe === item._id) &&
-              'bg-red-f8'
-            }`}
+            className="px-4 py-2 hover:bg-red-f8 cursor-pointer"
             key={index}
             onClick={() => handleClick(item._id)}
           >
