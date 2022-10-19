@@ -9,6 +9,7 @@ const cors = require("cors");
 // import routes
 const authRoute = require("./resources/routers/auth.route");
 const filterRoute = require("./resources/routers/filter.route");
+const addressRoute = require("./resources/routers/address.route");
 dotenv.config();
 
 // middlewares
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 // use routes
 app.use("/auth", authRoute);
 app.use("/", filterRoute);
+app.use("/address", addressRoute);
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`);
