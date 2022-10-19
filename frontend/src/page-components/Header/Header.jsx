@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 import backgroundAuth from 'src/assets/background_coffee.jpg'
 import Login from 'src/page-components/Auth/Login'
@@ -10,7 +11,8 @@ import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import Logo from 'src/components/Logo/Logo'
 import listenForOutsideClick from 'src/hooks/listenForOutsideClick'
 import { logout } from 'src/page-components/Auth/auth.slice'
-import LocalStorage from '../../constants/localStorage'
+import LocalStorage from 'src/constants/localStorage'
+import { GOONG_API_KEY } from 'src/constants/variables'
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -45,17 +47,25 @@ export default function Header() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      localStorage.setItem(
-        LocalStorage.LOCATION,
-        JSON.stringify({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        })
-      )
+      const latitude = position.coords.latitude
+      const longitude = position.coords.longitude
+
+      axios
+        .get(
+          `https://rsapi.goong.io/Geocode?latlng=${latitude},${longitude}&api_key=${GOONG_API_KEY}`
+        )
+        .then(data =>
+          localStorage.setItem(
+            LocalStorage.LOCATION,
+            JSON.stringify({
+              latitude: latitude,
+              longitude: longitude,
+              province: data.data.results[0].compound.province
+            })
+          )
+        )
+        .catch(error => console.log(error))
     })
-    // console.log(
-    //   JSON.parse(localStorage.getItem(LocalStorage.LOCATION)).latitude
-    // )
   }, [])
 
   return (

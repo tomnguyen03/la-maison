@@ -1,11 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ListFilterItem from './ListFilterItem'
 import { useDispatch } from 'react-redux'
-import { getStyle, getVibe } from './listFilter.slice'
+import {
+  getDistrictsByProvince,
+  getProvinceByName,
+  getStyle,
+  getVibe
+} from './listFilter.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
+import LocalStorage from 'src/constants/localStorage'
 
 export default function ListFilter() {
   const dispatch = useDispatch()
+  const [codeProvince, setCodeProvince] = useState('')
+  const [listDistrict, setListDistrict] = useState([])
   const [listStyle, setListStyle] = useState([])
   const [listVibe, setListVibe] = useState([])
 
@@ -18,7 +26,7 @@ export default function ListFilter() {
       title: 'Location',
       dropdown: {
         title: 'location',
-        list: listStyle
+        list: listDistrict
       },
       ref: refLocation
     },
@@ -39,6 +47,29 @@ export default function ListFilter() {
       ref: refVibe
     }
   ]
+
+  useEffect(() => {
+    const _getCodeProvince = async () => {
+      if (localStorage.getItem(LocalStorage.LOCATION)) {
+        const province = JSON.parse(
+          localStorage.getItem(LocalStorage.LOCATION)
+        ).province
+        const res = await dispatch(getProvinceByName(province))
+        const data = unwrapResult(res)
+
+        setCodeProvince(data.result[0].code)
+      }
+    }
+    _getCodeProvince()
+  }, [dispatch])
+
+  useEffect(() => {
+    if (codeProvince !== '') {
+      dispatch(getDistrictsByProvince(codeProvince))
+        .then(unwrapResult)
+        .then(res => setListDistrict(res.result))
+    }
+  }, [codeProvince, dispatch])
 
   useEffect(() => {
     dispatch(getStyle())

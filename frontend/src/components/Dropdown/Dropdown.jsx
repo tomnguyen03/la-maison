@@ -39,13 +39,13 @@ export default function Dropdown(props) {
         {listDropdown.list.map((item, index) => (
           <li
             className={`px-4 py-2 hover:bg-red-f8 cursor-pointer ${
-              (location === item._id ||
+              (location === item.code ||
                 style === item._id ||
                 vibe === item._id) &&
               'bg-red-f8'
             }`}
             key={index}
-            onClick={() => handleClick(item._id)}
+            onClick={() => handleClick(item.code || item._id)}
           >
             {item.name}
           </li>
