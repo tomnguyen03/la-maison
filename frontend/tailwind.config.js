@@ -60,6 +60,9 @@ module.exports = {
       black: '#000',
       white: '#fff'
     },
+    fontFamily: {
+      prata: ['Prata', 'serif']
+    },
     fontSize: {
       xs: ['12px', '18px'],
       sm: ['14px', '20px'],

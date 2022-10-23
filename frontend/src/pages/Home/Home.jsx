@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto">
-        <div className="search-bar pt-6 flex items-center justify-center">
+        <div className="search-bar flex items-center justify-center">
           <div className="w-[50%] relative">
             <form onSubmit={handleSubmitSearch}>
               <input

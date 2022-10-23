@@ -13,7 +13,34 @@ const Account = new Schema(
       type: String,
       required: true,
     },
-    roleId: { type: ObjectId, ref: "role", required: true },
+    roleId: {
+      type: ObjectId,
+      ref: "role",
+      required: true,
+    },
+    name: {
+      type: String,
+      required: false,
+    },
+    phone: {
+      type: String,
+      minLength: 10,
+      maxLength: 11,
+      required: false,
+      unique: true,
+    },
+    avatar: {
+      type: String,
+      required: false,
+    },
+    birthday: {
+      type: Date,
+      required: false,
+    },
+    detail_address: {
+      type: String,
+      required: false,
+    },
     isActive: {
       type: Boolean,
       required: false,

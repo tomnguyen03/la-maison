@@ -13,6 +13,7 @@ import listenForOutsideClick from 'src/hooks/listenForOutsideClick'
 import { logout } from 'src/page-components/Auth/auth.slice'
 import LocalStorage from 'src/constants/localStorage'
 import { GOONG_API_KEY } from 'src/constants/variables'
+import { path } from 'src/constants/path'
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -36,8 +37,9 @@ export default function Header() {
     setShowDropdown(false)
 
     toast.success('Đăng xuất thành công', {
-      position: 'top-right',
-      autoClose: 1500
+      position: 'bottom-center',
+      autoClose: 1000,
+      hideProgressBar: true
     })
   }
 
@@ -69,7 +71,7 @@ export default function Header() {
   }, [])
 
   return (
-    <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9">
+    <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9 mb-6">
       <Logo />
       <div className="text-sm font-medium flex items-center gap-[30px]">
         <Link to="/">VỀ LA MAISON</Link>
@@ -87,8 +89,13 @@ export default function Header() {
             } z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 absolute right-0 mt-[5px]`}
           >
             <ul className="text-sm text-gray-700 dark:text-gray-200">
-              <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
-                Trang cá nhân
+              <li
+                className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
+                onClick={() => setShowDropdown(false)}
+              >
+                <Link to={path.user} className="font-['Prata']">
+                  Trang cá nhân
+                </Link>
               </li>
               <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
                 Cài đặt
