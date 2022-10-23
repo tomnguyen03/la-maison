@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import SkeletonCafeItem from './SkeletonCafeItem'
+import SkeletonCollectionItem from './SkeletonCollectionItem'
 
-export default function CafeItem(props) {
-  const { name, style, image } = props
+export default function CollectionItem(props) {
+  const { name, image } = props
   const loading = useSelector(state => state.app.loading)
 
   const handleClick = () => {}
@@ -11,7 +11,7 @@ export default function CafeItem(props) {
   return (
     <>
       {loading ? (
-        <SkeletonCafeItem />
+        <SkeletonCollectionItem />
       ) : (
         <div>
           <img
@@ -26,7 +26,6 @@ export default function CafeItem(props) {
           >
             {name}
           </h2>
-          <p className="mt-2 text-sm">{style}</p>
         </div>
       )}
     </>

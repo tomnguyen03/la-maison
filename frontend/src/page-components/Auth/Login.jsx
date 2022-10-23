@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { login } from './auth.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
+import Button from 'src/components/Button/Button'
 
 export default function Login({ closeModal }) {
   const dispatch = useDispatch()
@@ -36,8 +37,9 @@ export default function Login({ closeModal }) {
       unwrapResult(res)
       closeModal()
       toast.success('Đăng nhập thành công', {
-        position: 'top-right',
-        autoClose: 1000
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
       })
     } catch (error) {
       if (error.status === 403) {
@@ -51,26 +53,28 @@ export default function Login({ closeModal }) {
 
   return (
     <form className="mt-6" onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField
-        name="email"
-        type="email"
-        placeholder="Email"
-        form={form}
-      />
-      <InputField
-        type="password"
-        name="password"
-        placeholder="Mật khẩu"
-        form={form}
-      />
+      <div className="mt-8">
+        <InputField
+          name="email"
+          type="email"
+          placeholder="Email"
+          form={form}
+        />
+      </div>
+      <div className="mt-7">
+        <InputField
+          type="password"
+          name="password"
+          placeholder="Mật khẩu"
+          form={form}
+        />
+      </div>
 
       <div className="mt-1 text-right text-xs text-red-dd">
         Quên mật khẩu
       </div>
       <div className="py-6 border-grey-9 border-b">
-        <button className="w-full flex items-center justify-center p-2 bg-red-dd text-white text-sm rounded">
-          Đăng nhập
-        </button>
+        <Button title="Đăng nhập" className="p-2" />
       </div>
     </form>
   )

@@ -2,10 +2,8 @@ export default function listenForOutsideClick(menuRef, setIsOpen) {
   if (!menuRef.current) return
   ;[`click`, `touchstart`].forEach(type => {
     document.addEventListener(`click`, evt => {
-      const cur = menuRef.current
-      const node = evt.target
-      if (cur.contains(node)) return
-      setIsOpen(false)
+      if (menuRef.current && !menuRef.current.contains(evt.target))
+        setIsOpen(false)
     })
   })
 }

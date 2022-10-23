@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { register } from './auth.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
+import Button from 'src/components/Button/Button'
 
 export default function Register({ closeModal }) {
   const dispatch = useDispatch()
@@ -46,8 +47,9 @@ export default function Register({ closeModal }) {
       unwrapResult(res)
       closeModal()
       toast.success('Đăng ký thành công', {
-        position: 'top-right',
-        autoClose: 1500
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
       })
     } catch (error) {
       if (error.status === 403) {
@@ -61,28 +63,32 @@ export default function Register({ closeModal }) {
 
   return (
     <form className="mt-6" onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField
-        name="email"
-        type="email"
-        placeholder="Email"
-        form={form}
-      />
-      <InputField
-        type="password"
-        name="password"
-        placeholder="Mật khẩu"
-        form={form}
-      />
-      <InputField
-        type="password"
-        name="confirmPassword"
-        placeholder="Nhập lại mật khẩu"
-        form={form}
-      />
+      <div className="mt-8">
+        <InputField
+          name="email"
+          type="email"
+          placeholder="Email"
+          form={form}
+        />
+      </div>
+      <div className="mt-7">
+        <InputField
+          type="password"
+          name="password"
+          placeholder="Mật khẩu"
+          form={form}
+        />
+      </div>
+      <div className="mt-7">
+        <InputField
+          type="password"
+          name="confirmPassword"
+          placeholder="Nhập lại mật khẩu"
+          form={form}
+        />
+      </div>
       <div className="py-6 border-grey-9 border-b">
-        <button className="w-full flex items-center justify-center p-2 bg-red-dd text-white text-sm rounded">
-          Đăng ký
-        </button>
+        <Button title="Đăng ký" className="p-2" />
       </div>
     </form>
   )
