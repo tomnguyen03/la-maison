@@ -5,6 +5,7 @@ class Path {
     this.profile = '/profile'
     this.upload = '/upload'
     this.password = '/password'
+    this.suggestAPlace = '/suggest_a_place'
   }
 }
 

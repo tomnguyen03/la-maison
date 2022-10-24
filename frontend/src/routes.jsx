@@ -8,6 +8,7 @@ import User from 'src/pages/User/User'
 import Profile from 'src/pages/User/Profile/Profile'
 import UpdateProfile from 'src/pages/User/Profile/UpdateProfile'
 import ChangePassword from 'src/pages/User/Profile/ChangePassword'
+import Suggest from 'src/pages/Suggest/Suggest'
 
 export default function RoutesComponent() {
   return (
@@ -26,6 +27,7 @@ export default function RoutesComponent() {
               <Route path="upload" element={<UpdateProfile />} />
               <Route path="password" element={<ChangePassword />} />
             </Route>
+            <Route path={path.suggestAPlace} element={<Suggest />} />
           </Route>
         </Route>
       </Routes>
