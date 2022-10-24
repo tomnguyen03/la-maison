@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { path } from 'src/constants/path'
 
 export default function Footer() {
   return (
@@ -11,9 +13,12 @@ export default function Footer() {
           <i className="bx bxl-instagram text-xl"></i>
           follow us on instagram
         </p>
-        <p className="uppercase text-sm font-medium ">
+        <Link
+          to={path.suggestAPlace}
+          className="uppercase text-sm font-medium"
+        >
           suggest a place
-        </p>
+        </Link>
         <p className="uppercase text-sm font-medium flex items-center gap-2">
           <i className="bx bx-heart"></i>
           from danang with love
