@@ -12,7 +12,7 @@ const authMiddleware = {
           res.status(403).json({ message: "Forbidden", data: {} });
         }
 
-        req.user = user;
+        req.user = user._doc;
         next();
       });
     } else {
@@ -39,11 +39,10 @@ const authMiddleware = {
   },
 
   isUser: (req, res, next) => {
-    this.verifyToken(req, res, () => {
+    authMiddleware.verifyToken(req, res, () => {
       if (req.user.roleId.name === ROLE.USER) {
         next();
-      }
-      return res.status(403).json({ message: "Forbidden", data: {} });
+      } else return res.status(403).json({ message: "Forbidden", data: {} });
     });
   },
 };

@@ -49,7 +49,7 @@ const authHelper = {
   },
 
   createToken: (payload) => {
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20m" });
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10d" });
   },
 
   createRefreshToken: (payload) => {
