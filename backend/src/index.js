@@ -6,13 +6,16 @@ const dotenv = require("dotenv");
 const PORT = process.env.PORT || 3010;
 const cors = require("cors");
 
+//import middleware
+const authMiddleware = require("./resources/middleware/auth.middleware");
+
 // import routes
 const authRoute = require("./resources/routers/auth.route");
 const filterRoute = require("./resources/routers/filter.route");
 const addressRoute = require("./resources/routers/address.route");
+const collectionRoute = require("./resources/routers/collection.route");
 dotenv.config();
 
-// middlewares
 app.use(cors());
 
 // databae
@@ -26,6 +29,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use("/auth", authRoute);
 app.use("/", filterRoute);
 app.use("/address", addressRoute);
+app.use("/collection", authMiddleware.isUser, collectionRoute);
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`);

@@ -24,7 +24,7 @@ export default function SettingUser() {
     <div className="flex flex-col items-center">
       <img
         src={
-          'https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/280759075_1625581977810747_7000233858509528729_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=XKxPHtc8ZacAX9OFW4j&tn=I_RUtshZaNgmJ-hu&_nc_ht=scontent.fdad3-6.fna&oh=00_AT8ZDyE45GmfBr8jfcke0E0GytRc6Bk3wjdSL5cdK7_XOQ&oe=63579BA0'
+          'https://t3.ftcdn.net/jpg/00/64/67/52/360_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg'
         }
         alt="Avatar"
         className="w-20 h-20 rounded-full bg-center bg-no-repeat bg-cover object-cover"

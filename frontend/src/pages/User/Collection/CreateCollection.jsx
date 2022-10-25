@@ -1,11 +1,29 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createCollection } from './collection.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 export default function CreateCollection({ closeModal }) {
+  const dispatch = useDispatch()
   const [collectionName, setCollectionName] = useState('')
 
-  const handleClickCreateCollection = () => {
-    console.log(collectionName)
-    closeModal()
+  const handleClickCreateCollection = async () => {
+    try {
+      await dispatch(createCollection({ name: collectionName })).then(
+        unwrapResult
+      )
+
+      closeModal()
+
+      toast.success('Tạo bộ sưu tập thành công', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

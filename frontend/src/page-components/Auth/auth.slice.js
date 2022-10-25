@@ -19,7 +19,7 @@ const handleAuthFulfilled = (state, action) => {
     LocalStorage.EMAIL,
     JSON.stringify(state.email)
   )
-  localStorage.setItem(LocalStorage.ACCESS_TOKEN, token)
+  localStorage.setItem(LocalStorage.ACCESS_TOKEN, 'Bearer ' + token)
 }
 
 const authSlice = createSlice({
