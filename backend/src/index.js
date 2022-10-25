@@ -14,6 +14,8 @@ const authRoute = require("./resources/routers/auth.route");
 const filterRoute = require("./resources/routers/filter.route");
 const addressRoute = require("./resources/routers/address.route");
 const collectionRoute = require("./resources/routers/collection.route");
+const shareLocationRoute = require("./resources/routers/shareLocation.route");
+
 dotenv.config();
 
 app.use(cors());
@@ -30,6 +32,7 @@ app.use("/auth", authRoute);
 app.use("/", filterRoute);
 app.use("/address", addressRoute);
 app.use("/collection", authMiddleware.isUser, collectionRoute);
+app.use("/share-location", shareLocationRoute);
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`);

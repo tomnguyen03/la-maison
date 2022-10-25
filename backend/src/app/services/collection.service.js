@@ -1,9 +1,9 @@
-const CollectionModal = require("../models/collection.model");
+const CollectionModel = require("../models/collection.model");
 
 const collectionService = {
   createOne: async (data) => {
     try {
-      const collection = new CollectionModal(data);
+      const collection = new CollectionModel(data);
       return collection.save();
     } catch (error) {
       return error;
@@ -11,7 +11,7 @@ const collectionService = {
   },
   find: async (data) => {
     try {
-      return CollectionModal.find(data);
+      return CollectionModel.find(data);
     } catch (error) {
       return error;
     }

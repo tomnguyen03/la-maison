@@ -4,22 +4,39 @@ import InputField from 'src/components/InputField/InputFieldSuggest'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Button from 'src/components/Button/Button'
+import { useDispatch } from 'react-redux'
+import { createSuggest } from './suggest.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 export default function Suggest() {
+  const dispatch = useDispatch()
+
   const schema = yup.object().shape({})
   const form = useForm({
     defaultValues: {
       name: '',
       style: '',
-      address: '',
+      detail_address: '',
       instagram: '',
       website: ''
     },
     resolver: yupResolver(schema)
   })
 
-  const handleSubmit = data => {
+  const handleSubmit = async data => {
     console.log(data)
+    try {
+      await dispatch(createSuggest(data)).then(unwrapResult)
+
+      toast.success('Cảm ơn bạn đã suggest địa điểm', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -65,7 +82,7 @@ export default function Suggest() {
               Địa chỉ quán ở đâu?
             </p>
             <InputField
-              name="address"
+              name="detail_address"
               type="text"
               placeholder="Nhập địa chỉ..."
               form={form}

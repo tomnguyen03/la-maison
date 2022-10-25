@@ -1,10 +1,10 @@
-const StyleModal = require("../models/style.model");
-const VibeModal = require("../models/vibe.model");
+const StyleModel = require("../models/style.model");
+const VibeModel = require("../models/vibe.model");
 
 const filterService = {
   styleFind: async (data) => {
     try {
-      return StyleModal.find(data);
+      return StyleModel.find(data);
     } catch (error) {
       return error;
     }
@@ -12,7 +12,7 @@ const filterService = {
 
   vibeFind: async (data) => {
     try {
-      return VibeModal.find(data);
+      return VibeModel.find(data);
     } catch (error) {
       return error;
     }
