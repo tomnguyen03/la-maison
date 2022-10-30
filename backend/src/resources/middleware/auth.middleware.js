@@ -21,7 +21,7 @@ const authMiddleware = {
   },
 
   isAdmin: (req, res, next) => {
-    this.verifyToken(req, res, () => {
+    authMiddleware.verifyToken(req, res, () => {
       if (req.user.roleId.name === ROLE.ADMIN) {
         next();
       }
@@ -30,11 +30,10 @@ const authMiddleware = {
   },
 
   isStaff: (req, res, next) => {
-    this.verifyToken(req, res, () => {
+    authMiddleware.verifyToken(req, res, () => {
       if (req.user.roleId.name === ROLE.STAFF) {
         next();
-      }
-      return res.status(403).json({ message: "Forbidden", data: {} });
+      } else return res.status(403).json({ message: "Forbidden", data: {} });
     });
   },
 

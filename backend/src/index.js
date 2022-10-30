@@ -3,8 +3,10 @@ const app = express();
 const http = require("http");
 const server = http.createServer(app);
 const dotenv = require("dotenv");
-const PORT = process.env.PORT || 3010;
 const cors = require("cors");
+
+//PORT
+const PORT = process.env.PORT || 3010;
 
 //import middleware
 const authMiddleware = require("./resources/middleware/auth.middleware");
@@ -15,6 +17,8 @@ const filterRoute = require("./resources/routers/filter.route");
 const addressRoute = require("./resources/routers/address.route");
 const collectionRoute = require("./resources/routers/collection.route");
 const shareLocationRoute = require("./resources/routers/shareLocation.route");
+const cafeRoute = require("./resources/routers/cafe.route");
+const imageRoute = require("./resources/routers/image.route");
 
 dotenv.config();
 
@@ -33,6 +37,8 @@ app.use("/", filterRoute);
 app.use("/address", addressRoute);
 app.use("/collection", authMiddleware.isUser, collectionRoute);
 app.use("/share-location", shareLocationRoute);
+app.use("/cafe", cafeRoute);
+app.use("/upload-image", imageRoute);
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`);
