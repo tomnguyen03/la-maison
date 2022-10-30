@@ -16,6 +16,13 @@ const accountService = {
       return error;
     }
   },
+  update: async (id, data) => {
+    try {
+      return AccountModel.findOneAndUpdate(id, data);
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = accountService;

@@ -25,7 +25,6 @@ export default function Suggest() {
   })
 
   const handleSubmit = async data => {
-    console.log(data)
     try {
       await dispatch(createSuggest(data)).then(unwrapResult)
 

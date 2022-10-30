@@ -89,14 +89,14 @@ export default function Header() {
             } z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 absolute right-0 mt-[5px]`}
           >
             <ul className="text-sm text-gray-700 dark:text-gray-200">
-              <li
-                className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
-                onClick={() => setShowDropdown(false)}
-              >
-                <Link to={path.user} className="font-['Prata']">
+              <Link to={path.user} className="font-['Prata']">
+                <li
+                  className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
+                  onClick={() => setShowDropdown(false)}
+                >
                   Trang cá nhân
-                </Link>
-              </li>
+                </li>
+              </Link>
               <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
                 Cài đặt
               </li>
