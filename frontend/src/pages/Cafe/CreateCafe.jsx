@@ -17,7 +17,6 @@ import {
   getVibe
 } from '../Home/components/ListFilter/listFilter.slice'
 import { toast } from 'react-toastify'
-import http from '../../utils/http'
 
 export default function CreateCafe() {
   const [province, setProvince] = useState([])
@@ -127,8 +126,8 @@ export default function CreateCafe() {
     formData.append('provinceId', data.province)
     formData.append('districtId', data.district)
     formData.append('wardId', data.ward)
-    formData.append('style_id', data.styleId)
-    formData.append('vibe_id', data.vibeId)
+    styleId.map(item => formData.append('style_id', item.value))
+    vibeId.map(item => formData.append('vibe_id', item.value))
 
     try {
       await dispatch(
@@ -148,10 +147,6 @@ export default function CreateCafe() {
   }
 
   const animatedComponents = makeAnimated()
-
-  useEffect(() => {
-    http.get('cafe').then(res => console.log(res))
-  }, [])
 
   return (
     <div className="container mx-auto">
@@ -231,10 +226,7 @@ export default function CreateCafe() {
         <div className="mt-5 flex gap-5">
           <div className="w-full">
             <Select
-              onChange={data => {
-                setStyleId([])
-                data.map(item => setStyleId([...styleId, item.value]))
-              }}
+              onChange={data => setStyleId(data)}
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
@@ -243,11 +235,7 @@ export default function CreateCafe() {
           </div>
           <div className="w-full">
             <Select
-              onChange={data => {
-                setVibeId([])
-                console.log(data)
-                data.map(item => setVibeId([...vibeId, item.value]))
-              }}
+              onChange={data => setVibeId(data)}
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
