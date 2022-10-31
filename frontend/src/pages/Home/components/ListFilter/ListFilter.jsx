@@ -57,7 +57,7 @@ export default function ListFilter() {
         const res = await dispatch(getProvinceByName(province))
         const data = unwrapResult(res)
 
-        setCodeProvince(data.result[0].code)
+        setCodeProvince(data.data[0].code)
       }
     }
     _getCodeProvince()
@@ -67,7 +67,7 @@ export default function ListFilter() {
     if (codeProvince !== '') {
       dispatch(getDistrictsByProvince(codeProvince))
         .then(unwrapResult)
-        .then(res => setListDistrict(res.result))
+        .then(res => setListDistrict(res.data))
     }
   }, [codeProvince, dispatch])
 
