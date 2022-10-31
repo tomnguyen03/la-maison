@@ -22,3 +22,8 @@ export const createCafe = createAsyncThunk(
   'createCafe',
   payloadCreator(cafeApi.createCafe)
 )
+
+export const getListCafe = createAsyncThunk(
+  'getListCafe',
+  payloadCreator(cafeApi.getCafe)
+)
