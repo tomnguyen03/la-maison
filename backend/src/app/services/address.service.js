@@ -10,23 +10,23 @@ const addressService = {
       return error;
     }
   },
-  getProvinceByName: async (name) => {
+  getProvinceByName: async (data) => {
     try {
-      return provinceModel.find({ name: name });
+      return provinceModel.find(data);
     } catch (error) {
       return error;
     }
   },
-  getDistrictByProvince: async (parentCode) => {
+  getDistrictByProvince: async (data) => {
     try {
-      return districtModel.find({ parent_code: parentCode });
+      return districtModel.find(data);
     } catch (error) {
       return error;
     }
   },
-  getWardByDistrict: async (parentCode) => {
+  getWardByDistrict: async (data) => {
     try {
-      return wardModel.find({ parent_code: parentCode });
+      return wardModel.find(data);
     } catch (error) {
       return error;
     }

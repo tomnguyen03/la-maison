@@ -29,18 +29,15 @@ const Cafe = new Schema(
       required: true,
     },
     wardId: {
-      type: ObjectId,
-      ref: "ward",
+      type: String,
       required: true,
     },
     districtId: {
-      type: ObjectId,
-      ref: "district",
+      type: String,
       required: true,
     },
     provinceId: {
-      type: ObjectId,
-      ref: "province",
+      type: String,
       required: true,
     },
     instagram: {
