@@ -29,7 +29,7 @@ const cafeController = {
           fields = { ...fields, images: images };
           const response = await cafeService.createOne({ ...fields, isActive: true, register_by: accountId });
 
-          res.json({ message: "Successfully", data: response });
+          res.status(200).json({ message: "Successfully", data: response });
         } else {
           if (files.images.length) {
             for (const file of files.images) {
@@ -48,7 +48,7 @@ const cafeController = {
           const data = { ...fields, images: images, register_by: accountId };
           const response = await cafeService.createOne({ ...data, isActive: true });
 
-          res.json({ message: "Successfully", data: response });
+          res.status(200).json({ message: "Successfully", data: response });
         }
       } catch (error) {
         return res.status(400).json({ message: error.message, data: error });
@@ -65,7 +65,7 @@ const cafeController = {
         data: listCafe,
       };
 
-      return res.json(response);
+      return res.status(200).json(response);
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +79,7 @@ const cafeController = {
         data: listCafeDetail,
       };
 
-      return res.json(response);
+      return res.status(200).json(response);
     } catch (error) {
       return error;
     }
