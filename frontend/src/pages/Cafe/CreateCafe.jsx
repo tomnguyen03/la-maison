@@ -130,11 +130,7 @@ export default function CreateCafe() {
     vibeId.map(item => formData.append('vibe_id', item.value))
 
     try {
-      await dispatch(
-        createCafe(formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
-      ).then(unwrapResult)
+      await dispatch(createCafe(formData)).then(unwrapResult)
 
       toast.success('Đăng ký thành công', {
         position: 'bottom-center',

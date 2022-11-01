@@ -19,7 +19,7 @@ export default function ListCafe() {
       {listCafe.map((item, index) => (
         <CafeItem
           name={item.name}
-          style={item.style}
+          address={item.detail_address}
           image={item.images[0]}
           key={index}
         />
