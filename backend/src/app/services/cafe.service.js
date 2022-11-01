@@ -19,7 +19,7 @@ const cafeService = {
 
   findById: async (data) => {
     try {
-      return CafeModel.findById(data).populate("wardId");
+      return CafeModel.findById(data);
     } catch (error) {
       return error;
     }

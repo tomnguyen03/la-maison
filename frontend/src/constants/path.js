@@ -7,6 +7,8 @@ class Path {
     this.password = '/password'
     this.suggestAPlace = '/suggest_a_place'
     this.createCafe = '/create-cafe'
+    this.cafe = '/cafe'
+    this.detailCafe = '/cafe/:idCafe'
   }
 }
 
