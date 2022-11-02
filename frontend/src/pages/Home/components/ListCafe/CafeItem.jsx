@@ -10,7 +10,7 @@ export default function CafeItem(props) {
   const navigate = useNavigate()
 
   const handleClick = idCafe => {
-    navigate(path.cafe + '/' + idCafe)
+    navigate(idCafe)
   }
 
   return (

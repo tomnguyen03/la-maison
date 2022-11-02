@@ -20,6 +20,23 @@ const authMiddleware = {
     }
   },
 
+  verifyTokenCustom: (req, res, next) => {
+    const Authorization = req.get("Authorization");
+    if (Authorization) {
+      const token = Authorization.split(" ")[1];
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+          res.status(403).json({ message: "Forbidden", data: {} });
+        }
+
+        req.user = user._doc;
+        next();
+      });
+    } else {
+      next();
+    }
+  },
+
   isAdmin: (req, res, next) => {
     authMiddleware.verifyToken(req, res, () => {
       if (req.user.roleId.name === ROLE.ADMIN) {
@@ -42,6 +59,12 @@ const authMiddleware = {
       if (req.user.roleId.name === ROLE.USER) {
         next();
       } else return res.status(403).json({ message: "Forbidden", data: {} });
+    });
+  },
+
+  isOptionLogin: (req, res, next) => {
+    authMiddleware.verifyTokenCustom(req, res, () => {
+      next();
     });
   },
 };
