@@ -46,6 +46,13 @@ const addressService = {
       return error;
     }
   },
+  getWardsByCode: async (data) => {
+    try {
+      return wardModel.findOne(data);
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = addressService;

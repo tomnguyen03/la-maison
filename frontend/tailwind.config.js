@@ -61,7 +61,8 @@ module.exports = {
       white: '#fff'
     },
     fontFamily: {
-      prata: ['Prata', 'serif']
+      prata: ['Prata', 'serif'],
+      montserrat: ['Montserrat', 'sans-serif']
     },
     fontSize: {
       xs: ['12px', '18px'],

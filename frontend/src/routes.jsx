@@ -9,7 +9,9 @@ import Profile from 'src/pages/User/Profile/Profile'
 import UpdateProfile from 'src/pages/User/Profile/UpdateProfile'
 import ChangePassword from 'src/pages/User/Profile/ChangePassword'
 import Suggest from 'src/pages/Suggest/Suggest'
-import CreateCafe from './pages/Cafe/CreateCafe'
+import CreateCafe from 'src/pages/Cafe/CreateCafe'
+import DetailLayout from 'src/layouts/DetailLayout/DetailLayout'
+import DetailCafe from 'src/pages/DetailCafe/DetailCafe'
 
 export default function RoutesComponent() {
   return (
@@ -31,6 +33,10 @@ export default function RoutesComponent() {
             <Route path={path.suggestAPlace} element={<Suggest />} />
             <Route path={path.createCafe} element={<CreateCafe />} />
           </Route>
+        </Route>
+
+        <Route element={<DetailLayout />}>
+          <Route path={path.detailCafe} element={<DetailCafe />} />
         </Route>
       </Routes>
     </BrowserRouter>
