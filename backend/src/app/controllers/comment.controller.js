@@ -1,4 +1,6 @@
 const commentService = require("../services/comment.service");
+const likeCommentService = require("../services/like_comment.service");
+const dislikeCommentService = require("../services/dislike_comment.service");
 
 const commentController = {
   createComment: async (req, res) => {
@@ -28,12 +30,55 @@ const commentController = {
         cafeId: cafeId,
       });
 
-      const response = {
-        message: "Sucessfully",
-        data: comment,
-      };
+      if (!req.user) {
+        const data = await Promise.all(
+          comment.map(async (item) => {
+            const likeComment = await likeCommentService.count({
+              commentId: item._id,
+            });
+            const dislikeComment = await dislikeCommentService.count({
+              commentId: item._id,
+            });
+            return { ...item._doc, like_count: likeComment, dislike_count: dislikeComment };
+          })
+        );
 
-      return res.status(200).json(response);
+        const response = {
+          message: "Sucessfully",
+          data: data,
+        };
+
+        return res.status(200).json(response);
+      } else {
+        const data = await Promise.all(
+          comment.map(async (item) => {
+            const data = { commentId: item._id, accountId: req.user._id };
+            const likeComment = await likeCommentService.count({
+              commentId: item._id,
+            });
+            const dislikeComment = await dislikeCommentService.count({
+              commentId: item._id,
+            });
+            const isLike = await likeCommentService.findOne(data);
+            const isDislike = await dislikeCommentService.findOne(data);
+
+            return {
+              ...item._doc,
+              like_count: likeComment,
+              dislike_count: dislikeComment,
+              isLike: (isLike && true) || false,
+              isDislike: (isDislike && true) || false,
+            };
+          })
+        );
+
+        const response = {
+          message: "Sucessfully",
+          data: data,
+        };
+
+        return res.status(200).json(response);
+      }
     } catch (error) {
       console.log(error);
     }

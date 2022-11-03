@@ -18,7 +18,7 @@ const accountService = {
   },
   update: async (id, data) => {
     try {
-      return AccountModel.findOneAndUpdate(id, data);
+      return AccountModel.findByIdAndUpdate(id, data);
     } catch (error) {
       return error;
     }

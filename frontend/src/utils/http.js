@@ -19,8 +19,9 @@ class Http {
       ({ response }) => {
         if (response.status === 401) {
           toast.error(response.data.message, {
-            position: 'top-right',
-            autoClose: 3000
+            position: 'bottom-center',
+            autoClose: 1000,
+            hideProgressBar: true
           })
         }
         const result = { ...response.data, status: response.status }

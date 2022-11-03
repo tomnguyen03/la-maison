@@ -16,7 +16,7 @@ const authMiddleware = {
         next();
       });
     } else {
-      return res.status(401).json({ message: "Unauthorized", data: {} });
+      return res.status(401).json({ message: "Vui lòng đăng nhập", data: {} });
     }
   },
 

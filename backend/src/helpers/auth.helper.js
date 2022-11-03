@@ -10,27 +10,6 @@ const authHelper = {
     return hashed;
   },
 
-  createNewUser: (user, hashed) => {
-    const newAccount = new {
-      email: user.email,
-      password: hashed,
-    }();
-    return newUser;
-  },
-
-  register: (req, res) => {
-    const hashed = authHelper.hashedPassword(req.body.password);
-    let newUser = authHelper.createNewUser(req.body, hashed);
-    newUser
-      .save()
-      .then((user) => {
-        return res.status(200).json(user);
-      })
-      .catch((err) => {
-        return res.status(500).json({ detail: "Có lỗi khi đăng ký", error: err.message });
-      });
-  },
-
   checkEmail: async (email) => {
     const user = await AccountModel.findOne({ email: email }).populate("roleId");
     if (!user) {

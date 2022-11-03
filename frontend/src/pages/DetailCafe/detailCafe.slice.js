@@ -32,3 +32,23 @@ export const getListComment = createAsyncThunk(
   'getListComment',
   payloadCreator(commentApi.getListComment)
 )
+
+export const createLikeComment = createAsyncThunk(
+  'createLikeComment',
+  payloadCreator(commentApi.createLikeComment)
+)
+
+export const deleteLikeComment = createAsyncThunk(
+  'deleteLikeComment',
+  payloadCreator(commentApi.deleteLikeComment)
+)
+
+export const createDislikeComment = createAsyncThunk(
+  'createDislikeComment',
+  payloadCreator(commentApi.createDislikeComment)
+)
+
+export const deleteDislikeComment = createAsyncThunk(
+  'deleteDislikeComment',
+  payloadCreator(commentApi.deleteDislikeComment)
+)

@@ -2,6 +2,7 @@ const accountService = require("../services/account.service");
 const roleService = require("../services/role.service");
 const authHelper = require("../../helpers/auth.helper");
 const { ROLE } = require("../../constants/role.constant");
+const accountModel = require("../models/account.model");
 
 const AuthController = {
   registerUser: async (req, res) => {
@@ -17,9 +18,13 @@ const AuthController = {
 
       req.body.roleId = role._id;
       req.body.password = authHelper.hashedPassword(req.body.password);
-      const account = await accountService.createOne({ ...req.body, isActive: true });
-      const { password, ...result } = account._doc;
-      return res.json({ message: "Successfully", data: result });
+      await accountService.createOne({ ...req.body, isActive: true });
+      const user = await accountModel.findOne({ email: req.body.email }).populate("roleId");
+      const token = authHelper.createToken({ ...user });
+      const refreshToken = authHelper.createRefreshToken({ ...user });
+      let { password, ...other } = user._doc;
+      const res_data = { ...other, token, refreshToken };
+      return res.json({ message: "Successfully", data: res_data });
     } catch (error) {
       return res.status(400).json({ message: error.message, data: error });
     }
@@ -53,8 +58,8 @@ const AuthController = {
 
       const accountId = req.user._id;
 
-      await accountService.update(accountId, body);
-      const dataAfterUpdate = await accountService.findOne({ accountId: accountId });
+      const data = await accountService.update(accountId, body);
+      const dataAfterUpdate = await accountService.findOne({ _id: accountId });
       const { password, ...result } = dataAfterUpdate._doc;
 
       return res.json({ message: "Successfully", data: result });
