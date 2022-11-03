@@ -71,7 +71,7 @@ export default function Header() {
   }, [])
 
   return (
-    <div className="flex justify-between items-center px-[25px] py-[15px] absolute top-0 left-0 right-0 z-10 text-grey-f5">
+    <div className="flex justify-between items-center px-[25px] py-[15px] absolute top-0 left-0 right-0 z-20 text-grey-f5">
       <Logo />
       <div className="text-sm font-medium flex items-center gap-[30px]">
         <Link to="/">VỀ LA MAISON</Link>
@@ -112,7 +112,7 @@ export default function Header() {
       </div>
       {showModal ? (
         <>
-          <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="fixed inset-0 z-10 overflow-y-auto text-grey-3">
             <div
               className="fixed inset-0 w-full h-full bg-black opacity-40"
               onClick={() => setShowModal(false)}

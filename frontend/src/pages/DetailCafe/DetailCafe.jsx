@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import {
   createLikeCafe,
   deleteLikeCafe,
-  getDetailCafe,
-  getLikeCafe
+  getDetailCafe
 } from './detailCafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Helmet } from 'react-helmet-async'
 import Carousel from 'react-material-ui-carousel'
 import Button from 'src/components/Button/Button'
-import CommentItem from './components/CommentItem'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import { toast } from 'react-toastify'
-import CarouselSkeleton from './components/CarouselSkeleton'
+import Comment from './components/Comment'
 
 export default function DetailCafe() {
   const { idCafe } = useParams()
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.app.loading)
   const authenticated = useAuthenticated()
 
   const [dataCafe, setDataCafe] = useState({})
   const [imageCafe, setImageCafe] = useState([])
-  const [commentValue, setCommentValue] = useState('')
   const [isLikeCafe, setIsLikeCafe] = useState(false)
 
   useEffect(() => {
@@ -33,63 +29,9 @@ export default function DetailCafe() {
       .then(res => {
         setDataCafe(res.data)
         setImageCafe(res.data.images)
+        setIsLikeCafe(res.data.isLike)
       })
   }, [dispatch, idCafe])
-
-  useEffect(() => {
-    authenticated &&
-      dispatch(getLikeCafe(idCafe))
-        .then(unwrapResult)
-        .then(res => setIsLikeCafe(res.data))
-  }, [dispatch, authenticated, idCafe])
-
-  const dataComment = [
-    {
-      name: 'Quỳnh Như',
-      image:
-        'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg',
-      comment: 'Quá ồn ào!',
-      like: '969',
-      dislike: '10'
-    },
-    {
-      name: 'Quỳnh Như',
-      image:
-        'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg',
-      comment: 'Không thích',
-      like: '969',
-      dislike: '10'
-    },
-    {
-      name: 'Quỳnh Như',
-      image:
-        'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg',
-      comment: 'Cần thêm những quán như thế này',
-      like: '969',
-      dislike: '10'
-    },
-    {
-      name: 'Quỳnh Như',
-      image:
-        'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg',
-      comment:
-        'Cần thêm những quán như thế này Cần thêm những quán như thế này',
-      like: '969',
-      dislike: '10'
-    },
-    {
-      name: 'Quỳnh Như',
-      image:
-        'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg',
-      comment: 'Quá ồn ào!',
-      like: '969',
-      dislike: '10'
-    }
-  ]
-
-  const handleSubmitSearch = e => {
-    console.log(e)
-  }
 
   const handleClickLikeCafe = async () => {
     if (authenticated) {
@@ -113,14 +55,14 @@ export default function DetailCafe() {
 
   return (
     <div className="mb-10">
-      {dataCafe && !loading && (
+      {dataCafe && (
         <div>
           <Helmet>
             <title>{dataCafe.name}</title>
           </Helmet>
           <div className="relative">
             <Carousel>
-              {imageCafe ? (
+              {imageCafe &&
                 imageCafe.map((item, index) => (
                   <div
                     className="duration-500 ease-in-out h-[400px]"
@@ -133,10 +75,7 @@ export default function DetailCafe() {
                       alt=""
                     ></img>
                   </div>
-                ))
-              ) : (
-                <CarouselSkeleton />
-              )}
+                ))}
             </Carousel>
             <div className="absolute bottom-4 right-[200px] z-10 flex items-center justify-end gap-10">
               <div
@@ -229,41 +168,7 @@ export default function DetailCafe() {
                 </div>
               </div>
               <div>
-                <div className="w-full rounded-md shadow-lg pt-[10px]">
-                  <div className="flex flex-col gap-2 overflow-auto h-[400px]">
-                    {dataComment.map((item, index) => (
-                      <CommentItem
-                        id={item._id}
-                        name={item.name}
-                        image={item.image}
-                        comment={item.comment}
-                        like={item.like}
-                        dislike={item.dislike}
-                        key={index}
-                      />
-                    ))}
-                  </div>
-                  <div
-                    onSubmit={handleSubmitSearch}
-                    className="relative"
-                  >
-                    <input
-                      type="text"
-                      className="pl-14 pr-20 w-full text-sm text-grey-3 placeholder:text-grey-7 rounded px-5 py-4 bg-grey-f5 shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)] focus:outline-none"
-                      placeholder="Thêm bình luận..."
-                      onChange={e => setCommentValue(e.target.value)}
-                    />
-                    <span
-                      className="absolute cursor-pointer inset-y-0 left-[10px] flex items-center"
-                      onClick={handleSubmitSearch}
-                    >
-                      <i className="bx bx-user text-3xl text-grey-7"></i>
-                    </span>
-                    <button className="absolute cursor-pointer inset-y-0 right-[20px] flex items-center text-primary-e0 font-montserrat">
-                      Đăng
-                    </button>
-                  </div>
-                </div>
+                <Comment idCafe={idCafe} />
               </div>
             </div>
           </div>
