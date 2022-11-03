@@ -11,8 +11,8 @@ import { Helmet } from 'react-helmet-async'
 import Carousel from 'react-material-ui-carousel'
 import Button from 'src/components/Button/Button'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
-import { toast } from 'react-toastify'
 import Comment from './components/Comment'
+import ModalAuth from 'src/page-components/Auth/ModalAuth'
 
 export default function DetailCafe() {
   const { idCafe } = useParams()
@@ -22,6 +22,15 @@ export default function DetailCafe() {
   const [dataCafe, setDataCafe] = useState({})
   const [imageCafe, setImageCafe] = useState([])
   const [isLikeCafe, setIsLikeCafe] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+
+  const callbackHiddenModal = () => {
+    setShowModal(false)
+  }
+
+  const callbackShowModal = () => {
+    setShowModal(true)
+  }
 
   useEffect(() => {
     dispatch(getDetailCafe(idCafe))
@@ -43,11 +52,7 @@ export default function DetailCafe() {
         setIsLikeCafe(true)
       }
     } else {
-      toast.warning('Vui lòng đăng nhập', {
-        position: 'bottom-center',
-        autoClose: 1000,
-        hideProgressBar: true
-      })
+      setShowModal(true)
     }
   }
 
@@ -168,12 +173,18 @@ export default function DetailCafe() {
                 </div>
               </div>
               <div>
-                <Comment idCafe={idCafe} />
+                <Comment
+                  idCafe={idCafe}
+                  isShowModal={callbackShowModal}
+                />
               </div>
             </div>
           </div>
         </div>
       )}
+      {showModal ? (
+        <ModalAuth hiddenModal={callbackHiddenModal} />
+      ) : null}
     </div>
   )
 }

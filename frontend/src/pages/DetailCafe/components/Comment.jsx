@@ -2,11 +2,13 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import { createComment, getListComment } from '../detailCafe.slice'
 import CommentItem from './CommentItem'
 
-export default function Comment({ idCafe }) {
+export default function Comment({ idCafe, isShowModal }) {
   const dispatch = useDispatch()
+  const authenticated = useAuthenticated()
   const [commentValue, setCommentValue] = useState('')
   const [dataComment, setDataComment] = useState([])
 
@@ -24,11 +26,15 @@ export default function Comment({ idCafe }) {
     event.preventDefault()
 
     try {
-      await dispatch(createComment(data)).then(unwrapResult)
+      if (authenticated) {
+        await dispatch(createComment(data)).then(unwrapResult)
 
-      await dispatch(getListComment(idCafe))
-        .then(unwrapResult)
-        .then(res => setDataComment(res.data))
+        await dispatch(getListComment(idCafe))
+          .then(unwrapResult)
+          .then(res => setDataComment(res.data))
+      } else {
+        isShowModal()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -38,13 +44,18 @@ export default function Comment({ idCafe }) {
 
   return (
     <div className="w-full rounded-md shadow-lg pt-[10px]">
-      <div className="overflow-auto h-[400px]">
+      <div className="overflow-auto max-h-[400px]">
         {dataComment.map((item, index) => (
           <CommentItem
             id={item._id}
-            name={item.accountId.email}
-            image={item.image}
+            name={item.accountId.name || item.accountId.email}
+            image={item.accountId.avatar}
             content={item.content}
+            likeCount={item.like_count}
+            dislikeCount={item.dislike_count}
+            isLike={item.isLike}
+            isDislike={item.isDislike}
+            isShowModal={isShowModal}
             key={index}
           />
         ))}

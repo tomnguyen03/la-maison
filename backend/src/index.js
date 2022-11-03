@@ -21,6 +21,8 @@ const cafeRoute = require("./resources/routers/cafe.route");
 const imageRoute = require("./resources/routers/image.route");
 const likeCafeRoute = require("./resources/routers/like_cafe.route");
 const commentRoute = require("./resources/routers/comment.route");
+const likeCommentRoute = require("./resources/routers/like_comment.route");
+const dislikeCommentRoute = require("./resources/routers/dislike_comment.route");
 
 dotenv.config();
 
@@ -43,6 +45,8 @@ app.use("/cafe", cafeRoute);
 app.use("/upload-image", imageRoute);
 app.use("/like-cafe", authMiddleware.isUser, likeCafeRoute);
 app.use("/comment", commentRoute);
+app.use("/like-comment", likeCommentRoute);
+app.use("/dislike-comment", dislikeCommentRoute);
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`);

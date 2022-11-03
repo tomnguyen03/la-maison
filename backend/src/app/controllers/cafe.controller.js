@@ -95,23 +95,31 @@ const cafeController = {
         listCafeDetail.vibe_id.map(async (item) => await filterService.vibeFindById({ _id: item }))
       );
 
-      const itemLikeCafe = await likeCafeService.findOne({
-        accountId: req.user._id,
-        cafeId: req.params.id,
-      });
-
       listCafeDetail["detail_address"] = detail_address;
       listCafeDetail["style_id"] = listStyle;
       listCafeDetail["vibe_id"] = listVibe;
 
-      const data = { ...listCafeDetail._doc, isLike: (itemLikeCafe && true) || false };
+      if (req.user) {
+        const itemLikeCafe = await likeCafeService.findOne({
+          accountId: req.user._id,
+          cafeId: req.params.id,
+        });
+        const data = { ...listCafeDetail._doc, isLike: (itemLikeCafe && true) || false };
 
-      const response = {
-        message: "Lấy danh sách cafe thành công",
-        data: data,
-      };
+        const response = {
+          message: "Lấy danh sách cafe thành công",
+          data: data,
+        };
 
-      return res.status(200).json(response);
+        return res.status(200).json(response);
+      } else {
+        const response = {
+          message: "Lấy danh sách cafe thành công",
+          data: listCafeDetail,
+        };
+
+        return res.status(200).json(response);
+      }
     } catch (error) {
       return error;
     }

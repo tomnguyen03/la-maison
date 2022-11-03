@@ -1,7 +1,81 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import {
+  createDislikeComment,
+  createLikeComment,
+  deleteDislikeComment,
+  deleteLikeComment
+} from '../detailCafe.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { useAuthenticated } from 'src/hooks/useAuthenticated'
 
 export default function CommentItem(props) {
-  const { image, name, content } = props
+  const {
+    id,
+    image,
+    name,
+    content,
+    likeCount,
+    dislikeCount,
+    isLike,
+    isDislike,
+    isShowModal
+  } = props
+
+  const dispatch = useDispatch()
+  const authenticated = useAuthenticated()
+  const [like, setLike] = useState(likeCount)
+  const [dislike, setDislike] = useState(dislikeCount)
+  const [hasLike, setHasLike] = useState(isLike)
+  const [hasDislike, setHasDislike] = useState(isDislike)
+
+  const handleClickLike = async () => {
+    try {
+      if (authenticated) {
+        await dispatch(createLikeComment(id)).then(unwrapResult)
+        setLike(like + 1)
+        setHasLike(true)
+      } else isShowModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleClickRemoveLike = async () => {
+    try {
+      if (authenticated) {
+        await dispatch(deleteLikeComment(id)).then(unwrapResult)
+        setLike(like - 1)
+        setHasLike(false)
+      } else isShowModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleClickDislike = async () => {
+    try {
+      if (authenticated) {
+        await dispatch(createDislikeComment(id)).then(unwrapResult)
+        setDislike(dislike + 1)
+        setHasDislike(true)
+      } else isShowModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleClickRemoveDislike = async () => {
+    try {
+      if (authenticated) {
+        await dispatch(deleteDislikeComment(id)).then(unwrapResult)
+        setDislike(dislike - 1)
+        setHasDislike(false)
+      } else isShowModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="flex items-center gap-2 px-[20px] py-[10px] w-full">
@@ -17,8 +91,33 @@ export default function CommentItem(props) {
         <h6 className="font-montserrat font-semibold">{name}</h6>
         <p className="">{content}</p>
         <div className="flex gap-8 text-grey-7 text-sm">
-          <p>3 Thích</p>
-          <p>4 Không thích</p>
+          {hasLike ? (
+            <p
+              className="cursor-pointer text-red-dd font-medium"
+              onClick={handleClickRemoveLike}
+            >
+              {like} Thích
+            </p>
+          ) : (
+            <p className="cursor-pointer " onClick={handleClickLike}>
+              {like} Thích
+            </p>
+          )}
+          {hasDislike ? (
+            <p
+              className="cursor-pointer text-red-dd font-medium"
+              onClick={handleClickRemoveDislike}
+            >
+              {dislike} Không Thích
+            </p>
+          ) : (
+            <p
+              className="cursor-pointer "
+              onClick={handleClickDislike}
+            >
+              {dislike} Không Thích
+            </p>
+          )}
         </div>
       </div>
     </div>
