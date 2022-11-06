@@ -56,6 +56,7 @@ export default function Comment({ idCafe, isShowModal }) {
             isLike={item.isLike}
             isDislike={item.isDislike}
             isShowModal={isShowModal}
+            createdAt={item.createdAt}
             key={index}
           />
         ))}

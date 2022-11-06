@@ -13,6 +13,8 @@ import Button from 'src/components/Button/Button'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import Comment from './components/Comment'
 import ModalAuth from 'src/page-components/Auth/ModalAuth'
+import CafeSlick from './components/CafeSlick'
+import { toast } from 'react-toastify'
 
 export default function DetailCafe() {
   const { idCafe } = useParams()
@@ -56,7 +58,16 @@ export default function DetailCafe() {
     }
   }
 
-  const handleClickShare = async () => {}
+  const handleClickShare = async () => {
+    const pathUrl = window.location.href
+    navigator.clipboard.writeText(pathUrl)
+
+    toast.success('Sao chép liên kết thành công', {
+      position: 'bottom-center',
+      autoClose: 1000,
+      hideProgressBar: true
+    })
+  }
 
   return (
     <div className="mb-10">
@@ -179,6 +190,10 @@ export default function DetailCafe() {
                 />
               </div>
             </div>
+          </div>
+          <div className="container mx-auto">
+            <h2 className="text-2xl mt-6 mb-3">Khám phá</h2>
+            <CafeSlick />
           </div>
         </div>
       )}

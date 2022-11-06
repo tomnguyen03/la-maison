@@ -8,6 +8,7 @@ import {
 } from '../detailCafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
+import Timestamp from 'react-timestamp'
 
 export default function CommentItem(props) {
   const {
@@ -19,9 +20,9 @@ export default function CommentItem(props) {
     dislikeCount,
     isLike,
     isDislike,
-    isShowModal
+    isShowModal,
+    createdAt
   } = props
-
   const dispatch = useDispatch()
   const authenticated = useAuthenticated()
   const [like, setLike] = useState(likeCount)
@@ -118,6 +119,7 @@ export default function CommentItem(props) {
               {dislike} Không Thích
             </p>
           )}
+          <p>{<Timestamp relative date={createdAt} autoUpdate />}</p>
         </div>
       </div>
     </div>
