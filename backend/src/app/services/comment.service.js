@@ -12,7 +12,7 @@ const commentService = {
 
   find: async (data) => {
     try {
-      return commentModel.find(data).populate("accountId").sort({ createdAt: -1 });
+      return commentModel.find(data).populate("accountId");
     } catch (error) {
       return error;
     }

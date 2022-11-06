@@ -43,7 +43,7 @@ app.use("/collection", authMiddleware.isUser, collectionRoute);
 app.use("/share-location", shareLocationRoute);
 app.use("/cafe", cafeRoute);
 app.use("/upload-image", imageRoute);
-app.use("/like-cafe", authMiddleware.isUser, likeCafeRoute);
+app.use("/like-cafe", authMiddleware.isOptionLogin, likeCafeRoute);
 app.use("/comment", commentRoute);
 app.use("/like-comment", likeCommentRoute);
 app.use("/dislike-comment", dislikeCommentRoute);
