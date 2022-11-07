@@ -25,6 +25,14 @@ const likeCafeService = {
       return error
     }
   },
+
+  count: async (data) => {
+    try {
+      return likeCafeModel.count(data)
+    } catch (error) {
+      return error
+    }
+  },
 }
 
 module.exports = likeCafeService

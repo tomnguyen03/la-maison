@@ -25,6 +25,8 @@ export default function DetailCafe() {
   const [imageCafe, setImageCafe] = useState([])
   const [isLikeCafe, setIsLikeCafe] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showLikeCount, setShowLikeCount] = useState(false)
+  const [likeCount, setLikeCount] = useState(false)
 
   const callbackHiddenModal = () => {
     setShowModal(false)
@@ -41,6 +43,7 @@ export default function DetailCafe() {
         setDataCafe(res.data)
         setImageCafe(res.data.images)
         setIsLikeCafe(res.data.isLike)
+        setLikeCount(res.data.like_count)
       })
   }, [dispatch, idCafe])
 
@@ -49,9 +52,11 @@ export default function DetailCafe() {
       if (isLikeCafe) {
         await dispatch(deleteLikeCafe(idCafe)).then(unwrapResult)
         setIsLikeCafe(false)
+        setLikeCount(likeCount - 1)
       } else {
         await dispatch(createLikeCafe(idCafe)).then(unwrapResult)
         setIsLikeCafe(true)
+        setLikeCount(likeCount + 1)
       }
     } else {
       setShowModal(true)
@@ -95,14 +100,30 @@ export default function DetailCafe() {
             </Carousel>
             <div className="absolute bottom-4 right-[200px] z-10 flex items-center justify-end gap-10">
               <div
-                className="text-[28px] text-grey-f5 cursor-pointer"
+                className="text-[28px] text-grey-f5 cursor-pointer relative"
                 onClick={handleClickLikeCafe}
               >
                 {isLikeCafe ? (
-                  <i className="bx bxs-heart"></i>
+                  <i
+                    className="bx bxs-heart"
+                    onMouseEnter={() => setShowLikeCount(true)}
+                    onMouseLeave={() => setShowLikeCount(false)}
+                  ></i>
                 ) : (
-                  <i className="bx bx-heart"></i>
+                  <i
+                    className="bx bx-heart"
+                    onMouseEnter={() => setShowLikeCount(true)}
+                    onMouseLeave={() => setShowLikeCount(false)}
+                  ></i>
                 )}
+                <div
+                  className={`absolute z-10 bottom-[40px] left-[-20px] w-[65px] h-[30px] flex items-center justify-center text-base font-montserrat font-semibold rounded bg-grey-fa text-grey-3 ${
+                    !showLikeCount && 'hidden'
+                  }`}
+                >
+                  <div className="popup-arrow-bottom"></div>
+                  {likeCount}
+                </div>
               </div>
 
               <div

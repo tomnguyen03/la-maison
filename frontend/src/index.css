@@ -21,4 +21,20 @@
 }
 
 @layer components {
+  .popup-arrow-bottom {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    left:50%;
+    margin-left: -10px;
+    bottom:-8px;
+    width: 0;
+    height: 0;
+    border-width: 11px;
+    border-bottom-width:0;
+    border-color: transparent;
+    border-style: solid;
+    border-top-color: #fafafa;
+
+  }
 }
