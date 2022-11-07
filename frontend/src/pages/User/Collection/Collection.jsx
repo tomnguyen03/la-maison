@@ -26,15 +26,7 @@ export default function Collection() {
       </div>
 
       {showModal ? (
-        <>
-          <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div
-              className="fixed inset-0 w-full h-full bg-black opacity-40"
-              onClick={() => setShowModal(false)}
-            ></div>
-            <CreateCollection closeModal={callbackShowModal} />
-          </div>
-        </>
+        <CreateCollection closeModal={callbackShowModal} />
       ) : null}
     </div>
   )

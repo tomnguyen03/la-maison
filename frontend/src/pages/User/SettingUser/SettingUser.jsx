@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from 'src/page-components/Auth/auth.slice'
 import { toast } from 'react-toastify'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { path } from 'src/constants/path'
 export default function SettingUser() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const avatar = useSelector(state => state.auth.profile.avatar)
 
   const handleClickLogout = () => {
     dispatch(logout())
@@ -24,6 +25,7 @@ export default function SettingUser() {
     <div className="flex flex-col items-center">
       <img
         src={
+          avatar ||
           'https://t3.ftcdn.net/jpg/00/64/67/52/360_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg'
         }
         alt="Avatar"

@@ -13,11 +13,11 @@ export const login = createAsyncThunk(
 )
 
 const handleAuthFulfilled = (state, action) => {
-  const { email, token } = action.payload.data
-  state.email = email
+  const { token, refreshToken, ...other } = action.payload.data
+  state.profile = other
   localStorage.setItem(
-    LocalStorage.EMAIL,
-    JSON.stringify(state.email)
+    LocalStorage.PROFILE,
+    JSON.stringify(state.profile)
   )
   localStorage.setItem(LocalStorage.ACCESS_TOKEN, 'Bearer ' + token)
 }
@@ -25,13 +25,14 @@ const handleAuthFulfilled = (state, action) => {
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    email: JSON.parse(localStorage.getItem(LocalStorage.EMAIL)) || {}
+    profile:
+      JSON.parse(localStorage.getItem(LocalStorage.PROFILE)) || {}
   },
   reducers: {
     logout(state) {
-      localStorage.removeItem(LocalStorage.EMAIL)
+      localStorage.removeItem(LocalStorage.PROFILE)
       localStorage.removeItem(LocalStorage.ACCESS_TOKEN)
-      state.email = {}
+      state.profile = {}
     }
   },
   extraReducers: {

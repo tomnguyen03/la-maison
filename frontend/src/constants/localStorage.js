@@ -1,5 +1,5 @@
 const LocalStorage = {
-  EMAIL: 'email',
+  PROFILE: 'profile',
   ACCESS_TOKEN: 'access_token',
   LOCATION: 'location',
   PROVINCE: 'province'

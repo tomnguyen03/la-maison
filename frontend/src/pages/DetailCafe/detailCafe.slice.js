@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { payloadCreator } from 'src/utils/helper'
 import cafeApi from 'src/api/cafe.api'
 import commentApi from 'src/api/comment.api'
+import collectionApi from 'src/api/collection.api'
 
 export const getDetailCafe = createAsyncThunk(
   'getListCafe',
@@ -51,4 +52,19 @@ export const createDislikeComment = createAsyncThunk(
 export const deleteDislikeComment = createAsyncThunk(
   'deleteDislikeComment',
   payloadCreator(commentApi.deleteDislikeComment)
+)
+
+export const createBookmark = createAsyncThunk(
+  'createBookmark',
+  payloadCreator(collectionApi.createBookmark)
+)
+
+export const getBookmark = createAsyncThunk(
+  'getBookmark',
+  payloadCreator(collectionApi.getBookmark)
+)
+
+export const deleteBookmark = createAsyncThunk(
+  'deleteBookmark',
+  payloadCreator(collectionApi.deleteBookmark)
 )

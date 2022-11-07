@@ -6,6 +6,15 @@ const collectionApi = {
   },
   getCollection(data) {
     return http.get('collection', data)
+  },
+  createBookmark(data) {
+    return http.post('bookmark', data)
+  },
+  getBookmark(data) {
+    return http.post(`bookmark/${data}`)
+  },
+  deleteBookmark(data) {
+    return http.delete(`bookmark`, data)
   }
 }
 
