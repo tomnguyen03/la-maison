@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import SkeletonCafeItem from './SkeletonCafeItem'
 import { useNavigate } from 'react-router-dom'
-import { path } from '../../../../constants/path'
 
 export default function CafeItem(props) {
   const { id, name, address, image } = props

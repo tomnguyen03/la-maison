@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import {
   createLikeCafe,
+  deleteBookmark,
   deleteLikeCafe,
   getDetailCafe
 } from './detailCafe.slice'
@@ -15,8 +16,14 @@ import Comment from './components/Comment'
 import ModalAuth from 'src/page-components/Auth/ModalAuth'
 import CafeSlick from './components/CafeSlick'
 import { toast } from 'react-toastify'
+import { getCollection } from 'src/pages/User/Collection/collection.slice'
+import CreateCollection from '../User/Collection/CreateCollection'
+import Scroll from 'react-scroll'
+import ChooseCollection from './components/ChooseCollection'
 
 export default function DetailCafe() {
+  Scroll.animateScroll.scrollToTop()
+
   const { idCafe } = useParams()
   const dispatch = useDispatch()
   const authenticated = useAuthenticated()
@@ -24,16 +31,22 @@ export default function DetailCafe() {
   const [dataCafe, setDataCafe] = useState({})
   const [imageCafe, setImageCafe] = useState([])
   const [isLikeCafe, setIsLikeCafe] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const [showModalAuth, setShowModalAuth] = useState(false)
+  const [showModalCollection, setShowModalCollection] =
+    useState(false)
+  const [showModalChooseCollection, setShowModalChooseCollection] =
+    useState(false)
+  const [collection, setCollection] = useState([])
   const [showLikeCount, setShowLikeCount] = useState(false)
   const [likeCount, setLikeCount] = useState(false)
+  const [hasBookmark, setHasBookmark] = useState(false)
 
   const callbackHiddenModal = () => {
-    setShowModal(false)
+    setShowModalAuth(false)
   }
 
   const callbackShowModal = () => {
-    setShowModal(true)
+    setShowModalAuth(true)
   }
 
   useEffect(() => {
@@ -44,6 +57,7 @@ export default function DetailCafe() {
         setImageCafe(res.data.images)
         setIsLikeCafe(res.data.isLike)
         setLikeCount(res.data.like_count)
+        setHasBookmark(res.data.isBookmark)
       })
   }, [dispatch, idCafe])
 
@@ -59,7 +73,7 @@ export default function DetailCafe() {
         setLikeCount(likeCount + 1)
       }
     } else {
-      setShowModal(true)
+      setShowModalAuth(true)
     }
   }
 
@@ -72,6 +86,38 @@ export default function DetailCafe() {
       autoClose: 1000,
       hideProgressBar: true
     })
+  }
+
+  const handleClickBookmark = async () => {
+    await dispatch(getCollection())
+      .then(unwrapResult)
+      .then(res => setCollection(res.data))
+
+    if (!hasBookmark) {
+      if (collection) {
+        setShowModalChooseCollection(true)
+      } else {
+        setShowModalCollection(true)
+      }
+    } else {
+      await dispatch(deleteBookmark({ cafeId: idCafe })).then(
+        unwrapResult
+      )
+      setHasBookmark(false)
+      toast.success('Xóa Bookmark thành công', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
+    }
+  }
+
+  const callbackHiddenModalCollection = () => {
+    setShowModalCollection(false)
+  }
+
+  const callbackHiddenModalChooseCollection = () => {
+    setShowModalChooseCollection(false)
   }
 
   return (
@@ -132,8 +178,15 @@ export default function DetailCafe() {
               >
                 <i className="bx bx-share"></i>
               </div>
-              <div className="text-[28px] text-grey-f5">
-                <i className="bx bx-bookmark"></i>
+              <div
+                className="text-[28px] text-grey-f5 cursor-pointer"
+                onClick={handleClickBookmark}
+              >
+                {hasBookmark ? (
+                  <i className="bx bxs-bookmark"></i>
+                ) : (
+                  <i className="bx bx-bookmark"></i>
+                )}
               </div>
             </div>
           </div>
@@ -218,8 +271,22 @@ export default function DetailCafe() {
           </div>
         </div>
       )}
-      {showModal ? (
+      {showModalAuth ? (
         <ModalAuth hiddenModal={callbackHiddenModal} />
+      ) : null}
+      {showModalCollection ? (
+        <CreateCollection
+          closeModal={callbackHiddenModalCollection}
+        />
+      ) : null}
+      {showModalChooseCollection ? (
+        <ChooseCollection
+          closeModal={callbackHiddenModalChooseCollection}
+          collections={collection}
+          cafeId={idCafe}
+          bookmarkFalse={() => setHasBookmark(false)}
+          bookmarkTrue={() => setHasBookmark(true)}
+        />
       ) : null}
     </div>
   )
