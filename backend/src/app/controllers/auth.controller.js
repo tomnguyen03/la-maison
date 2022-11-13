@@ -3,6 +3,9 @@ const roleService = require("../services/role.service");
 const authHelper = require("../../helpers/auth.helper");
 const { ROLE } = require("../../constants/role.constant");
 const accountModel = require("../models/account.model");
+const formidable = require("formidable");
+const uploader = require("../../config/cloudinary/cloudinary.config");
+const lodash = require("lodash");
 
 const AuthController = {
   registerUser: async (req, res) => {
@@ -44,28 +47,32 @@ const AuthController = {
   },
 
   update: async (req, res) => {
-    try {
-      const body = {
-        name: req.body.name,
-        phone: req.body.phone,
-        avatar: req.body.avatar,
-        birthday: req.body.birthday,
-        detail_address: req.body.detail_address,
-        ward_id: req.body.ward_id,
-        district_id: req.body.district_id,
-        province_id: req.body.province_id,
-      };
+    const form = formidable({ multiples: true });
 
-      const accountId = req.user._id;
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      try {
+        const accountId = req.user._id;
+        let data = {};
 
-      await accountService.update(accountId, body);
-      const dataAfterUpdate = await accountService.findOne({ _id: accountId });
-      const { password, ...result } = dataAfterUpdate._doc;
-
-      return res.json({ message: "Successfully", data: result });
-    } catch (error) {
-      return res.status(400).json({ message: error.message, data: error });
-    }
+        if (!lodash.isEmpty(files.avatar)) {
+          const filepath = files.avatar.filepath;
+          const { url } = await uploader(filepath);
+          data = { ...fields, avatar: url };
+        } else {
+          data = { ...fields };
+        }
+        await accountService.update(accountId, data);
+        const dataAfterUpdate = await accountService.findOne({ _id: accountId });
+        const { password, ...result } = dataAfterUpdate._doc;
+        return res.status(200).json({ message: "Successfully", data: result });
+      } catch (error) {
+        return res.status(400).json({ message: error.message, data: error });
+      }
+    });
   },
 
   changePassword: async (req, res) => {

@@ -6,6 +6,12 @@ const authApi = {
   },
   login(data) {
     return http.post('auth/login', data)
+  },
+  changePassword(data) {
+    return http.put('auth/change-password', data)
+  },
+  update(data) {
+    return http.put('auth/update', data)
   }
 }
 

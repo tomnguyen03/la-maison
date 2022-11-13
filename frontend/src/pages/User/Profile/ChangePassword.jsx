@@ -5,6 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import InputField from 'src/components/InputField/InputField'
 import Button from 'src/components/Button/Button'
+import { changePassword } from '../../../page-components/Auth/auth.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 export default function ChangePassword() {
   const dispatch = useDispatch()
@@ -35,9 +38,24 @@ export default function ChangePassword() {
 
   const handleSubmit = async data => {
     try {
-      console.log(data)
+      const req = {
+        current_password: data.oldPassword,
+        new_password: data.newPassword
+      }
+
+      await dispatch(changePassword(req)).then(unwrapResult)
+
+      toast.success('Đổi mật khẩu thành công', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
     } catch (error) {
-      console.log(error)
+      toast.error('Mật khẩu cũ sai', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
     }
   }
   return (

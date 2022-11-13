@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import authApi from 'src/api/auth.api'
 import { payloadCreator } from 'src/utils/helper'
 import LocalStorage from 'src/constants/localStorage'
+import moment from 'moment'
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -12,6 +13,16 @@ export const login = createAsyncThunk(
   payloadCreator(authApi.login)
 )
 
+export const updateAccount = createAsyncThunk(
+  'auth/updateAccount',
+  payloadCreator(authApi.update)
+)
+
+export const changePassword = createAsyncThunk(
+  'auth/changePassword',
+  payloadCreator(authApi.changePassword)
+)
+
 const handleAuthFulfilled = (state, action) => {
   const { token, refreshToken, ...other } = action.payload.data
   state.profile = other
@@ -20,6 +31,20 @@ const handleAuthFulfilled = (state, action) => {
     JSON.stringify(state.profile)
   )
   localStorage.setItem(LocalStorage.ACCESS_TOKEN, 'Bearer ' + token)
+}
+
+const handleUpdateFulfilled = (state, action) => {
+  const birthday = moment(action.payload.data.birthday).format(
+    'YYYY-MM-DD'
+  )
+
+  state.profile = { ...action.payload.data, birthday }
+  console.log(state.profile)
+
+  localStorage.setItem(
+    LocalStorage.PROFILE,
+    JSON.stringify(state.profile)
+  )
 }
 
 const authSlice = createSlice({
@@ -37,7 +62,8 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [register.fulfilled]: handleAuthFulfilled,
-    [login.fulfilled]: handleAuthFulfilled
+    [login.fulfilled]: handleAuthFulfilled,
+    [updateAccount.fulfilled]: handleUpdateFulfilled
   }
 })
 
