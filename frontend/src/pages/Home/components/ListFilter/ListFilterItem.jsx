@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { forwardRef } from 'react'
 import Dropdown from 'src/components/Dropdown/Dropdown'
 import listenForOutsideClick from 'src/hooks/listenForOutsideClick'
+import useQuery from 'src/hooks/useQuery'
+import lodash from 'lodash'
 
 const ListFilterItem = (props, refItem) => {
   const [showDropdown, setShowDropdown] = useState(false)
+  const query = useQuery()
 
   useEffect(() => {
     listenForOutsideClick(refItem, setShowDropdown)
@@ -15,7 +18,11 @@ const ListFilterItem = (props, refItem) => {
       <div
         onClick={() => setShowDropdown(true)}
         className={`rounded-full w-14 h-14 cursor-pointer flex items-center justify-center bg-grey-f5 shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)] text-xs 
-        ${showDropdown && 'bg-red-e5 text-white shadow-none'}`}
+        ${
+          (!lodash.isEmpty(query[props.dropdown.title]) ||
+            showDropdown) &&
+          'bg-red-e5 text-white shadow-none'
+        }`}
         ref={refItem}
       >
         {props.title}

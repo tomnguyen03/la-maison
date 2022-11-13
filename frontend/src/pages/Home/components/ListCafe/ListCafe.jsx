@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import CafeItem from './CafeItem'
-import { useDispatch } from 'react-redux'
-import { getListCafe } from '../../../Cafe/cafe.slice'
-import { unwrapResult } from '@reduxjs/toolkit'
 
-export default function ListCafe() {
-  const dispatch = useDispatch()
-
-  const [listCafe, setListCafe] = useState([])
-  useEffect(() => {
-    dispatch(getListCafe())
-      .then(unwrapResult)
-      .then(res => setListCafe(res.data))
-  }, [dispatch])
-
+export default function ListCafe({ listCafe }) {
   return (
     <div className="grid grid-cols-3 gap-8">
       {listCafe.map((item, index) => (

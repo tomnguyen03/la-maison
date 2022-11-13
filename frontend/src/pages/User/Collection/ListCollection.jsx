@@ -23,7 +23,8 @@ export default function ListCollection() {
       {listCollection.map((item, index) => (
         <CollectionItem
           name={item.name}
-          image={`https://remax.fi/static/shelter/themes/remax/img/default-news-image.jpg`}
+          images={item.images}
+          id={item._id}
           key={index}
         />
       ))}

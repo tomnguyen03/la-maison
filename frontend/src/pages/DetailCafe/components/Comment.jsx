@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import { createComment, getListComment } from '../detailCafe.slice'
 import CommentItem from './CommentItem'
+import lodash from 'lodash'
 
 export default function Comment({ idCafe, isShowModal }) {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ export default function Comment({ idCafe, isShowModal }) {
     event.preventDefault()
 
     try {
-      if (authenticated) {
+      if (!lodash.isEmpty(authenticated)) {
         await dispatch(createComment(data)).then(unwrapResult)
 
         await dispatch(getListComment(idCafe))

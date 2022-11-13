@@ -1,4 +1,6 @@
 const bookmarkService = require("../services/bookmark.service");
+const cafeService = require("../services/cafe.service");
+const collectionService = require("../services/collection.service");
 
 const bookmarkController = {
   createBookmark: async (req, res) => {
@@ -13,6 +15,11 @@ const bookmarkController = {
         cafeId: req.body.cafeId,
       };
       const bookmark = await bookmarkService.createOne(data);
+      const cafe = await cafeService.findById(req.body.cafeId);
+      const collection = await collectionService.findOne({ _id: req.body.collectionId });
+      const images = collection.images;
+      images.push(cafe.images[0]);
+      await collectionService.update(req.body.collectionId, { images });
 
       return res.json({ message: "Successfully", data: bookmark });
     } catch (error) {

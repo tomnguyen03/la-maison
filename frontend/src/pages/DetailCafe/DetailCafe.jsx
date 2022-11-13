@@ -20,6 +20,7 @@ import { getCollection } from 'src/pages/User/Collection/collection.slice'
 import CreateCollection from '../User/Collection/CreateCollection'
 import Scroll from 'react-scroll'
 import ChooseCollection from './components/ChooseCollection'
+import lodash from 'lodash'
 
 export default function DetailCafe() {
   Scroll.animateScroll.scrollToTop()
@@ -62,7 +63,7 @@ export default function DetailCafe() {
   }, [dispatch, idCafe])
 
   const handleClickLikeCafe = async () => {
-    if (authenticated) {
+    if (!lodash.isEmpty(authenticated)) {
       if (isLikeCafe) {
         await dispatch(deleteLikeCafe(idCafe)).then(unwrapResult)
         setIsLikeCafe(false)
@@ -89,26 +90,31 @@ export default function DetailCafe() {
   }
 
   const handleClickBookmark = async () => {
-    await dispatch(getCollection())
-      .then(unwrapResult)
-      .then(res => setCollection(res.data))
+    if (!lodash.isEmpty(authenticated)) {
+      await dispatch(getCollection())
+        .then(unwrapResult)
+        .then(res => setCollection(res.data))
 
-    if (!hasBookmark) {
-      if (collection) {
-        setShowModalChooseCollection(true)
+      if (!hasBookmark) {
+        if (collection) {
+          setShowModalChooseCollection(true)
+        } else {
+          setShowModalCollection(true)
+        }
       } else {
-        setShowModalCollection(true)
+        await dispatch(deleteBookmark({ cafeId: idCafe })).then(
+          unwrapResult
+        )
+        setHasBookmark(false)
+        toast.success('Xóa Bookmark thành công', {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: true
+        })
       }
     } else {
-      await dispatch(deleteBookmark({ cafeId: idCafe })).then(
-        unwrapResult
-      )
-      setHasBookmark(false)
-      toast.success('Xóa Bookmark thành công', {
-        position: 'bottom-center',
-        autoClose: 1000,
-        hideProgressBar: true
-      })
+      console.log('object')
+      setShowModalAuth(true)
     }
   }
 
@@ -138,7 +144,7 @@ export default function DetailCafe() {
                   >
                     <img
                       src={item}
-                      className="bg-no-repeat bg-cover object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      className="bg-no-repeat bg-cover object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-blue-1"
                       alt=""
                     ></img>
                   </div>

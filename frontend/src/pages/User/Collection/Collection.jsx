@@ -10,7 +10,7 @@ export default function Collection() {
   }
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto mt-10 mb-10">
       <div className="flex justify-between items-center py-[15px] border-b border-grey-d9 mb-6">
         <div className="text-xl font-bold">Bộ sưu tập</div>
         <div

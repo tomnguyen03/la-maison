@@ -4,8 +4,8 @@ const uploader = require("../../config/cloudinary/cloudinary.config");
 const addressService = require("../services/address.service");
 const filterService = require("../services/filter.service");
 const likeCafeService = require("../services/like_cafe.service");
-const authMiddleware = require("../../resources/middleware/auth.middleware");
 const bookmarkService = require("../services/bookmark.service");
+const lodash = require("lodash");
 
 const cafeController = {
   createCafe: async (req, res) => {
@@ -67,11 +67,30 @@ const cafeController = {
 
   getListCafe: async (req, res) => {
     try {
-      const listCafe = await cafeService.find();
+      let query = {};
+
+      query["limit"] = 9;
+      query["page"] = req.query.page;
+
+      if (!lodash.isEmpty(req.query.search)) query["name"] = new RegExp(req.query.search, "i");
+      if (!lodash.isEmpty(req.query.location)) query["districtId"] = req.query.location;
+      if (!lodash.isEmpty(req.query.style)) query["style_id"] = { $in: [req.query.style] };
+      if (!lodash.isEmpty(req.query.vibe)) query["vibe_id"] = { $in: [req.query.vibe] };
+
+      let listCafe = [];
+      let totalItem = 0;
+      if (!lodash.isEmpty(req.query)) {
+        listCafe = await cafeService.find(query);
+        totalItem = await cafeService.count(query);
+      } else {
+        listCafe = await cafeService.find();
+        totalItem = await cafeService.count();
+      }
 
       const response = {
         message: "Lấy danh sách list cafe thành công",
         data: listCafe,
+        totalItem: totalItem,
       };
 
       return res.status(200).json(response);
@@ -101,9 +120,10 @@ const cafeController = {
       listCafeDetail["vibe_id"] = listVibe;
 
       const likeCount = await likeCafeService.count({ cafeId: req.params.id });
-      const isBookmark = await bookmarkService.findOne({ accountId: req.user._id, cafeId: req.params.id });
 
       if (req.user) {
+        const isBookmark = await bookmarkService.findOne({ accountId: req.user._id, cafeId: req.params.id });
+
         const itemLikeCafe = await likeCafeService.findOne({
           accountId: req.user._id,
           cafeId: req.params.id,

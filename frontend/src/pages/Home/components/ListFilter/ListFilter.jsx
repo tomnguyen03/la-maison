@@ -58,6 +58,11 @@ export default function ListFilter() {
         const data = unwrapResult(res)
 
         setCodeProvince(data.data[0].code)
+      } else {
+        const res = await dispatch(getProvinceByName('Đà Nẵng'))
+        const data = unwrapResult(res)
+
+        setCodeProvince(data.data[0].code)
       }
     }
     _getCodeProvince()

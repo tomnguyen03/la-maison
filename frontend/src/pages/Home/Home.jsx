@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListFilter from './components/ListFilter/ListFilter'
 import { useNavigate } from 'react-router-dom'
 import useQuery from 'src/hooks/useQuery'
@@ -7,11 +7,32 @@ import qs from 'query-string'
 import ListCafe from './components/ListCafe/ListCafe'
 import Pagination from './components/Pagination/Pagination'
 import Footer from './components/Footer/Footer'
+import { useDispatch } from 'react-redux'
+import { getListCafe } from '../Cafe/cafe.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('')
   const navigate = useNavigate()
   const query = useQuery()
+  const dispatch = useDispatch()
+
+  const [listCafe, setListCafe] = useState([])
+  const [totalItem, setTotalItem] = useState(0)
+
+  useEffect(() => {
+    const params = {
+      ...query,
+      page: query.page || 1
+    }
+
+    dispatch(getListCafe({ params }))
+      .then(unwrapResult)
+      .then(res => {
+        setListCafe(res.data)
+        setTotalItem(res.totalItem)
+      })
+  }, [dispatch, query])
 
   const handleSubmitSearch = event => {
     event.preventDefault()
@@ -49,10 +70,10 @@ export default function Home() {
           <ListFilter />
         </div>
         <div className="mt-10">
-          <ListCafe />
+          <ListCafe listCafe={listCafe} />
         </div>
-        <div className="mt-10">
-          <Pagination />
+        <div className={`mt-10 ${totalItem < 10 && 'hidden'}`}>
+          <Pagination totalItem={totalItem} />
         </div>
       </div>
       <div className="mt-10">
