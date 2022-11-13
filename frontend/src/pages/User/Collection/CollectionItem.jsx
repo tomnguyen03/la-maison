@@ -1,24 +1,106 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Button from '../../../components/Button/Button'
 import SkeletonCollectionItem from './SkeletonCollectionItem'
 
 export default function CollectionItem(props) {
-  const { name, image } = props
+  const { name, images, id } = props
   const loading = useSelector(state => state.app.loading)
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    console.log('object')
+  }
+
+  const handleClickCopyLink = () => {
+    console.log(id)
+  }
 
   return (
     <>
       {loading ? (
         <SkeletonCollectionItem />
       ) : (
-        <div>
-          <img
-            src={image}
-            alt={name}
-            className="cursor-pointer bg-center bg-no-repeat bg-cover object-cover h-[400px] w-[400px] rounded-md shadow-lg"
-            onClick={handleClick}
+        <div className="relative">
+          {images.length ? (
+            <div
+              className="h-[400px] w-[400px] rounded-md shadow-lg flex gap-[2px] flex-wrap cursor-pointer"
+              onClick={handleClick}
+            >
+              {images.map((image, index) => {
+                if (images.length === 1)
+                  return (
+                    <img
+                      src={image}
+                      alt={name}
+                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[400px]"
+                      key={index}
+                    />
+                  )
+                else if (images.length === 2)
+                  return (
+                    <img
+                      src={image}
+                      alt={name}
+                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[200px]"
+                      key={index}
+                    />
+                  )
+                else if (images.length === 3)
+                  return index === 2 ? (
+                    <img
+                      src={image}
+                      alt={name}
+                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[199px]"
+                      key={index}
+                    />
+                  ) : (
+                    <img
+                      src={image}
+                      alt={name}
+                      className="bg-center bg-no-repeat bg-cover object-cover w-[199px] h-[199px]"
+                      key={index}
+                    />
+                  )
+                else if (images.length === 4)
+                  return (
+                    <img
+                      src={image}
+                      alt={name}
+                      className="bg-center bg-no-repeat bg-cover object-cover w-[199px] h-[199px]"
+                      key={index}
+                    />
+                  )
+
+                return (
+                  index < 4 && (
+                    <div className="relative" key={index}>
+                      <img
+                        src={image}
+                        alt={name}
+                        className="bg-center bg-no-repeat bg-cover object-cover w-[199px] h-[199px]"
+                      />
+                      {index === 3 && (
+                        <div className="absolute left-0 right-0 top-0 bottom-0 z-10 flex items-center justify-center text-white text-2xl bg-black opacity-70">{`+${
+                          images.length - 4
+                        }`}</div>
+                      )}
+                    </div>
+                  )
+                )
+              })}
+            </div>
+          ) : (
+            <img
+              src={`https://remax.fi/static/shelter/themes/remax/img/default-news-image.jpg`}
+              alt={name}
+              className="cursor-pointer bg-center bg-no-repeat bg-cover object-cover h-[400px] w-[400px] rounded-md shadow-lg"
+              onClick={handleClick}
+            />
+          )}
+          <Button
+            className="absolute z-10 right-3 top-3 w-fit px-3 py-1 text-xs"
+            title="Copy link"
+            onClick={handleClickCopyLink}
           />
           <h2
             className="mt-4 text-lg capitalize cursor-pointer w-fit"

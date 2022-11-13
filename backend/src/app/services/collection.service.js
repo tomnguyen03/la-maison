@@ -16,6 +16,20 @@ const collectionService = {
       return error;
     }
   },
+  findOne: async (data) => {
+    try {
+      return CollectionModel.findOne(data);
+    } catch (error) {
+      return error;
+    }
+  },
+  update: async (id, data) => {
+    try {
+      return CollectionModel.findByIdAndUpdate(id, data);
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = collectionService;

@@ -11,7 +11,14 @@ const cafeService = {
   },
   find: async (data) => {
     try {
-      return CafeModel.find(data).select({ __v: 0 }).lean();
+      if (data) {
+        let { limit, page, ...query } = data;
+        limit = Number.parseInt(limit);
+        let skip = (Number.parseInt(page) - 1) * limit;
+        return CafeModel.find(query).limit(limit).skip(skip).lean();
+      } else {
+        return CafeModel.find().limit(5);
+      }
     } catch (error) {
       return error;
     }
@@ -20,6 +27,14 @@ const cafeService = {
   findById: async (data) => {
     try {
       return CafeModel.findById(data);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  count: async (data) => {
+    try {
+      return CafeModel.count(data);
     } catch (error) {
       return error;
     }

@@ -9,6 +9,7 @@ import {
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import Timestamp from 'react-timestamp'
+import lodash from 'lodash'
 
 export default function CommentItem(props) {
   const {
@@ -32,7 +33,7 @@ export default function CommentItem(props) {
 
   const handleClickLike = async () => {
     try {
-      if (authenticated) {
+      if (!lodash.isEmpty(authenticated)) {
         await dispatch(createLikeComment(id)).then(unwrapResult)
         setLike(like + 1)
         setHasLike(true)
@@ -44,7 +45,7 @@ export default function CommentItem(props) {
 
   const handleClickRemoveLike = async () => {
     try {
-      if (authenticated) {
+      if (!lodash.isEmpty(authenticated)) {
         await dispatch(deleteLikeComment(id)).then(unwrapResult)
         setLike(like - 1)
         setHasLike(false)
@@ -56,7 +57,7 @@ export default function CommentItem(props) {
 
   const handleClickDislike = async () => {
     try {
-      if (authenticated) {
+      if (!lodash.isEmpty(authenticated)) {
         await dispatch(createDislikeComment(id)).then(unwrapResult)
         setDislike(dislike + 1)
         setHasDislike(true)
@@ -68,7 +69,7 @@ export default function CommentItem(props) {
 
   const handleClickRemoveDislike = async () => {
     try {
-      if (authenticated) {
+      if (!lodash.isEmpty(authenticated)) {
         await dispatch(deleteDislikeComment(id)).then(unwrapResult)
         setDislike(dislike - 1)
         setHasDislike(false)

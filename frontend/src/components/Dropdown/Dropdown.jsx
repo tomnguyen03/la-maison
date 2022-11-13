@@ -16,17 +16,20 @@ export default function Dropdown(props) {
     if (listDropdown.title === 'location') {
       params = {
         ...query,
-        location: item
+        location: item,
+        page: 1
       }
     } else if (listDropdown.title === 'style') {
       params = {
         ...query,
-        style: item
+        style: item,
+        page: 1
       }
     } else if (listDropdown.title === 'vibe') {
       params = {
         ...query,
-        vibe: item
+        vibe: item,
+        page: 1
       }
     }
 

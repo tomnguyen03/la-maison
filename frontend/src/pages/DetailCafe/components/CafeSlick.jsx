@@ -24,18 +24,15 @@ export default function CafeSlick() {
   return (
     <div className="w-full block">
       <Slider {...settings}>
-        {listCafe.map(
-          (item, index) =>
-            index < 5 && (
-              <CafeSlickItem
-                id={item._id}
-                name={item.name}
-                image={item.images[0]}
-                address={item.detail_address}
-                key={index}
-              />
-            )
-        )}
+        {listCafe.map((item, index) => (
+          <CafeSlickItem
+            id={item._id}
+            name={item.name}
+            image={item.images[0]}
+            address={item.detail_address}
+            key={index}
+          />
+        ))}
       </Slider>
     </div>
   )

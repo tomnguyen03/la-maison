@@ -58,7 +58,7 @@ const AuthController = {
 
       const accountId = req.user._id;
 
-      const data = await accountService.update(accountId, body);
+      await accountService.update(accountId, body);
       const dataAfterUpdate = await accountService.findOne({ _id: accountId });
       const { password, ...result } = dataAfterUpdate._doc;
 
@@ -70,16 +70,9 @@ const AuthController = {
 
   changePassword: async (req, res) => {
     try {
-      if (authHelper.checkPassword(req.body.oldPassword, req.user.password)) {
-        const accountId = req.user._id;
-        const newPassword = authHelper.hashedPassword(req.body.newPassword);
-
-        await accountService.update(accountId, { password: newPassword });
-
-        return res.json({ message: "Successfully" });
-      } else {
-        return res.status(401).json({ message: "Mật khẩu cũ sai" });
-      }
+      const userId = req.user._id;
+      const user = await accountService.changePassword(userId, req.body);
+      return res.status(200).json({ message: "Successfully", result: user });
     } catch (error) {
       return res.status(400).json({ message: error.message, data: error });
     }

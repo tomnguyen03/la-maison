@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import lodash from 'lodash'
 
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import Logo from 'src/components/Logo/Logo'
@@ -25,7 +26,9 @@ export default function Header() {
   }
 
   const checkAuthenticated = () => {
-    authenticated ? setShowDropdown(true) : setShowModal(true)
+    !lodash.isEmpty(authenticated)
+      ? setShowDropdown(true)
+      : setShowModal(true)
   }
 
   const handleLogout = () => {

@@ -12,6 +12,7 @@ import LocalStorage from 'src/constants/localStorage'
 import { GOONG_API_KEY } from 'src/constants/variables'
 import { path } from 'src/constants/path'
 import ModalAuth from '../Auth/ModalAuth'
+import lodash from 'lodash'
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -25,7 +26,9 @@ export default function Header() {
   }
 
   const checkAuthenticated = () => {
-    authenticated ? setShowDropdown(true) : setShowModal(true)
+    !lodash.isEmpty(authenticated)
+      ? setShowDropdown(true)
+      : setShowModal(true)
   }
 
   const handleLogout = () => {

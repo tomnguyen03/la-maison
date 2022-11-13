@@ -5,8 +5,8 @@ const cafeApi = {
     return http.post(`cafe`, data)
   },
 
-  getCafe() {
-    return http.get(`cafe`)
+  getCafe(data) {
+    return http.get(`cafe`, data)
   },
 
   getDetailCafe(data) {
