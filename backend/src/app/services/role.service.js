@@ -1,13 +1,13 @@
-const roleModel = require("../models/role.model");
+const roleModel = require('../models/role.model')
 
 const RoleService = {
-  findOne: async (options) => {
+  findOne: async options => {
     try {
-      return roleModel.findOne(options);
+      return roleModel.findOne(options)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = RoleService;
+module.exports = RoleService

@@ -1,46 +1,46 @@
-const dislikeCommentModel = require("../models/dislike_comment.model");
+const dislikeCommentModel = require('../models/dislike_comment.model')
 
 const dislikeCommentService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
-      const dislikeComment = new dislikeCommentModel(data);
-      return dislikeComment.save();
+      const dislikeComment = new dislikeCommentModel(data)
+      return dislikeComment.save()
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  find: async (data) => {
+  find: async data => {
     try {
-      return dislikeCommentModel.find(data);
+      return dislikeCommentModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  findOne: async (data) => {
+  findOne: async data => {
     try {
-      return dislikeCommentModel.findOne(data);
+      return dislikeCommentModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  count: async (data) => {
+  count: async data => {
     try {
-      return dislikeCommentModel.count(data);
+      return dislikeCommentModel.count(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  deleteOne: async (data) => {
+  deleteOne: async data => {
     try {
-      return dislikeCommentModel.deleteOne(data);
+      return dislikeCommentModel.deleteOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = dislikeCommentService;
+module.exports = dislikeCommentService

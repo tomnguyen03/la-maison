@@ -1,7 +1,7 @@
 const likeCafeModel = require('../models/like_cafe.model')
 
 const likeCafeService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
       const likeCafe = new likeCafeModel(data)
       return likeCafe.save()
@@ -10,7 +10,7 @@ const likeCafeService = {
     }
   },
 
-  findOne: async (data) => {
+  findOne: async data => {
     try {
       return likeCafeModel.findOne(data)
     } catch (error) {
@@ -18,7 +18,7 @@ const likeCafeService = {
     }
   },
 
-  deleteOne: async (data) => {
+  deleteOne: async data => {
     try {
       return likeCafeModel.deleteOne(data)
     } catch (error) {
@@ -26,13 +26,13 @@ const likeCafeService = {
     }
   },
 
-  count: async (data) => {
+  count: async data => {
     try {
       return likeCafeModel.count(data)
     } catch (error) {
       return error
     }
-  },
+  }
 }
 
 module.exports = likeCafeService

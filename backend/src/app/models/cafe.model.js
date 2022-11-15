@@ -1,71 +1,71 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const ObjectId = Schema.ObjectId
 
 const Cafe = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      required: true,
+      required: true
     },
     images: {
       type: Array,
-      required: false,
+      required: false
     },
     detail_address: {
       type: String,
-      required: true,
+      required: true
     },
     style_id: {
       type: Array,
-      required: true,
+      required: true
     },
     vibe_id: {
       type: Array,
-      required: true,
+      required: true
     },
     wardId: {
       type: String,
-      required: true,
+      required: true
     },
     districtId: {
       type: String,
-      required: true,
+      required: true
     },
     provinceId: {
       type: String,
-      required: true,
+      required: true
     },
     instagram: {
       type: String,
-      required: false,
+      required: false
     },
     facebook: {
       type: String,
-      required: false,
+      required: false
     },
     website: {
       type: String,
-      required: false,
+      required: false
     },
     register_by: {
       type: ObjectId,
-      ref: "accountId",
-      required: true,
+      ref: 'accountId',
+      required: true
     },
     isActive: {
       type: Boolean,
       required: false,
-      default: false,
-    },
+      default: false
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = mongoose.model("coffee", Cafe);
+module.exports = mongoose.model('coffee', Cafe)

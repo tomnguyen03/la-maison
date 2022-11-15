@@ -1,46 +1,46 @@
-const likeCommentModel = require("../models/like_comment.model");
+const likeCommentModel = require('../models/like_comment.model')
 
 const likeCommentService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
-      const likeComment = new likeCommentModel(data);
-      return likeComment.save();
+      const likeComment = new likeCommentModel(data)
+      return likeComment.save()
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  findOne: async (data) => {
+  findOne: async data => {
     try {
-      return likeCommentModel.findOne(data);
+      return likeCommentModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  count: async (data) => {
+  count: async data => {
     try {
-      return likeCommentModel.count(data);
+      return likeCommentModel.count(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  find: async (data) => {
+  find: async data => {
     try {
-      return likeCommentModel.find(data);
+      return likeCommentModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  deleteOne: async (data) => {
+  deleteOne: async data => {
     try {
-      return likeCommentModel.deleteOne(data);
+      return likeCommentModel.deleteOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = likeCommentService;
+module.exports = likeCommentService

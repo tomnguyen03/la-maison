@@ -1,38 +1,38 @@
-const StyleModel = require("../models/style.model");
-const VibeModel = require("../models/vibe.model");
+const StyleModel = require('../models/style.model')
+const VibeModel = require('../models/vibe.model')
 
 const filterService = {
-  styleFind: async (data) => {
+  styleFind: async data => {
     try {
-      return StyleModel.find(data);
+      return StyleModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  styleFindById: async (data) => {
+  styleFindById: async data => {
     try {
-      return StyleModel.findOne(data);
+      return StyleModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  vibeFind: async (data) => {
+  vibeFind: async data => {
     try {
-      return VibeModel.find(data);
+      return VibeModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  vibeFindById: async (data) => {
+  vibeFindById: async data => {
     try {
-      return VibeModel.findOne(data);
+      return VibeModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = filterService;
+module.exports = filterService

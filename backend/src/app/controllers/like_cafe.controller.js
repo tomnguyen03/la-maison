@@ -9,13 +9,20 @@ const likeCafeController = {
       }
       const data = {
         accountId: accountId,
-        cafeId: req.params.id,
+        cafeId: req.params.id
       }
       const like_cafe = await likeCafeService.createOne(data)
 
-      return res.status(200).json({ message: 'Successfully', data: like_cafe ? true : false })
+      return res
+        .status(200)
+        .json({
+          message: 'Successfully',
+          data: like_cafe ? true : false
+        })
     } catch (error) {
-      return res.status(400).json({ message: error.message, data: error })
+      return res
+        .status(400)
+        .json({ message: error.message, data: error })
     }
   },
 
@@ -25,12 +32,12 @@ const likeCafeController = {
 
       const itemLikeCafe = await likeCafeService.findOne({
         accountId: req.user._id,
-        cafeId: cafeId,
+        cafeId: cafeId
       })
 
       const response = {
         message: 'Sucessfully',
-        data: (itemLikeCafe && true) || false,
+        data: (itemLikeCafe && true) || false
       }
 
       return res.json(response)
@@ -45,18 +52,18 @@ const likeCafeController = {
 
       await likeCafeService.deleteOne({
         accountId: req.user._id,
-        cafeId: cafeId,
+        cafeId: cafeId
       })
 
       const response = {
-        message: 'Sucessfully',
+        message: 'Sucessfully'
       }
 
       return res.status(200).json(response)
     } catch (error) {
       console.log(error)
     }
-  },
+  }
 }
 
 module.exports = likeCafeController

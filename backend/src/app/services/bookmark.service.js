@@ -1,35 +1,35 @@
-const BookmarkModel = require("../models/bookmark.model");
+const BookmarkModel = require('../models/bookmark.model')
 
 const bookmarkService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
-      const bookmark = new BookmarkModel(data);
-      return bookmark.save();
+      const bookmark = new BookmarkModel(data)
+      return bookmark.save()
     } catch (error) {
-      return error;
+      return error
     }
   },
-  find: async (data) => {
+  find: async data => {
     try {
-      return BookmarkModel.find(data);
+      return BookmarkModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
-  findOne: async (data) => {
+  findOne: async data => {
     try {
-      return BookmarkModel.findOne(data);
+      return BookmarkModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
-  deleteOne: async (data) => {
+  deleteOne: async data => {
     try {
-      return BookmarkModel.deleteOne(data);
+      return BookmarkModel.deleteOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = bookmarkService;
+module.exports = bookmarkService
