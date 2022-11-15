@@ -12,6 +12,7 @@ import Suggest from 'src/pages/Suggest/Suggest'
 import CreateCafe from 'src/pages/Cafe/CreateCafe'
 import DetailLayout from 'src/layouts/DetailLayout/DetailLayout'
 import DetailCafe from 'src/pages/DetailCafe/DetailCafe'
+import CollectionPage from 'src/pages/Collection/CollectionPage'
 
 export default function RoutesComponent() {
   return (
@@ -19,6 +20,10 @@ export default function RoutesComponent() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path={path.home} element={<Home />} />
+          <Route
+            path={path.listCollection}
+            element={<CollectionPage />}
+          />
 
           <Route element={<AuthenticatedGuard />}>
             <Route path={path.user} element={<User />} />

@@ -23,6 +23,10 @@ const cafeApi = {
 
   deleteLikeCafe(data) {
     return http.delete(`like-cafe/${data}`)
+  },
+
+  getListCafeByCollection(data) {
+    return http.get(`bookmark/${data}`)
   }
 }
 

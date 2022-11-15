@@ -9,6 +9,7 @@ class Path {
     this.createCafe = '/create-cafe'
     this.cafe = '/cafe'
     this.detailCafe = ':idCafe'
+    this.listCollection = '/collection'
   }
 }
 
