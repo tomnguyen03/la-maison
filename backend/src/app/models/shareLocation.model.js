@@ -1,38 +1,38 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const ObjectId = Schema.ObjectId
 
 const ShareLocation = new Schema(
   {
     accountId: {
       type: ObjectId,
-      ref: "account",
-      required: true,
+      ref: 'account',
+      required: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     style: {
       type: String,
-      required: false,
+      required: false
     },
     detail_address: {
       type: String,
-      required: false,
+      required: false
     },
     instagram: {
       type: String,
-      required: false,
+      required: false
     },
     website: {
       type: String,
-      required: false,
-    },
+      required: false
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = mongoose.model("share_location", ShareLocation);
+module.exports = mongoose.model('share_location', ShareLocation)

@@ -1,35 +1,35 @@
-const CollectionModel = require("../models/collection.model");
+const CollectionModel = require('../models/collection.model')
 
 const collectionService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
-      const collection = new CollectionModel(data);
-      return collection.save();
+      const collection = new CollectionModel(data)
+      return collection.save()
     } catch (error) {
-      return error;
+      return error
     }
   },
-  find: async (data) => {
+  find: async data => {
     try {
-      return CollectionModel.find(data);
+      return CollectionModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
-  findOne: async (data) => {
+  findOne: async data => {
     try {
-      return CollectionModel.findOne(data);
+      return CollectionModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
   update: async (id, data) => {
     try {
-      return CollectionModel.findByIdAndUpdate(id, data);
+      return CollectionModel.findByIdAndUpdate(id, data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = collectionService;
+module.exports = collectionService

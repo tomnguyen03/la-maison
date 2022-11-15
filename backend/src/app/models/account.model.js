@@ -1,55 +1,55 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const ObjectId = Schema.ObjectId
 
 const Account = new Schema(
   {
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     roleId: {
       type: ObjectId,
-      ref: "role",
-      required: true,
+      ref: 'role',
+      required: true
     },
     name: {
       type: String,
-      required: false,
+      required: false
     },
     phone: {
       type: String,
       minLength: 10,
       maxLength: 11,
       required: false,
-      unique: true,
+      unique: true
     },
     avatar: {
       type: String,
-      required: false,
+      required: false
     },
     birthday: {
       type: Date,
-      required: false,
+      required: false
     },
     detail_address: {
       type: String,
-      required: false,
+      required: false
     },
     isActive: {
       type: Boolean,
       required: false,
-      default: false,
-    },
+      default: false
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = mongoose.model("account", Account);
+module.exports = mongoose.model('account', Account)

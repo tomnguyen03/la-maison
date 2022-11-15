@@ -1,58 +1,58 @@
-const provinceModel = require("../models/province.model");
-const districtModel = require("../models/district.model");
-const wardModel = require("../models/ward.model");
+const provinceModel = require('../models/province.model')
+const districtModel = require('../models/district.model')
+const wardModel = require('../models/ward.model')
 
 const addressService = {
   getAllProvinces: async () => {
     try {
-      return provinceModel.find({});
+      return provinceModel.find({})
     } catch (error) {
-      return error;
+      return error
     }
   },
-  getProvinceByName: async (data) => {
+  getProvinceByName: async data => {
     try {
-      return provinceModel.find(data);
+      return provinceModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
-  getDistrictByProvince: async (data) => {
+  getDistrictByProvince: async data => {
     try {
-      return districtModel.find(data);
+      return districtModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
-  getWardByDistrict: async (data) => {
+  getWardByDistrict: async data => {
     try {
-      return wardModel.find(data);
+      return wardModel.find(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
   getAllDistricts: async () => {
     try {
-      return districtModel.find({});
+      return districtModel.find({})
     } catch (error) {
-      return error;
+      return error
     }
   },
   getAllWards: async () => {
     try {
-      return wardModel.find({});
+      return wardModel.find({})
     } catch (error) {
-      return error;
+      return error
     }
   },
-  getWardsByCode: async (data) => {
+  getWardsByCode: async data => {
     try {
-      return wardModel.findOne(data);
+      return wardModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = addressService;
+module.exports = addressService

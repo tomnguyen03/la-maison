@@ -1,38 +1,38 @@
-const commentModel = require("../models/comment.model");
+const commentModel = require('../models/comment.model')
 
 const commentService = {
-  createOne: async (data) => {
+  createOne: async data => {
     try {
-      const comment = new commentModel(data);
-      return comment.save();
+      const comment = new commentModel(data)
+      return comment.save()
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  find: async (data) => {
+  find: async data => {
     try {
-      return commentModel.find(data).populate("accountId");
+      return commentModel.find(data).populate('accountId')
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  findOne: async (data) => {
+  findOne: async data => {
     try {
-      return commentModel.findOne(data);
+      return commentModel.findOne(data)
     } catch (error) {
-      return error;
+      return error
     }
   },
 
-  deleteOne: async (data) => {
+  deleteOne: async data => {
     try {
-      return commentModel.deleteOne(data);
+      return commentModel.deleteOne(data)
     } catch (error) {
-      return error;
+      return error
     }
-  },
-};
+  }
+}
 
-module.exports = commentService;
+module.exports = commentService
