@@ -2,17 +2,27 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Button from '../../../components/Button/Button'
 import SkeletonCollectionItem from './SkeletonCollectionItem'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function CollectionItem(props) {
   const { name, images, id } = props
   const loading = useSelector(state => state.app.loading)
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    console.log('object')
+    navigate(`/collection?id=${id}`)
   }
 
   const handleClickCopyLink = () => {
-    console.log(id)
+    const pathUrl = window.location.origin + `/collection?id=${id}`
+    navigator.clipboard.writeText(pathUrl)
+
+    toast.success('Sao chép liên kết thành công', {
+      position: 'bottom-center',
+      autoClose: 1000,
+      hideProgressBar: true
+    })
   }
 
   return (

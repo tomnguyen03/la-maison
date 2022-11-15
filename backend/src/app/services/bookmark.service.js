@@ -11,7 +11,7 @@ const bookmarkService = {
   },
   find: async data => {
     try {
-      return BookmarkModel.find(data)
+      return BookmarkModel.find(data).populate('cafeId')
     } catch (error) {
       return error
     }

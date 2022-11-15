@@ -66,6 +66,32 @@ const bookmarkController = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  getBookmarkByCollectionId: async (req, res) => {
+    try {
+      const collectionId = req.params.collectionId
+
+      const collectionName = await collectionService.findOne({
+        _id: collectionId
+      })
+
+      const data = await bookmarkService.find({
+        collectionId: collectionId
+      })
+
+      const ListCafe = data.map(item => item.cafeId)
+
+      const response = {
+        message: 'Successfully',
+        name: collectionName.name,
+        data: ListCafe
+      }
+
+      return res.status(200).json(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
