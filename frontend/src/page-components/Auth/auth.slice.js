@@ -25,7 +25,13 @@ export const changePassword = createAsyncThunk(
 
 const handleAuthFulfilled = (state, action) => {
   const { token, refreshToken, ...other } = action.payload.data
-  state.profile = other
+
+  if (other.birthday) {
+    const birthday = moment(other.birthday).format('YYYY-MM-DD')
+
+    state.profile = { ...other, birthday }
+  } else state.profile = other
+
   localStorage.setItem(
     LocalStorage.PROFILE,
     JSON.stringify(state.profile)
@@ -39,7 +45,6 @@ const handleUpdateFulfilled = (state, action) => {
   )
 
   state.profile = { ...action.payload.data, birthday }
-  console.log(state.profile)
 
   localStorage.setItem(
     LocalStorage.PROFILE,

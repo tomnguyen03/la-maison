@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import useQuery from '../../hooks/useQuery'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getListCafeByCollection } from '../Cafe/cafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
@@ -9,7 +8,7 @@ import { Helmet } from 'react-helmet-async'
 import ListCafe from '../Home/components/ListCafe/ListCafe'
 
 export default function CollectionPage() {
-  const query = useQuery()
+  const { idCollection } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -17,13 +16,13 @@ export default function CollectionPage() {
   const [name, setName] = useState('')
 
   useEffect(() => {
-    dispatch(getListCafeByCollection(query.id))
+    dispatch(getListCafeByCollection(idCollection))
       .then(unwrapResult)
       .then(res => {
         setData(res.data)
         setName(res.name)
       })
-  }, [dispatch, query])
+  }, [dispatch, idCollection])
 
   return (
     <>

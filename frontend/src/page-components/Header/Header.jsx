@@ -73,8 +73,12 @@ export default function Header() {
     <div className="flex justify-between items-center px-[25px] py-[15px] border-b-2 border-grey-d9 mb-6">
       <Logo />
       <div className="text-sm font-medium flex items-center gap-[30px]">
-        <Link to="/">VỀ LA MAISON</Link>
-        <Link to="/">BẢN ĐỒ</Link>
+        <Link to="/" className="hidden lg:block">
+          VỀ LA MAISON
+        </Link>
+        <Link to="/" className="hidden lg:block">
+          BẢN ĐỒ
+        </Link>
         <div className="relative" ref={menuRef}>
           <button
             className="flex items-center cursor-pointer"
@@ -96,9 +100,17 @@ export default function Header() {
                   Trang cá nhân
                 </li>
               </Link>
-              <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
-                Cài đặt
-              </li>
+              <Link
+                to={path.user + path.profile}
+                className="font-['Prata']"
+              >
+                <li
+                  className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  Cài đặt
+                </li>
+              </Link>
               <li
                 className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
                 onClick={handleLogout}

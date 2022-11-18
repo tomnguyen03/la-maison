@@ -96,9 +96,17 @@ export default function Header() {
                   Trang cá nhân
                 </li>
               </Link>
-              <li className="px-3 py-2 hover:bg-red-f8 cursor-pointer">
-                Cài đặt
-              </li>
+              <Link
+                to={path.user + path.profile}
+                className="font-['Prata']"
+              >
+                <li
+                  className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  Cài đặt
+                </li>
+              </Link>
               <li
                 className="px-3 py-2 hover:bg-red-f8 cursor-pointer"
                 onClick={handleLogout}
