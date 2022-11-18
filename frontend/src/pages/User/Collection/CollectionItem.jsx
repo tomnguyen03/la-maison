@@ -11,11 +11,11 @@ export default function CollectionItem(props) {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(`/collection?id=${id}`)
+    navigate(`/collection/${id}`)
   }
 
   const handleClickCopyLink = () => {
-    const pathUrl = window.location.origin + `/collection?id=${id}`
+    const pathUrl = window.location.origin + `/collection/${id}`
     navigator.clipboard.writeText(pathUrl)
 
     toast.success('Sao chép liên kết thành công', {

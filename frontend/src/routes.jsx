@@ -1,5 +1,10 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate
+} from 'react-router-dom'
 import { path } from 'src/constants/path'
 import MainLayout from 'src/layouts/MainLayout/MainLayout'
 import Home from 'src/pages/Home/Home'
@@ -20,10 +25,16 @@ export default function RoutesComponent() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path={path.home} element={<Home />} />
-          <Route
-            path={path.listCollection}
-            element={<CollectionPage />}
-          />
+          <Route path={path.listCollection}>
+            <Route
+              path={path.paramsCollection}
+              element={<CollectionPage />}
+            />
+            <Route
+              path=""
+              element={<Navigate to={path.home} replace />}
+            />
+          </Route>
 
           <Route element={<AuthenticatedGuard />}>
             <Route path={path.user} element={<User />} />
@@ -31,9 +42,12 @@ export default function RoutesComponent() {
               path={path.user + path.profile}
               element={<Profile />}
             >
-              <Route path="" element={<UpdateProfile />} />
               <Route path="upload" element={<UpdateProfile />} />
               <Route path="password" element={<ChangePassword />} />
+              <Route
+                path=""
+                element={<Navigate to="upload" replace />}
+              />
             </Route>
             <Route path={path.suggestAPlace} element={<Suggest />} />
             <Route path={path.createCafe} element={<CreateCafe />} />
