@@ -4,6 +4,7 @@ import Button from '../../../components/Button/Button'
 import SkeletonCollectionItem from './SkeletonCollectionItem'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { isMobile } from 'react-device-detect'
 
 export default function CollectionItem(props) {
   const { name, images, id } = props
@@ -25,6 +26,8 @@ export default function CollectionItem(props) {
     })
   }
 
+  const widthScreen = window.innerWidth - 32
+
   return (
     <>
       {loading ? (
@@ -33,34 +36,68 @@ export default function CollectionItem(props) {
         <div className="relative">
           {images.length ? (
             <div
-              className="h-[400px] w-[400px] rounded-md shadow-lg flex gap-[2px] flex-wrap cursor-pointer"
+              className="h-[400px] w-full lg:w-[400px] rounded-md shadow-lg flex gap-[2px] flex-wrap cursor-pointer"
               onClick={handleClick}
             >
               {images.map((image, index) => {
                 if (images.length === 1)
-                  return (
+                  return isMobile ? (
                     <img
                       src={image}
                       alt={name}
-                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[400px]"
+                      style={{ width: widthScreen }}
+                      className={`bg-center bg-no-repeat bg-cover object-cover h-[400px]`}
+                      key={index}
+                    />
+                  ) : (
+                    <img
+                      src={image}
+                      alt={name}
+                      className={`bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[400px]`}
                       key={index}
                     />
                   )
                 else if (images.length === 2)
-                  return (
+                  return isMobile ? (
                     <img
                       src={image}
                       alt={name}
-                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[200px]"
+                      style={{ width: widthScreen }}
+                      className={`bg-center bg-no-repeat bg-cover object-cover h-[200px]`}
+                      key={index}
+                    />
+                  ) : (
+                    <img
+                      src={image}
+                      alt={name}
+                      className={`bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[200px]`}
                       key={index}
                     />
                   )
                 else if (images.length === 3)
                   return index === 2 ? (
+                    isMobile ? (
+                      <img
+                        src={image}
+                        alt={name}
+                        style={{ width: widthScreen }}
+                        className="bg-center bg-no-repeat bg-cover object-cover h-[199px]"
+                        key={index}
+                      />
+                    ) : (
+                      <img
+                        src={image}
+                        alt={name}
+                        className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[199px]"
+                        key={index}
+                      />
+                    )
+                  ) : isMobile ? (
                     <img
                       src={image}
                       alt={name}
-                      className="bg-center bg-no-repeat bg-cover object-cover w-[400px] h-[199px]"
+                      style={{ width: widthScreen / 2 - 1 }}
+                      className="bg-center bg-no-repeat bg-cover object-cover h-[199px]"
                       key={index}
                     />
                   ) : (
@@ -72,7 +109,15 @@ export default function CollectionItem(props) {
                     />
                   )
                 else if (images.length === 4)
-                  return (
+                  return isMobile ? (
+                    <img
+                      src={image}
+                      alt={name}
+                      style={{ width: widthScreen / 2 - 1 }}
+                      className="bg-center bg-no-repeat bg-cover object-cover h-[199px]"
+                      key={index}
+                    />
+                  ) : (
                     <img
                       src={image}
                       alt={name}
@@ -84,11 +129,20 @@ export default function CollectionItem(props) {
                 return (
                   index < 4 && (
                     <div className="relative" key={index}>
-                      <img
-                        src={image}
-                        alt={name}
-                        className="bg-center bg-no-repeat bg-cover object-cover w-[199px] h-[199px]"
-                      />
+                      {isMobile ? (
+                        <img
+                          src={image}
+                          alt={name}
+                          style={{ width: widthScreen / 2 - 1 }}
+                          className="bg-center bg-no-repeat bg-cover object-cover h-[199px]"
+                        />
+                      ) : (
+                        <img
+                          src={image}
+                          alt={name}
+                          className="bg-center bg-no-repeat bg-cover object-cover w-[199px] h-[199px]"
+                        />
+                      )}
                       {index === 3 && (
                         <div className="absolute left-0 right-0 top-0 bottom-0 z-10 flex items-center justify-center text-white text-2xl bg-black opacity-70">{`+${
                           images.length - 4

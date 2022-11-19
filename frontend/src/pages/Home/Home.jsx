@@ -47,13 +47,13 @@ export default function Home() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 lg:px-0">
         <div className="search-bar flex items-center justify-center">
-          <div className="w-[50%] relative">
+          <div className="w-[100%] lg:w-[50%] relative">
             <form onSubmit={handleSubmitSearch}>
               <input
                 type="text"
-                className="w-full text-sm text-grey-3 placeholder:text-grey-7 rounded px-5 py-3 bg-grey-f5 shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)] focus:outline-none focus:border-red-ee focus:ring-red-ee focus:ring-1"
+                className="w-full text-sm text-grey-3 border border-grey-b8 placeholder:text-grey-7 rounded px-5 py-3 bg-grey-f5 shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)] focus:outline-none focus:border-red-ee focus:ring-red-ee focus:ring-1"
                 placeholder="Bạn muốn đi cafe ở đâu?"
                 onChange={e => setSearchValue(e.target.value)}
               />

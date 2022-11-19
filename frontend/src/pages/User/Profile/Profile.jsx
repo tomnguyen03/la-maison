@@ -10,8 +10,8 @@ export default function Profile() {
     fontWeight: 'bold'
   }
   return (
-    <div className="container mx-auto flex">
-      <div className="flex-[0_0_190px] flex flex-col gap-4 mr-[50px]">
+    <div className="container mx-auto lg:flex px-4 lg:px-0">
+      <div className="flex-[0_0_190px] flex flex-row lg:flex-col gap-4 mr-[50px]">
         <NavLink
           style={({ isActive }) =>
             isActive ? activeStyle : undefined

@@ -73,8 +73,12 @@ export default function Header() {
     <div className="flex justify-between items-center px-[25px] py-[15px] absolute top-0 left-0 right-0 z-20 text-grey-f5">
       <Logo />
       <div className="text-sm font-medium flex items-center gap-[30px]">
-        <Link to="/">VỀ LA MAISON</Link>
-        <Link to="/">BẢN ĐỒ</Link>
+        <Link to="/" className="hidden lg:block">
+          VỀ LA MAISON
+        </Link>
+        <Link to="/" className="hidden lg:block">
+          BẢN ĐỒ
+        </Link>
         <div className="relative" ref={menuRef}>
           <button
             className="flex items-center cursor-pointer"

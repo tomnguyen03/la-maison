@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 async function connect() {
   try {
     await mongoose.connect(process.env.MONGOOSE_URL, {
-      bufferCommands: false,
+      bufferCommands: true,
       dbName: 'la_maison',
       autoIndex: false,
       autoCreate: true
