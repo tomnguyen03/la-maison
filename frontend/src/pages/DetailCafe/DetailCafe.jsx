@@ -138,27 +138,27 @@ export default function DetailCafe() {
               {imageCafe &&
                 imageCafe.map((item, index) => (
                   <div
-                    className="duration-500 ease-in-out h-[400px]"
+                    className="duration-500 ease-in-out h-[250px] lg:h-[400px]"
                     data-carousel-item
                     key={index}
                   >
                     <img
                       src={item}
-                      className="bg-no-repeat bg-cover object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-blue-1"
+                      className="bg-no-repeat bg-cover object-cover absolute block w-full h-full lg:h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-blue-1"
                       loading="lazy"
                       alt=""
                     ></img>
                   </div>
                 ))}
             </Carousel>
-            <div className="absolute bottom-4 right-[200px] z-10 flex items-center justify-end gap-10">
+            <div className="absolute bottom-10 lg:bottom-4 right-[10px] lg:right-[200px] z-10 flex items-center justify-end gap-10">
               <div
                 className="text-[28px] text-grey-f5 cursor-pointer relative"
                 onClick={handleClickLikeCafe}
               >
                 {isLikeCafe ? (
                   <i
-                    className="bx bxs-heart"
+                    className="bx bxs-heart text-red-dd"
                     onMouseEnter={() => setShowLikeCount(true)}
                     onMouseLeave={() => setShowLikeCount(false)}
                   ></i>
@@ -190,15 +190,15 @@ export default function DetailCafe() {
                 onClick={handleClickBookmark}
               >
                 {hasBookmark ? (
-                  <i className="bx bxs-bookmark"></i>
+                  <i className="bx bxs-bookmark text-red-dd"></i>
                 ) : (
                   <i className="bx bx-bookmark"></i>
                 )}
               </div>
             </div>
           </div>
-          <div className="container mx-auto mt-10 border-b-2 border-grey-d9 pb-6">
-            <div className="grid grid-cols-2 gap-12">
+          <div className="container mx-auto mt-10 border-b-2 border-grey-d9 pb-6 px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
                 <div className="border-b-2 border-grey-d9 pb-6">
                   <h1 className="text-3xl">{dataCafe.name}</h1>
@@ -273,7 +273,9 @@ export default function DetailCafe() {
             </div>
           </div>
           <div className="container mx-auto">
-            <h2 className="text-2xl mt-6 mb-3">Khám phá</h2>
+            <h2 className="text-2xl mt-6 mb-3 px-4 lg:px-0">
+              Khám phá
+            </h2>
             <CafeSlick />
           </div>
         </div>

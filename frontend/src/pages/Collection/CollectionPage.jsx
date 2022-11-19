@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getListCafeByCollection } from '../Cafe/cafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
@@ -9,7 +9,6 @@ import ListCafe from '../Home/components/ListCafe/ListCafe'
 
 export default function CollectionPage() {
   const { idCollection } = useParams()
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [data, setData] = useState([])
@@ -26,7 +25,7 @@ export default function CollectionPage() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 lg:px-0">
         <Helmet>
           <title>{name}</title>
         </Helmet>

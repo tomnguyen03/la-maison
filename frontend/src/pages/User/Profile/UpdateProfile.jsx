@@ -56,7 +56,7 @@ export default function UpdateProfile() {
     }
   }
   return (
-    <div className="px-10 py-5 bg-white">
+    <div className="px-3 lg:px-10 py-5 bg-white mt-5 lg:mt-0">
       <div className="mb-4 pb-4 border-b border-gray-200">
         <h1 className="capitalize text-[18px] font-semibold">
           Hồ sơ của tôi
@@ -67,15 +67,21 @@ export default function UpdateProfile() {
       </div>
       <div>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <div className="flex gap-8">
+          <div className="flex lg:gap-8 flex-col-reverse  lg:flex-row">
             <div className="flex-1">
               <div className="mt-5 flex items-center">
-                <div className="w-[15%] text-right">Email:</div>
-                <div className="w-[85%] pl-5">{profile.email}</div>
+                <div className="w-[30%] lg:w-[15%] text-right text-sm lg:text-base">
+                  Email:
+                </div>
+                <div className="w-[70%] lg:w-[85%] pl-5">
+                  {profile.email}
+                </div>
               </div>
-              <div className="mt-5 flex items-center">
-                <div className="w-[15%] text-right">Họ và tên:</div>
-                <div className="w-[85%] pl-5">
+              <div className="mt-5 flex items-center text-sm lg:text-base">
+                <div className="w-[30%] lg:w-[15%] text-right">
+                  Họ và tên:
+                </div>
+                <div className="w-[70%] lg:w-[85%] pl-5">
                   <InputField
                     name="name"
                     type="text"
@@ -84,9 +90,11 @@ export default function UpdateProfile() {
                   />
                 </div>
               </div>
-              <div className="mt-5 flex items-center">
-                <div className="w-[15%] text-right">Ngày sinh:</div>
-                <div className="w-[85%] pl-5">
+              <div className="mt-5 flex items-center text-sm lg:text-base">
+                <div className="w-[30%] lg:w-[15%] text-right">
+                  Ngày sinh:
+                </div>
+                <div className="w-[70%] lg:w-[85%] pl-5">
                   <InputField
                     name="birthday"
                     type="date"
@@ -95,11 +103,11 @@ export default function UpdateProfile() {
                   />
                 </div>
               </div>
-              <div className="mt-5 flex items-center">
-                <div className="w-[15%] text-right">
+              <div className="mt-5 flex items-center text-sm lg:text-base">
+                <div className="w-[30%] lg:w-[15%] text-right">
                   Số điện thoại:
                 </div>
-                <div className="w-[85%] pl-5">
+                <div className="w-[70%] lg:w-[85%] pl-5">
                   <InputField
                     name="phone"
                     type="text"
@@ -108,9 +116,11 @@ export default function UpdateProfile() {
                   />
                 </div>
               </div>
-              <div className="mt-5 flex items-center">
-                <div className="w-[15%] text-right">Địa chỉ:</div>
-                <div className="w-[85%] pl-5 flex flex-col gap-2">
+              <div className="mt-5 flex items-center text-sm lg:text-base">
+                <div className="w-[30%] lg:w-[15%] text-right">
+                  Địa chỉ:
+                </div>
+                <div className="w-[70%] lg:w-[85%] pl-5 flex flex-col gap-2">
                   <InputField
                     name="detail_address"
                     type="text"
@@ -120,7 +130,7 @@ export default function UpdateProfile() {
                 </div>
               </div>
             </div>
-            <div className="w-[200px] mt-5 flex flex-col items-center">
+            <div className="w-full lg:w-[200px] mt-5 flex flex-col items-center">
               <img
                 src={
                   profile.avatar ||

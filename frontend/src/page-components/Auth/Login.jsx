@@ -73,7 +73,7 @@ export default function Login({ closeModal }) {
       <div className="mt-1 text-right text-xs text-red-dd">
         Quên mật khẩu
       </div>
-      <div className="py-6 border-grey-9 border-b">
+      <div className="py-6 ">
         <Button title="Đăng nhập" className="p-2" />
       </div>
     </form>

@@ -87,7 +87,7 @@ export default function Register({ closeModal }) {
           form={form}
         />
       </div>
-      <div className="py-6 border-grey-9 border-b">
+      <div className="py-6">
         <Button title="Đăng ký" className="p-2" />
       </div>
     </form>

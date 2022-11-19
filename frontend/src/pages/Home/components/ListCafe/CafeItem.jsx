@@ -22,7 +22,7 @@ export default function CafeItem(props) {
           <img
             src={image}
             alt={name}
-            className="cursor-pointer bg-center bg-no-repeat bg-cover object-cover h-[400px] w-[400px] rounded-md shadow-lg"
+            className="w-full cursor-pointer bg-center bg-no-repeat bg-cover object-cover h-[400px] lg:w-[400px] rounded-md shadow-lg"
             onClick={() => handleClick(id)}
           />
           <p className="mt-2 text-sm text-right pr-3 flex content-center justify-end gap-1">
@@ -30,7 +30,7 @@ export default function CafeItem(props) {
             {address}
           </p>
           <h2
-            className="mt-1 text-lg capitalize cursor-pointer w-fit"
+            className="lg:mt-1 text-lg capitalize cursor-pointer w-fit"
             onClick={() => handleClick(id)}
           >
             {name}

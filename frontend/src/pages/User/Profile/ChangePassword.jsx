@@ -59,7 +59,7 @@ export default function ChangePassword() {
     }
   }
   return (
-    <div className="px-10 py-5 ">
+    <div className="px-2 lg:px-10 py-5 ">
       <div className="mb-4 pb-4 border-b border-gray-200">
         <h1 className="capitalize text-[18px] font-semibold">
           Thay đổi mật khẩu
@@ -75,8 +75,10 @@ export default function ChangePassword() {
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           <div className="mb-5 flex items-center">
-            <div className="w-[15%] text-right">Mật khẩu cũ:</div>
-            <div className="w-[85%] pl-5 flex flex-col">
+            <div className="w-[30%] lg:w-[15%] text-right">
+              Mật khẩu cũ:
+            </div>
+            <div className="w-[70%] lg:w-[85%] pl-5 flex flex-col">
               <InputField
                 type="password"
                 name="oldPassword"
@@ -86,8 +88,10 @@ export default function ChangePassword() {
             </div>
           </div>
           <div className="mb-5 flex items-center">
-            <div className="w-[15%] text-right">Mật khẩu mới:</div>
-            <div className="w-[85%] pl-5 flex flex-col">
+            <div className="w-[30%] lg:w-[15%] text-right">
+              Mật khẩu mới:
+            </div>
+            <div className="w-[70%] lg:w-[85%] pl-5 flex flex-col">
               <InputField
                 type="password"
                 name="newPassword"
@@ -97,10 +101,10 @@ export default function ChangePassword() {
             </div>
           </div>
           <div className="mb-5 flex items-center">
-            <div className="w-[15%] text-right">
+            <div className="w-[30%] lg:w-[15%] text-right">
               Xác nhận mật khẩu mới:
             </div>
-            <div className="w-[85%] pl-5 flex flex-col">
+            <div className="w-[70%] lg:w-[85%] pl-5 flex flex-col">
               <InputField
                 type="password"
                 name="confirmNewPassword"

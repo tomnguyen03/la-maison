@@ -19,7 +19,7 @@ export default function ListCollection() {
   }, [dispatch])
 
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {listCollection.map((item, index) => (
         <CollectionItem
           name={item.name}

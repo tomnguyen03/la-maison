@@ -40,7 +40,7 @@ export default function Suggest() {
 
   return (
     <>
-      <div className="w-[600px] mx-auto mb-6">
+      <div className="w-full px-4 lg:px-0 lg:w-[600px] mx-auto mb-6">
         <h1 className="text-3xl">
           Chia sẻ quán cafe, địa chỉ trà sữa <br />
           đúng gu của bạn tại đây

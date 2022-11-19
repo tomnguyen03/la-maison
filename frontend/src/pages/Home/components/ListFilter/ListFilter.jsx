@@ -89,7 +89,7 @@ export default function ListFilter() {
   }, [dispatch])
 
   return (
-    <div className="flex items-center justify-center gap-14">
+    <div className="flex items-center justify-center sm:gap-4 lg:gap-14">
       {listFilter.map((item, index) => (
         <ListFilterItem
           title={item.title}
