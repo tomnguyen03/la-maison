@@ -5,6 +5,11 @@ const authMiddleware = require('../middleware/auth.middleware')
 
 route.post('', authMiddleware.isStaff, controller.createCafe)
 route.get('', controller.getListCafe)
+route.put(
+  '/updateAllLocation',
+  authMiddleware.isUser,
+  controller.updateAllCafe
+)
 route.get(
   '/:id',
   authMiddleware.isOptionLogin,

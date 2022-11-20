@@ -92,35 +92,44 @@ export default function CommentItem(props) {
       <div className="text-sm flex flex-col gap-1 bg-[#edeeef] py-2 px-3 rounded-xl flex-1">
         <h6 className="font-montserrat font-semibold">{name}</h6>
         <p className="">{content}</p>
-        <div className="flex gap-8 text-grey-7 text-sm">
-          {hasLike ? (
-            <p
-              className="cursor-pointer text-red-dd font-medium"
-              onClick={handleClickRemoveLike}
-            >
-              {like} Thích
+        <div className="flex flex-col lg:flex-row justify-between gap-1">
+          <div className="flex gap-8 text-grey-7 text-sm">
+            {hasLike ? (
+              <p
+                className="cursor-pointer text-red-dd font-medium"
+                onClick={handleClickRemoveLike}
+              >
+                {like} Thích
+              </p>
+            ) : (
+              <p
+                className="cursor-pointer "
+                onClick={handleClickLike}
+              >
+                {like} Thích
+              </p>
+            )}
+            {hasDislike ? (
+              <p
+                className="cursor-pointer text-red-dd font-medium"
+                onClick={handleClickRemoveDislike}
+              >
+                {dislike} Không Thích
+              </p>
+            ) : (
+              <p
+                className="cursor-pointer "
+                onClick={handleClickDislike}
+              >
+                {dislike} Không Thích
+              </p>
+            )}
+          </div>
+          <div className="text-right">
+            <p className="italic">
+              {<Timestamp relative date={createdAt} autoUpdate />}
             </p>
-          ) : (
-            <p className="cursor-pointer " onClick={handleClickLike}>
-              {like} Thích
-            </p>
-          )}
-          {hasDislike ? (
-            <p
-              className="cursor-pointer text-red-dd font-medium"
-              onClick={handleClickRemoveDislike}
-            >
-              {dislike} Không Thích
-            </p>
-          ) : (
-            <p
-              className="cursor-pointer "
-              onClick={handleClickDislike}
-            >
-              {dislike} Không Thích
-            </p>
-          )}
-          <p>{<Timestamp relative date={createdAt} autoUpdate />}</p>
+          </div>
         </div>
       </div>
     </div>

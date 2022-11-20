@@ -26,7 +26,7 @@ export default function CafeSlick() {
   }
 
   return (
-    <div className="w-full block overflow-hidden">
+    <div className={`w-full block ${isMobile && 'overflow-hidden'}`}>
       {isMobile ? (
         <Slider {...settings}>
           {listCafe.map((item, index) => (

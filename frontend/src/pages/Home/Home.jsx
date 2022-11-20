@@ -38,7 +38,6 @@ export default function Home() {
     event.preventDefault()
 
     const params = {
-      ...query,
       search: searchValue.trim()
     }
 

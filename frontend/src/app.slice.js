@@ -4,14 +4,14 @@ const app = createSlice({
   name: 'app',
   initialState: {
     status: 200,
-    loading: false
+    loading: 0
   },
   extraReducers: builder => {
     builder
       .addMatcher(
         action => action.type.endsWith('/pending'),
         state => {
-          state.loading = true
+          state.loading = state.loading + 1
         }
       )
       .addMatcher(
@@ -20,7 +20,7 @@ const app = createSlice({
           action.type.endsWith('/rejected'),
         (state, action) => {
           state.status = action.payload.status
-          state.loading = false
+          state.loading = state.loading - 1
         }
       )
   }

@@ -1,11 +1,12 @@
 import { unwrapResult } from '@reduxjs/toolkit'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
 import { createComment, getListComment } from '../detailCafe.slice'
 import CommentItem from './CommentItem'
 import lodash from 'lodash'
+import { Skeleton } from '@mui/material'
 
 export default function Comment({ idCafe, isShowModal }) {
   const dispatch = useDispatch()
@@ -42,26 +43,32 @@ export default function Comment({ idCafe, isShowModal }) {
 
     event.target.reset()
   }
+  const loading = useSelector(state => state.app.loading)
 
   return (
     <div className="w-full rounded-md shadow-lg pt-[10px]">
-      <div className="overflow-auto max-h-[400px]">
-        {dataComment.map((item, index) => (
-          <CommentItem
-            id={item._id}
-            name={item.accountId.name || item.accountId.email}
-            image={item.accountId.avatar}
-            content={item.content}
-            likeCount={item.like_count}
-            dislikeCount={item.dislike_count}
-            isLike={item.isLike}
-            isDislike={item.isDislike}
-            isShowModal={isShowModal}
-            createdAt={item.createdAt}
-            key={index}
-          />
+      {dataComment &&
+        (!loading ? (
+          <div className="overflow-auto max-h-[400px]">
+            {dataComment.map((item, index) => (
+              <CommentItem
+                id={item._id}
+                name={item.accountId.name || item.accountId.email}
+                image={item.accountId.avatar}
+                content={item.content}
+                likeCount={item.like_count}
+                dislikeCount={item.dislike_count}
+                isLike={item.isLike}
+                isDislike={item.isDislike}
+                isShowModal={isShowModal}
+                createdAt={item.createdAt}
+                key={index}
+              />
+            ))}
+          </div>
+        ) : (
+          <Skeleton variant="rect" height={400} />
         ))}
-      </div>
       <form onSubmit={handleSubmitSearch} className="relative">
         <input
           type="text"
