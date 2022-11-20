@@ -1,4 +1,6 @@
+const { isEmpty } = require('lodash')
 const likeCafeService = require('../services/like_cafe.service')
+const ratingService = require('../services/rating.service')
 
 const likeCafeController = {
   createLikeCafe: async (req, res) => {
@@ -13,12 +15,24 @@ const likeCafeController = {
       }
       const like_cafe = await likeCafeService.createOne(data)
 
-      return res
-        .status(200)
-        .json({
-          message: 'Successfully',
-          data: like_cafe ? true : false
+      //Rating
+      const ratingData = await ratingService.findOne(data)
+      if (isEmpty(ratingData)) {
+        await ratingService.createOne({
+          accountId: accountId,
+          cafeId: req.params.id,
+          rating: 2
         })
+      } else {
+        await ratingService.update(accountId, req.params.id, {
+          rating: ratingData.rating + 2
+        })
+      }
+
+      return res.status(200).json({
+        message: 'Successfully',
+        data: like_cafe ? true : false
+      })
     } catch (error) {
       return res
         .status(400)
@@ -53,6 +67,15 @@ const likeCafeController = {
       await likeCafeService.deleteOne({
         accountId: req.user._id,
         cafeId: cafeId
+      })
+
+      const ratingData = await ratingService.findOne({
+        accountId: req.user._id,
+        cafeId: cafeId
+      })
+
+      await ratingService.update(req.user._id, cafeId, {
+        rating: ratingData.rating - 2
       })
 
       const response = {

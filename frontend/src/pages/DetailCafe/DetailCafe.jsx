@@ -42,7 +42,6 @@ export default function DetailCafe() {
   const [showModalChooseCollection, setShowModalChooseCollection] =
     useState(false)
   const [collection, setCollection] = useState([])
-  const [showLikeCount, setShowLikeCount] = useState(false)
   const [likeCount, setLikeCount] = useState(false)
   const [hasBookmark, setHasBookmark] = useState(false)
 
@@ -95,12 +94,17 @@ export default function DetailCafe() {
 
   const handleClickBookmark = async () => {
     if (!lodash.isEmpty(authenticated)) {
+      let listCollection = []
+
       await dispatch(getCollection())
         .then(unwrapResult)
-        .then(res => setCollection(res.data))
+        .then(res => {
+          listCollection = res.data
+          setCollection(res.data)
+        })
 
       if (!hasBookmark) {
-        if (collection) {
+        if (!lodash.isEmpty(listCollection)) {
           setShowModalChooseCollection(true)
         } else {
           setShowModalCollection(true)
@@ -169,22 +173,12 @@ export default function DetailCafe() {
                 onClick={handleClickLikeCafe}
               >
                 {isLikeCafe ? (
-                  <i
-                    className="bx bxs-heart text-red-dd"
-                    onMouseEnter={() => setShowLikeCount(true)}
-                    onMouseLeave={() => setShowLikeCount(false)}
-                  ></i>
+                  <i className="bx bxs-heart text-red-dd"></i>
                 ) : (
-                  <i
-                    className="bx bx-heart"
-                    onMouseEnter={() => setShowLikeCount(true)}
-                    onMouseLeave={() => setShowLikeCount(false)}
-                  ></i>
+                  <i className="bx bx-heart"></i>
                 )}
                 <div
-                  className={`absolute z-10 bottom-[40px] left-[-20px] w-[65px] h-[30px] flex items-center justify-center text-base font-montserrat font-semibold rounded bg-grey-fa text-grey-3 ${
-                    !showLikeCount && 'hidden'
-                  }`}
+                  className={`absolute z-10 bottom-[40px] left-[-20px] w-[65px] h-[30px] flex items-center justify-center text-base font-montserrat font-semibold rounded bg-grey-fa text-grey-3`}
                 >
                   <div className="popup-arrow-bottom"></div>
                   {likeCount}
