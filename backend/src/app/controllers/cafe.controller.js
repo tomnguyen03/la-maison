@@ -6,6 +6,7 @@ const filterService = require('../services/filter.service')
 const likeCafeService = require('../services/like_cafe.service')
 const bookmarkService = require('../services/bookmark.service')
 const lodash = require('lodash')
+const axios = require('axios')
 
 const cafeController = {
   createCafe: async (req, res) => {
@@ -185,6 +186,44 @@ const cafeController = {
       }
     } catch (error) {
       return error
+    }
+  },
+
+  updateAllCafe: async (req, res) => {
+    try {
+      const list = await cafeService.find()
+      const GOONG_API_KEY = '4OJppCx27xeE76XzqGo5nuqljr5zJoV4fdYzhyul'
+
+      list.map(async item => {
+        const id = item._id
+
+        const getWard = await addressService.getWardsByCode({
+          code: item.wardId
+        })
+
+        const detail_address =
+          item.detail_address + ', ' + getWard.path
+
+        let location = {}
+
+        await axios
+          .get(
+            `https://rsapi.goong.io/geocode?api_key=${GOONG_API_KEY}&address=${detail_address}`
+          )
+          .then(
+            data =>
+              (location = data.data.results[0].geometry.location)
+          )
+          .catch(error => console.log(error))
+
+        await cafeService.update(id, { location: location })
+      })
+
+      const list1 = await cafeService.find()
+
+      return res.status(200).json(list1)
+    } catch (error) {
+      console.log(error)
     }
   }
 }

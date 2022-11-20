@@ -38,6 +38,14 @@ const cafeService = {
     } catch (error) {
       return error
     }
+  },
+
+  update: async (id, data) => {
+    try {
+      return CafeModel.updateOne({ _id: id }, data)
+    } catch (error) {
+      return error
+    }
   }
 }
 

@@ -21,6 +21,10 @@ import CreateCollection from '../User/Collection/CreateCollection'
 import Scroll from 'react-scroll'
 import ChooseCollection from './components/ChooseCollection'
 import lodash from 'lodash'
+import Distance from './components/Distance'
+import CarouselSkeleton from './components/CarouselSkeleton'
+import { Skeleton } from '@mui/material'
+import LocalStorage from '../../constants/localStorage'
 
 export default function DetailCafe() {
   Scroll.animateScroll.scrollToTop()
@@ -113,7 +117,6 @@ export default function DetailCafe() {
         })
       }
     } else {
-      console.log('object')
       setShowModalAuth(true)
     }
   }
@@ -126,6 +129,10 @@ export default function DetailCafe() {
     setShowModalChooseCollection(false)
   }
 
+  const myLocation = JSON.parse(
+    localStorage.getItem(LocalStorage.LOCATION)
+  )
+
   return (
     <div className="mb-10">
       {dataCafe && (
@@ -134,23 +141,28 @@ export default function DetailCafe() {
             <title>{dataCafe.name}</title>
           </Helmet>
           <div className="relative">
-            <Carousel>
-              {imageCafe &&
-                imageCafe.map((item, index) => (
-                  <div
-                    className="duration-500 ease-in-out h-[250px] lg:h-[400px]"
-                    data-carousel-item
-                    key={index}
-                  >
-                    <img
-                      src={item}
-                      className="bg-no-repeat bg-cover object-cover absolute block w-full h-full lg:h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-blue-1"
-                      loading="lazy"
-                      alt=""
-                    ></img>
-                  </div>
-                ))}
-            </Carousel>
+            {dataCafe.images ? (
+              <Carousel>
+                {imageCafe &&
+                  imageCafe.map((item, index) => (
+                    <div
+                      className="duration-500 ease-in-out h-[250px] lg:h-[400px]"
+                      data-carousel-item
+                      key={index}
+                    >
+                      <img
+                        src={item}
+                        className="bg-no-repeat bg-cover object-cover absolute block w-full h-full lg:h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-blue-1"
+                        loading="lazy"
+                        alt=""
+                      ></img>
+                    </div>
+                  ))}
+              </Carousel>
+            ) : (
+              <CarouselSkeleton />
+            )}
+
             <div className="absolute bottom-10 lg:bottom-4 right-[10px] lg:right-[200px] z-10 flex items-center justify-end gap-10">
               <div
                 className="text-[28px] text-grey-f5 cursor-pointer relative"
@@ -198,22 +210,51 @@ export default function DetailCafe() {
             </div>
           </div>
           <div className="container mx-auto mt-10 border-b-2 border-grey-d9 pb-6 px-4">
+            {dataCafe.location && myLocation ? (
+              <Distance
+                location={dataCafe.location}
+                myLocation={myLocation}
+              />
+            ) : (
+              myLocation && (
+                <div className="mb-2 flex justify-end gap-2">
+                  <Skeleton variant="text" height={20} width={200} />
+                </div>
+              )
+            )}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
                 <div className="border-b-2 border-grey-d9 pb-6">
-                  <h1 className="text-3xl">{dataCafe.name}</h1>
-                  <p className="text-sm mt-6">
-                    {dataCafe.description}
-                  </p>
+                  {dataCafe.name ? (
+                    <h1 className="text-3xl">{dataCafe.name}</h1>
+                  ) : (
+                    <Skeleton variant="text" height={36} />
+                  )}
+
+                  {dataCafe.description ? (
+                    <p className="text-sm mt-6">
+                      {dataCafe.description}
+                    </p>
+                  ) : (
+                    <Skeleton variant="text" height={80} />
+                  )}
                 </div>
                 <div className="mt-6 flex flex-col gap-5 border-b-2 border-grey-d9 pb-6">
                   <div className="flex items-center gap-4">
                     <div>
                       <i className="bx bx-location-plus text-2xl"></i>
                     </div>
-                    <div className="text-sm">
+                    <div className="text-sm w-full">
                       <p className="text-base mb-1">Địa chỉ</p>
-                      <span>{dataCafe.detail_address}</span>
+                      {dataCafe.detail_address ? (
+                        <span>{dataCafe.detail_address}</span>
+                      ) : (
+                        <Skeleton
+                          variant="text"
+                          height={19}
+                          style={{ width: '100%' }}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -222,7 +263,7 @@ export default function DetailCafe() {
                     </div>
                     <div className="text-sm">
                       <p className="text-base mb-1">Instagram</p>
-                      <span>{dataCafe.instagram || 'Updating'}</span>
+                      <span>{dataCafe.instagram || ''}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -231,35 +272,49 @@ export default function DetailCafe() {
                     </div>
                     <div className="text-sm">
                       <p className="text-base mb-1">Facebook</p>
-                      <span>{dataCafe.facebook || 'Updating'}</span>
+                      <span>{dataCafe.facebook || ''}</span>
                     </div>
                   </div>
                 </div>
                 <div className="mt-6 flex flex-col gap-6">
                   <div className="">
                     <h3>STYLES</h3>
-                    <div className="flex gap-4 mt-1">
-                      {dataCafe.style_id &&
+                    <div className="flex gap-4 mt-1 w-full">
+                      {dataCafe.style_id ? (
                         dataCafe.style_id.map((item, index) => (
                           <Button
                             title={item.name}
                             className="w-fit px-3 py-2 bg-grey-b8"
                             key={index}
                           />
-                        ))}
+                        ))
+                      ) : (
+                        <Skeleton
+                          variant="text"
+                          height={44}
+                          style={{ width: '100%' }}
+                        />
+                      )}
                     </div>
                   </div>
                   <div>
                     <h3>VIBES</h3>
                     <div className="flex gap-4 mt-1">
-                      {dataCafe.vibe_id &&
+                      {dataCafe.vibe_id ? (
                         dataCafe.vibe_id.map((item, index) => (
                           <Button
                             title={item.name}
                             className="w-fit px-3 py-2 bg-grey-b8"
                             key={index}
                           />
-                        ))}
+                        ))
+                      ) : (
+                        <Skeleton
+                          variant="text"
+                          height={44}
+                          style={{ width: '100%' }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

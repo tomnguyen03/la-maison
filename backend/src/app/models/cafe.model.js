@@ -40,6 +40,10 @@ const Cafe = new Schema(
       type: String,
       required: true
     },
+    location: {
+      type: Object,
+      required: false
+    },
     instagram: {
       type: String,
       required: false
