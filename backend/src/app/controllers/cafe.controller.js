@@ -7,6 +7,7 @@ const likeCafeService = require('../services/like_cafe.service')
 const bookmarkService = require('../services/bookmark.service')
 const lodash = require('lodash')
 const axios = require('axios')
+const ratingService = require('../services/rating.service')
 
 const cafeController = {
   createCafe: async (req, res) => {
@@ -163,6 +164,34 @@ const cafeController = {
           accountId: req.user._id,
           cafeId: req.params.id
         })
+
+        //Rating
+        const ratingData = await ratingService.findOne({
+          accountId: req.user._id,
+          cafeId: req.params.id
+        })
+
+        if (lodash.isEmpty(ratingData)) {
+          await ratingService.createOne({
+            accountId: req.user._id,
+            cafeId: req.params.id,
+            view_count: 1,
+            rating: 1
+          })
+        } else {
+          let view_count = ratingData.view_count + 1
+          let rating = ratingData.rating
+
+          if (view_count === 5) {
+            rating = rating + 1
+          }
+
+          await ratingService.update(req.user._id, req.params.id, {
+            view_count: view_count,
+            rating: rating
+          })
+        }
+
         const data = {
           ...listCafeDetail._doc,
           like_count: likeCount,

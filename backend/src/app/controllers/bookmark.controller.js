@@ -1,6 +1,8 @@
 const bookmarkService = require('../services/bookmark.service')
 const cafeService = require('../services/cafe.service')
 const collectionService = require('../services/collection.service')
+const ratingService = require('../services/rating.service')
+const lodash = require('lodash')
 
 const bookmarkController = {
   createBookmark: async (req, res) => {
@@ -24,6 +26,23 @@ const bookmarkController = {
       await collectionService.update(req.body.collectionId, {
         images
       })
+
+      //Rating
+      const ratingData = await ratingService.findOne({
+        accountId: accountId,
+        cafeId: req.body.cafeId
+      })
+      if (lodash.isEmpty(ratingData)) {
+        await ratingService.createOne({
+          accountId: accountId,
+          cafeId: req.body.cafeId,
+          rating: 3
+        })
+      } else {
+        await ratingService.update(accountId, req.body.cafeId, {
+          rating: ratingData.rating + 3
+        })
+      }
 
       return res.json({ message: 'Successfully', data: bookmark })
     } catch (error) {
@@ -57,6 +76,12 @@ const bookmarkController = {
       }
 
       await bookmarkService.deleteOne(data)
+
+      //Rating
+      const ratingData = await ratingService.findOne(data)
+      await ratingService.update(req.user._id, req.body.cafeId, {
+        rating: ratingData.rating - 3
+      })
 
       const response = {
         message: 'Sucessfully'
