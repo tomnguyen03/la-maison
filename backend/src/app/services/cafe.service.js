@@ -84,7 +84,6 @@ const cafeService = {
       const cafes = await cafeModel
         .find({ isActive: true })
         .select('style_id vibe_id districtId')
-
       const cafeFormat = formatHelper.formatCafe(cafes)
       const styleIdsFormat = formatHelper.formatArrayIds(styleIds)
       const vibeIdsFormat = formatHelper.formatArrayIds(vibeIds)

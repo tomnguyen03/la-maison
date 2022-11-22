@@ -10,6 +10,7 @@ route.put(
   authMiddleware.isUser,
   controller.updateAllCafe
 )
+route.get('/recommends', authMiddleware.isOptionLogin, controller.getCafesRecommend)
 route.get(
   '/recommends',
   authMiddleware.isOptionLogin,
@@ -20,5 +21,6 @@ route.get(
   authMiddleware.isOptionLogin,
   controller.getCafeDetail
 )
+
 
 module.exports = route
