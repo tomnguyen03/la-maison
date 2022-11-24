@@ -11,6 +11,11 @@ route.put(
   controller.updateAllCafe
 )
 route.get(
+  '/recommends',
+  authMiddleware.isOptionLogin,
+  controller.getCafesRecommend
+)
+route.get(
   '/:id',
   authMiddleware.isOptionLogin,
   controller.getCafeDetail

@@ -18,6 +18,14 @@ const ratingService = {
     }
   },
 
+  find: async data => {
+    try {
+      return ratingModel.find(data)
+    } catch (error) {
+      return error
+    }
+  },
+
   deleteOne: async data => {
     try {
       return ratingModel.deleteOne(data)

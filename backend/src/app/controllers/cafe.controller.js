@@ -254,6 +254,22 @@ const cafeController = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  getCafesRecommend: async (req, res) => {
+    const userId = req.user
+    if (lodash.isEmpty(userId)) {
+      await cafeController.getListCafe(req, res)
+    } else {
+      const ratingHistory = await ratingService.find({
+        accountId: userId._id
+      })
+
+      if (lodash.isEmpty(ratingHistory)) {
+        await cafeController.getListCafe(req, res)
+      } else
+        await cafeService.getCafesRecommends(req, res, userId._id)
+    }
   }
 }
 
