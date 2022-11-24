@@ -6,7 +6,7 @@ const cafeApi = {
   },
 
   getCafe(data) {
-    return http.get(`cafe`, data)
+    return http.get(`cafe/recommends`, data)
   },
 
   getDetailCafe(data) {
