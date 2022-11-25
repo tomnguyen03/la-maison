@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer'
 import { useDispatch } from 'react-redux'
 import { getListCafe } from '../Cafe/cafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { Helmet } from 'react-helmet-async'
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('')
@@ -46,6 +47,9 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>La Maison</title>
+      </Helmet>
       <div className="container mx-auto px-4 lg:px-0">
         <div className="search-bar flex items-center justify-center">
           <div className="w-[100%] lg:w-[50%] relative">

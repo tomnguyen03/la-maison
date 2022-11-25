@@ -3,6 +3,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import PasswordIcon from '@mui/icons-material/Password'
 import { NavLink, Outlet } from 'react-router-dom'
 import { path } from 'src/constants/path'
+import { Helmet } from 'react-helmet-async'
 
 export default function Profile() {
   let activeStyle = {
@@ -11,6 +12,9 @@ export default function Profile() {
   }
   return (
     <div className="container mx-auto lg:flex px-4 lg:px-0">
+      <Helmet>
+        <title>Cài đặt</title>
+      </Helmet>
       <div className="flex-[0_0_190px] flex flex-row lg:flex-col gap-4 mr-[50px]">
         <NavLink
           style={({ isActive }) =>

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { createSuggest } from './suggest.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
+import { Helmet } from 'react-helmet-async'
 
 export default function Suggest() {
   const dispatch = useDispatch()
@@ -40,6 +41,9 @@ export default function Suggest() {
 
   return (
     <>
+      <Helmet>
+        <title>Chia sẻ quán cafe</title>
+      </Helmet>
       <div className="w-full px-4 lg:px-0 lg:w-[600px] mx-auto mb-6">
         <h1 className="text-3xl">
           Chia sẻ quán cafe, địa chỉ trà sữa <br />
