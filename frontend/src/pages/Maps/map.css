@@ -1,0 +1,8 @@
+.location:hover .location-name {
+  color: #dd3544;
+  font-weight: bold;
+}
+
+.maps {
+  height: calc(100vh - 88px);
+}

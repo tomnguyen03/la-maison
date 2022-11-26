@@ -26,7 +26,7 @@ export default function CafeItem(props) {
             onClick={() => handleClick(id)}
           />
           <p className="mt-2 text-sm text-right pr-3 flex content-center justify-end gap-1">
-            <i className="bx bx-location-plus text-base"></i>
+            <i className="bx bx-map text-base"></i>
             {address}
           </p>
           <h2

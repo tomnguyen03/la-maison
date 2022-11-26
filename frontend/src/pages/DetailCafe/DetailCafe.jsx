@@ -236,7 +236,7 @@ export default function DetailCafe() {
                 <div className="mt-6 flex flex-col gap-5 border-b-2 border-grey-d9 pb-6">
                   <div className="flex items-center gap-4">
                     <div>
-                      <i className="bx bx-location-plus text-2xl"></i>
+                      <i className="bx bx-map text-2xl"></i>
                     </div>
                     <div className="text-sm w-full">
                       <p className="text-base mb-1">Địa chỉ</p>

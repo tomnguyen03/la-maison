@@ -11,6 +11,7 @@ class Path {
     this.detailCafe = ':idCafe'
     this.listCollection = '/collection'
     this.paramsCollection = ':idCollection'
+    this.maps = '/maps'
   }
 }
 

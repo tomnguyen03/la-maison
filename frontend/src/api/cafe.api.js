@@ -27,6 +27,10 @@ const cafeApi = {
 
   getListCafeByCollection(data) {
     return http.get(`bookmark/${data}`)
+  },
+
+  getListLocation() {
+    return http.get(`cafe/location`)
   }
 }
 
