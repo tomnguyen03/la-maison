@@ -121,6 +121,17 @@ const cafeController = {
     }
   },
 
+  getListLocationCafe: async (req, res) => {
+    const list = await cafeService.findLocation()
+
+    const response = {
+      message: 'Lấy danh sách list location',
+      data: list
+    }
+
+    return res.status(200).json(response)
+  },
+
   getCafeDetail: async (req, res) => {
     try {
       const listCafeDetail = await cafeService.findById(req.params.id)

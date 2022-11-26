@@ -18,6 +18,7 @@ import CreateCafe from 'src/pages/Cafe/CreateCafe'
 import DetailLayout from 'src/layouts/DetailLayout/DetailLayout'
 import DetailCafe from 'src/pages/DetailCafe/DetailCafe'
 import CollectionPage from 'src/pages/Collection/CollectionPage'
+import Maps from 'src/pages/Maps/Maps'
 
 export default function RoutesComponent() {
   return (
@@ -35,6 +36,7 @@ export default function RoutesComponent() {
               element={<Navigate to={path.home} replace />}
             />
           </Route>
+          <Route path={path.maps} element={<Maps />} />
 
           <Route element={<AuthenticatedGuard />}>
             <Route path={path.user} element={<User />} />

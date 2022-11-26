@@ -76,7 +76,7 @@ export default function Header() {
         <Link to="/" className="hidden lg:block">
           VỀ LA MAISON
         </Link>
-        <Link to="/" className="hidden lg:block">
+        <Link to={path.map} className="hidden lg:block">
           BẢN ĐỒ
         </Link>
         <div className="relative" ref={menuRef}>

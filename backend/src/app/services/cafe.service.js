@@ -26,8 +26,18 @@ const cafeService = {
         let skip = (Number.parseInt(page) - 1) * limit
         return CafeModel.find(query).limit(limit).skip(skip).lean()
       } else {
-        return CafeModel.find().limit(5)
+        return CafeModel.find()
       }
+    } catch (error) {
+      return error
+    }
+  },
+
+  findLocation: async () => {
+    try {
+      return CafeModel.find().select(
+        '_id name detail_address location images facebook instagram'
+      )
     } catch (error) {
       return error
     }
