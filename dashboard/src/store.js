@@ -3,9 +3,11 @@ import {
   getDefaultMiddleware
 } from '@reduxjs/toolkit'
 import appReducer from 'src/app.slice'
+import authReducer from 'src/pages/Login/auth.slice'
 
 const rootReducer = {
   app: appReducer,
+  auth: authReducer
 }
 const store = configureStore({
   reducer: rootReducer,
