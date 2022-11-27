@@ -14,7 +14,7 @@ export default function MapItem({
   handleClickDirection,
   handleCancel
 }) {
-  const fb = facebook.split('/')[3]
+  const fb = facebook.split('//www.')[1]
 
   return (
     <div className="absolute z-10 left-0 top-0 bottom-0 w-[350px] bg-white shadow-lg">
@@ -73,7 +73,7 @@ export default function MapItem({
             </div>
             <div className="flex items-center gap-2">
               <i className="bx bxl-facebook-circle text-2xl"></i>
-              <div className="line-clamp-1">{fb}</div>
+              <div className="break-words">{fb}</div>
             </div>
             <div className="flex items-center gap-2">
               <i className="bx bxl-instagram text-2xl"></i>

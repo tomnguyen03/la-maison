@@ -31,7 +31,7 @@ export default function MapDistance({
     height: '100%',
     latitude: 16.07558,
     longitude: 108.1558308,
-    zoom: 10,
+    zoom: 14,
     bearing: 0,
     pitch: 0
   })
