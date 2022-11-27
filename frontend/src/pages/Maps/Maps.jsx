@@ -19,6 +19,7 @@ import {
 import { getListLocation } from './maps.slice'
 import './map.css'
 import MapItem from './MapItem'
+import LocalStorage from 'src/constants/localStorage'
 
 export default function Maps() {
   const dispatch = useDispatch()
@@ -40,7 +41,7 @@ export default function Maps() {
     height: '100%',
     latitude: 16.07558,
     longitude: 108.1558308,
-    zoom: 11,
+    zoom: 14,
     bearing: 0,
     pitch: 0
   })
@@ -61,7 +62,11 @@ export default function Maps() {
       accessToken: GOONG_API_KEY
     })
 
-    const origin = '16.07558,108.1558308'
+    const myLocation = JSON.parse(
+      localStorage.getItem(LocalStorage.LOCATION)
+    )
+
+    const origin = `${myLocation.latitude},${myLocation.longitude}`
     const destination = `${data.latitude},${data.longitude}`
 
     base
