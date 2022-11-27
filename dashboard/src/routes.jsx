@@ -7,6 +7,7 @@ import UnAuthenticatedGuard from 'src/guards/UnAuthenticatedGuard'
 import AuthLayout from './layouts/AuthLayout'
 import AuthenticatedGuard from './guards/AuthenticatedGuard'
 import Home from './pages/Home/Home'
+import AdminLayout from './layouts/AdminLayout'
 
 export default function RoutesComponent() {
   return (
@@ -19,7 +20,9 @@ export default function RoutesComponent() {
         </Route>
 
         <Route element={<AuthenticatedGuard />}>
-          <Route path={path.home} element={<Home />} />
+          <Route element={<AdminLayout />}>
+            <Route path={path.home} element={<Home />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
