@@ -24,6 +24,7 @@ const commentRoute = require('./resources/routers/comment.route')
 const likeCommentRoute = require('./resources/routers/like_comment.route')
 const dislikeCommentRoute = require('./resources/routers/dislike_comment.route')
 const bookmarkRoute = require('./resources/routers/bookmark.route')
+const countRoute = require('./resources/routers/count.route')
 
 dotenv.config()
 
@@ -49,6 +50,7 @@ app.use('/comment', commentRoute)
 app.use('/like-comment', likeCommentRoute)
 app.use('/dislike-comment', dislikeCommentRoute)
 app.use('/bookmark', authMiddleware.isOptionLogin, bookmarkRoute)
+app.use('/count', countRoute)
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ListFilter from './components/ListFilter/ListFilter'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useQuery from 'src/hooks/useQuery'
 import { path } from 'src/constants/path'
 import qs from 'query-string'
@@ -8,7 +8,7 @@ import ListCafe from './components/ListCafe/ListCafe'
 import Pagination from './components/Pagination/Pagination'
 import Footer from './components/Footer/Footer'
 import { useDispatch } from 'react-redux'
-import { getListCafe } from '../Cafe/cafe.slice'
+import { getListCafe, updateCount } from '../Cafe/cafe.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Helmet } from 'react-helmet-async'
 
@@ -17,6 +17,7 @@ export default function Home() {
   const navigate = useNavigate()
   const query = useQuery()
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const [listCafe, setListCafe] = useState([])
   const [totalItem, setTotalItem] = useState(0)
@@ -34,6 +35,12 @@ export default function Home() {
         setTotalItem(res.totalItem)
       })
   }, [dispatch, query])
+
+  useEffect(() => {
+    dispatch(updateCount({ url: location.pathname })).then(
+      unwrapResult
+    )
+  }, [location.pathname, dispatch])
 
   const handleSubmitSearch = event => {
     event.preventDefault()
