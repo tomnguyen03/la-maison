@@ -1,0 +1,8 @@
+const express = require('express')
+const route = express.Router()
+const controller = require('../../app/controllers/count_view.controller')
+
+route.put('', controller.createCount)
+route.get('', controller.getCount)
+
+module.exports = route

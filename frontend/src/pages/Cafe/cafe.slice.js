@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { payloadCreator } from 'src/utils/helper'
 import addressApi from 'src/api/address.api'
-import cafeApi from '../../api/cafe.api'
+import cafeApi from 'src/api/cafe.api'
+import countApi from 'src/api/count.api'
 
 export const getAllProvince = createAsyncThunk(
   'getProvinceByName',
@@ -31,4 +32,9 @@ export const getListCafe = createAsyncThunk(
 export const getListCafeByCollection = createAsyncThunk(
   'getListCafeByCollection',
   payloadCreator(cafeApi.getListCafeByCollection)
+)
+
+export const updateCount = createAsyncThunk(
+  'updateCount',
+  payloadCreator(countApi.updateCount)
 )

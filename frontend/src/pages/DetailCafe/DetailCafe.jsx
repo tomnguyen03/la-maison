@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import {
   createLikeCafe,
   deleteBookmark,
@@ -25,6 +25,7 @@ import Distance from './components/Distance'
 import CarouselSkeleton from './components/CarouselSkeleton'
 import { Skeleton } from '@mui/material'
 import LocalStorage from '../../constants/localStorage'
+import { updateCount } from '../Cafe/cafe.slice'
 
 export default function DetailCafe() {
   Scroll.animateScroll.scrollToTop()
@@ -32,6 +33,7 @@ export default function DetailCafe() {
   const { idCafe } = useParams()
   const dispatch = useDispatch()
   const authenticated = useAuthenticated()
+  const location = useLocation()
 
   const [dataCafe, setDataCafe] = useState({})
   const [imageCafe, setImageCafe] = useState([])
@@ -64,6 +66,12 @@ export default function DetailCafe() {
         setHasBookmark(res.data.isBookmark)
       })
   }, [dispatch, idCafe])
+
+  useEffect(() => {
+    dispatch(updateCount({ url: location.pathname })).then(
+      unwrapResult
+    )
+  }, [location.pathname, dispatch])
 
   const handleClickLikeCafe = async () => {
     if (!lodash.isEmpty(authenticated)) {
