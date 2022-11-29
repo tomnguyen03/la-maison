@@ -22,13 +22,6 @@ export default function CardLineChart() {
             borderColor: '#4c51bf',
             data: [65, 78, 66, 44, 56, 67, 75],
             fill: false
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: '#fff',
-            borderColor: '#fff',
-            data: [40, 68, 86, 74, 56, 60, 87]
           }
         ]
       },

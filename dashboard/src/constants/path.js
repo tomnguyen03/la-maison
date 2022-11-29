@@ -1,8 +1,9 @@
 class Path {
   constructor() {
     this.home = '/'
+    this.dashboard = '/dashboard'
     this.login = '/login'
-    this.settings = '/settings'
+    this.users = '/users'
     this.tables = '/tables'
   }
 }

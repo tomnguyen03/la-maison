@@ -11,5 +11,7 @@ route.put(
   authMiddleware.isUser,
   controller.changePassword
 )
+route.get('/statistical', controller.statistical)
+route.get('/user', controller.getAllUser)
 
 module.exports = route

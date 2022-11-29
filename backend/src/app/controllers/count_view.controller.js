@@ -14,7 +14,6 @@ const countController = {
 
       let data = {}
 
-      console.log(countItem)
       if (lodash.isEmpty(countItem)) {
         data = {
           url: url,
@@ -44,9 +43,13 @@ const countController = {
     try {
       const listCount = await countService.find()
 
+      let totalCount = 0
+      listCount.map(item => (totalCount += item.views))
+
       const response = {
         message: 'Lấy danh sách list thành công',
-        data: listCount
+        data: listCount,
+        totalCount: totalCount
       }
 
       return res.json(response)

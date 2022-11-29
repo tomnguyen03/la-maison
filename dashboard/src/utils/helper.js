@@ -7,7 +7,7 @@ export const payloadCreator = asyncFunc => async (arg, thunkAPI) => {
   }
 }
 
-export const formatMoney = (value, character = '.') =>
+export const formatThousand = (value, character = '.') =>
   String(value).replace(/\B(?=(\d{3})+(?!\d))/g, character)
 
 export const totalMoney = item => {
