@@ -106,6 +106,36 @@ const AuthController = {
         .status(400)
         .json({ message: error.message, data: error })
     }
+  },
+
+  statistical: async (req, res) => {
+    try {
+      const list = await accountService.statistical()
+      const totalUser = await accountService.count()
+
+      return res.status(200).json({
+        message: 'Successfully',
+        data: list,
+        totalUser: totalUser
+      })
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ message: error.message, data: error })
+    }
+  },
+
+  getAllUser: async (req, res) => {
+    try {
+      const data = await accountService.find()
+
+      return res.status(200).json({
+        message: 'Successfully',
+        data: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

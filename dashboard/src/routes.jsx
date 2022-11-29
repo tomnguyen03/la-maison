@@ -1,5 +1,10 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes
+} from 'react-router-dom'
 
 import { path } from 'src/constants/path'
 import Login from 'src/pages/Login/Login'
@@ -8,6 +13,7 @@ import AuthLayout from './layouts/AuthLayout'
 import AuthenticatedGuard from './guards/AuthenticatedGuard'
 import Home from './pages/Home/Home'
 import AdminLayout from './layouts/AdminLayout'
+import User from './pages/User/User'
 
 export default function RoutesComponent() {
   return (
@@ -21,7 +27,12 @@ export default function RoutesComponent() {
 
         <Route element={<AuthenticatedGuard />}>
           <Route element={<AdminLayout />}>
-            <Route path={path.home} element={<Home />} />
+            <Route
+              path={path.home}
+              element={<Navigate to="/dashboard" />}
+            />
+            <Route path={path.dashboard} element={<Home />} />
+            <Route path={path.users} element={<User />} />
           </Route>
         </Route>
       </Routes>

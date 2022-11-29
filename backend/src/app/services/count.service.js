@@ -20,7 +20,7 @@ const countService = {
 
   find: async () => {
     try {
-      return countModel.find()
+      return countModel.find().sort({ views: -1 })
     } catch (error) {
       return error
     }

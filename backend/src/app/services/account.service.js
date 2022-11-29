@@ -17,6 +17,47 @@ const accountService = {
       return error
     }
   },
+  find: async () => {
+    try {
+      return AccountModel.find()
+        .populate('roleId')
+        .select(
+          '_id email roleId name avatar phone detail_address createdAt isActive'
+        )
+    } catch (error) {
+      return error
+    }
+  },
+  count: async () => {
+    try {
+      return AccountModel.count()
+    } catch (error) {
+      return error
+    }
+  },
+  statistical: async () => {
+    try {
+      return AccountModel.aggregate([
+        {
+          $group: {
+            _id: {
+              month: { $month: '$createdAt' },
+              year: { $year: '$createdAt' },
+              month_year: {
+                $dateToString: { format: '%m/%Y', date: '$createdAt' }
+              }
+            },
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { '_id.year': -1, '_id.month': -1 }
+        }
+      ])
+    } catch (error) {
+      return error
+    }
+  },
   update: async (id, data) => {
     try {
       return AccountModel.updateOne({ _id: id }, data)
