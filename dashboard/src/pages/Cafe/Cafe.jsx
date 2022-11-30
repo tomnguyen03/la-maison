@@ -2,14 +2,14 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import CardTable from './CardTable'
-import { getAllUsers } from '../../components/Headers/statistical.slice'
+import { getAllCafe } from 'src/components/Headers/statistical.slice'
 
-export default function User() {
+export default function Cafe() {
   const dispatch = useDispatch()
   const [data, setData] = useState([])
 
   useEffect(() => {
-    dispatch(getAllUsers())
+    dispatch(getAllCafe())
       .then(unwrapResult)
       .then(res => setData(res.data))
   }, [dispatch])

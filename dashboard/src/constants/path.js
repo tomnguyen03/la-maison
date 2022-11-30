@@ -4,7 +4,8 @@ class Path {
     this.dashboard = '/dashboard'
     this.login = '/login'
     this.users = '/users'
-    this.tables = '/tables'
+    this.cafe = '/cafe'
+    this.maps = '/maps'
   }
 }
 

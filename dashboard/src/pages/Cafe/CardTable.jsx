@@ -50,7 +50,7 @@ export default function CardTable({ color, data }) {
                     : 'text-white')
                 }
               >
-                Users
+                Cafes
               </h3>
             </div>
           </div>
@@ -60,16 +60,6 @@ export default function CardTable({ color, data }) {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
-                <th
-                  className={
-                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                    (color === 'light'
-                      ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                      : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                  }
-                >
-                  Email
-                </th>
                 <th
                   className={
                     'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
@@ -88,27 +78,7 @@ export default function CardTable({ color, data }) {
                       : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                   }
                 >
-                  Phone
-                </th>
-                <th
-                  className={
-                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                    (color === 'light'
-                      ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                      : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                  }
-                >
                   Address
-                </th>
-                <th
-                  className={
-                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                    (color === 'light'
-                      ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                      : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                  }
-                >
-                  Role
                 </th>
                 <th
                   className={
@@ -137,7 +107,7 @@ export default function CardTable({ color, data }) {
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                       <img
                         src={
-                          item.avatar ||
+                          item.images[0] ||
                           'https://t3.ftcdn.net/jpg/00/64/67/52/360_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg'
                         }
                         alt="avatar"
@@ -151,20 +121,12 @@ export default function CardTable({ color, data }) {
                             : 'text-white')
                         }
                       >
-                        {item.email}
+                        {item.name}
                       </span>
                     </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.name}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.phone}
-                    </td>
+
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                       {item.detail_address}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 uppercase">
-                      {item.roleId.name}
                     </td>
                   </tr>
                 ))}
