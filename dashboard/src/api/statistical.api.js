@@ -15,6 +15,10 @@ const statisticalApi = {
 
   getAllCafe() {
     return http.get('/cafe')
+  },
+
+  getListLocation() {
+    return http.get(`cafe/location`)
   }
 }
 

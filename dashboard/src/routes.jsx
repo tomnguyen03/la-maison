@@ -14,6 +14,8 @@ import AuthenticatedGuard from './guards/AuthenticatedGuard'
 import Home from './pages/Home/Home'
 import AdminLayout from './layouts/AdminLayout'
 import User from './pages/User/User'
+import Cafe from './pages/Cafe/Cafe'
+import Maps from './pages/Maps/Maps'
 
 export default function RoutesComponent() {
   return (
@@ -33,6 +35,8 @@ export default function RoutesComponent() {
             />
             <Route path={path.dashboard} element={<Home />} />
             <Route path={path.users} element={<User />} />
+            <Route path={path.cafe} element={<Cafe />} />
+            <Route path={path.maps} element={<Maps />} />
           </Route>
         </Route>
       </Routes>

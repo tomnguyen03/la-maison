@@ -13,6 +13,7 @@ const shareLocationController = {
         style: req.body.style,
         detail_address: req.body.detail_address,
         instagram: req.body.instagram,
+        facebook: req.body.facebook,
         website: req.body.website
       }
       const response = await shareLocationService.createOne(data)
@@ -28,6 +29,7 @@ const shareLocationController = {
   getListShareLocation: async (req, res) => {
     try {
       const ListShareLocation = await shareLocationService.find()
+
       const response = {
         message: 'Lấy danh sách list suggest thành công',
         data: ListShareLocation

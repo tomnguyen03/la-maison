@@ -109,7 +109,7 @@ export default function Sidebar() {
               <li className="items-center">
                 <NavLink
                   className="text-xs uppercase py-3 font-bold block  text-blueGray-700 hover:text-blueGray-500"
-                  to="/tables"
+                  to="/cafe"
                 >
                   <i className="fa-solid fa-store mr-2 text-sm opacity-75"></i>{' '}
                   Café
@@ -119,7 +119,7 @@ export default function Sidebar() {
               <li className="items-center">
                 <NavLink
                   className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
-                  to="/admin/maps"
+                  to="/maps"
                 >
                   <i className="fas fa-map-marked mr-2 text-sm opacity-75"></i>{' '}
                   Maps

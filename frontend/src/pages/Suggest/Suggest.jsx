@@ -20,6 +20,7 @@ export default function Suggest() {
       style: '',
       detail_address: '',
       instagram: '',
+      facebook: '',
       website: ''
     },
     resolver: yupResolver(schema)
@@ -99,6 +100,17 @@ export default function Suggest() {
               name="instagram"
               type="text"
               placeholder="instagram.com/abc..."
+              form={form}
+            />
+          </div>
+          <div className="mt-6">
+            <p className="text-sm font-semibold">
+              Liên kết/tên facebook của quán?
+            </p>
+            <InputField
+              name="facebook"
+              type="text"
+              placeholder="facebook.com/abc..."
               form={form}
             />
           </div>
