@@ -21,6 +21,7 @@ import Suggest from './pages/Suggest/Suggest'
 import { useSelector } from 'react-redux'
 import lodash from 'lodash'
 import NotFound from './pages/NotFound/NotFound'
+import CreateCafe from './pages/CreateCafe/CreateCafe'
 
 export default function RoutesComponent() {
   const profile = useSelector(state => state.auth.profile)
@@ -87,7 +88,7 @@ export default function RoutesComponent() {
             />
             <Route
               path={'/staff' + path.createCafe}
-              element={<User />}
+              element={<CreateCafe />}
             />
           </Route>
         </Route>
