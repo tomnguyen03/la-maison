@@ -6,7 +6,7 @@ import lodash from 'lodash'
 
 export default function AuthenticatedGuard() {
   const authenticated = useAuthenticated()
-  if (lodash.isEmpty(authenticated))
+  if (authenticated.roleId.name === 'staff')
     return <Navigate to={path.login} />
 
   return (

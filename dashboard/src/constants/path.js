@@ -6,6 +6,10 @@ class Path {
     this.users = '/users'
     this.cafe = '/cafe'
     this.maps = '/maps'
+    this.admin = '/admin'
+    this.staff = '/staff'
+    this.suggest = '/suggest-list'
+    this.createCafe = '/create-cafe'
   }
 }
 

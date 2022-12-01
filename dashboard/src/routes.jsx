@@ -16,11 +16,20 @@ import AdminLayout from './layouts/AdminLayout'
 import User from './pages/User/User'
 import Cafe from './pages/Cafe/Cafe'
 import Maps from './pages/Maps/Maps'
+import StaffLayout from './layouts/StaffLayout'
+import Suggest from './pages/Suggest/Suggest'
+import { useSelector } from 'react-redux'
+import lodash from 'lodash'
+import NotFound from './pages/NotFound/NotFound'
 
 export default function RoutesComponent() {
+  const profile = useSelector(state => state.auth.profile)
+
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
+
         <Route element={<UnAuthenticatedGuard />}>
           <Route element={<AuthLayout />}>
             <Route path={path.login} element={<Login />} />
@@ -28,15 +37,58 @@ export default function RoutesComponent() {
         </Route>
 
         <Route element={<AuthenticatedGuard />}>
-          <Route element={<AdminLayout />}>
+          {!lodash.isEmpty(profile) &&
+          profile.roleId.name === 'admin' ? (
             <Route
               path={path.home}
-              element={<Navigate to="/dashboard" />}
+              element={<Navigate to="/admin/" />}
             />
-            <Route path={path.dashboard} element={<Home />} />
-            <Route path={path.users} element={<User />} />
-            <Route path={path.cafe} element={<Cafe />} />
-            <Route path={path.maps} element={<Maps />} />
+          ) : (
+            <Route
+              path={path.home}
+              element={<Navigate to="/staff/" />}
+            />
+          )}
+
+          {!lodash.isEmpty(profile) &&
+            profile.roleId.name === 'admin' && (
+              <Route element={<AdminLayout />}>
+                <Route
+                  path={'/admin' + path.home}
+                  element={<Navigate to="/admin/dashboard" />}
+                />
+                <Route
+                  path={'/admin' + path.dashboard}
+                  element={<Home />}
+                />
+                <Route
+                  path={'/admin' + path.users}
+                  element={<User />}
+                />
+                <Route
+                  path={'/admin' + path.cafe}
+                  element={<Cafe />}
+                />
+                <Route
+                  path={'/admin' + path.maps}
+                  element={<Maps />}
+                />
+              </Route>
+            )}
+
+          <Route element={<StaffLayout />}>
+            <Route
+              path={'/staff' + path.home}
+              element={<Navigate to="/staff/suggest-list" />}
+            />
+            <Route
+              path={'/staff' + path.suggest}
+              element={<Suggest />}
+            />
+            <Route
+              path={'/staff' + path.createCafe}
+              element={<User />}
+            />
           </Route>
         </Route>
       </Routes>

@@ -3,7 +3,7 @@ const route = express.Router()
 const controller = require('../../app/controllers/comment.controller')
 const authMiddleware = require('../middleware/auth.middleware')
 
-route.post('', authMiddleware.isUser, controller.createComment)
+route.post('', authMiddleware.isOptionLogin, controller.createComment)
 route.get(
   '/:id',
   authMiddleware.isOptionLogin,

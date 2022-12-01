@@ -50,7 +50,7 @@ app.use('/comment', commentRoute)
 app.use('/like-comment', likeCommentRoute)
 app.use('/dislike-comment', dislikeCommentRoute)
 app.use('/bookmark', authMiddleware.isOptionLogin, bookmarkRoute)
-app.use('/count', countRoute)
+app.use('/count', authMiddleware.isAdmin, countRoute)
 
 server.listen(PORT, (req, res) => {
   console.log(`listening http://localhost:${PORT}`)

@@ -5,9 +5,12 @@ import { Link, NavLink } from 'react-router-dom'
 import NotificationDropdown from 'src/components/Dropdowns/NotificationDropdown.jsx'
 import UserDropdown from 'src/components/Dropdowns/UserDropdown'
 import './sidebar.css'
+import { useSelector } from 'react-redux'
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = useState('hidden')
+
+  const role = useSelector(state => state.auth.profile.roleId.name)
 
   return (
     <>
@@ -22,12 +25,21 @@ export default function Sidebar() {
             <i className="fas fa-bars"></i>
           </button>
           {/* Brand */}
-          <Link
-            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
-            to="/"
-          >
-            La Maison
-          </Link>
+          {role === 'staff' ? (
+            <Link
+              className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
+              to="/staff"
+            >
+              La Maison
+            </Link>
+          ) : (
+            <Link
+              className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
+              to="/admin"
+            >
+              La Maison
+            </Link>
+          )}
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
@@ -48,12 +60,21 @@ export default function Sidebar() {
             <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
               <div className="flex flex-wrap">
                 <div className="w-6/12">
-                  <Link
-                    className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
-                    to="/"
-                  >
-                    La Maison
-                  </Link>
+                  {role === 'staff' ? (
+                    <Link
+                      className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
+                      to="/staff"
+                    >
+                      La Maison
+                    </Link>
+                  ) : (
+                    <Link
+                      className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap uppercase font-bold p-4 px-0 text-2xl"
+                      to="/admin"
+                    >
+                      La Maison
+                    </Link>
+                  )}
                 </div>
                 <div className="w-6/12 flex justify-end">
                   <button
@@ -78,55 +99,59 @@ export default function Sidebar() {
             </form>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin
-            </h6>
-            {/* Navigation */}
+            {role === 'admin' && (
+              <div className="admin">
+                <hr className="my-4 md:min-w-full" />
 
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <NavLink
-                  className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
-                  to="/dashboard"
-                >
-                  <i className="fas fa-tv mr-2 text-sm opacity-75"></i>{' '}
-                  Dashboard
-                </NavLink>
-              </li>
+                <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                  Admin
+                </h6>
+                {/* Navigation */}
 
-              <li className="items-center">
-                <NavLink
-                  className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
-                  to="/users"
-                >
-                  <i className="fa-solid fa-users mr-2 text-sm opacity-75"></i>{' '}
-                  Users
-                </NavLink>
-              </li>
+                <ul className="md:flex-col md:min-w-full flex flex-col list-none">
+                  <li className="items-center">
+                    <NavLink
+                      className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
+                      to="/admin/dashboard"
+                    >
+                      <i className="fas fa-tv mr-2 text-sm opacity-75"></i>{' '}
+                      Dashboard
+                    </NavLink>
+                  </li>
 
-              <li className="items-center">
-                <NavLink
-                  className="text-xs uppercase py-3 font-bold block  text-blueGray-700 hover:text-blueGray-500"
-                  to="/cafe"
-                >
-                  <i className="fa-solid fa-store mr-2 text-sm opacity-75"></i>{' '}
-                  Café
-                </NavLink>
-              </li>
+                  <li className="items-center">
+                    <NavLink
+                      className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
+                      to="/admin/users"
+                    >
+                      <i className="fa-solid fa-users mr-2 text-sm opacity-75"></i>{' '}
+                      Users
+                    </NavLink>
+                  </li>
 
-              <li className="items-center">
-                <NavLink
-                  className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
-                  to="/maps"
-                >
-                  <i className="fas fa-map-marked mr-2 text-sm opacity-75"></i>{' '}
-                  Maps
-                </NavLink>
-              </li>
-            </ul>
+                  <li className="items-center">
+                    <NavLink
+                      className="text-xs uppercase py-3 font-bold block  text-blueGray-700 hover:text-blueGray-500"
+                      to="/admin/cafe"
+                    >
+                      <i className="fa-solid fa-store mr-2 text-sm opacity-75"></i>{' '}
+                      Café
+                    </NavLink>
+                  </li>
 
+                  <li className="items-center">
+                    <NavLink
+                      className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500 "
+                      to="/admin/maps"
+                    >
+                      <i className="fas fa-map-marked mr-2 text-sm opacity-75"></i>{' '}
+                      Maps
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            )}
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -137,22 +162,22 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
-                <Link
+                <NavLink
                   className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-                  to="/auth/login"
+                  to="/staff/suggest-list"
                 >
                   <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm opacity-75"></i>{' '}
                   Suggest list
-                </Link>
+                </NavLink>
               </li>
               <li className="items-center">
-                <Link
+                <NavLink
                   className="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-                  to="/auth/login"
+                  to="/staff/create-cafe"
                 >
                   <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm opacity-75"></i>{' '}
                   Create cafe
-                </Link>
+                </NavLink>
               </li>
             </ul>
 

@@ -51,14 +51,19 @@ const authMiddleware = {
     authMiddleware.verifyToken(req, res, () => {
       if (req.user.roleId.name === ROLE.ADMIN) {
         next()
-      }
-      return res.status(403).json({ message: 'Forbidden', data: {} })
+      } else
+        return res
+          .status(403)
+          .json({ message: 'Forbidden', data: {} })
     })
   },
 
   isStaff: (req, res, next) => {
     authMiddleware.verifyToken(req, res, () => {
-      if (req.user.roleId.name === ROLE.STAFF) {
+      if (
+        req.user.roleId.name === ROLE.STAFF ||
+        req.user.roleId.name === ROLE.ADMIN
+      ) {
         next()
       } else
         return res
