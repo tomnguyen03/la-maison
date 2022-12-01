@@ -12,7 +12,7 @@ export default function StaffLayout() {
         <AdminNavbar />
         {/* Header */}
         <HeaderStaff />
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+        <div className="px-4 md:px-10 mx-auto w-full -m-24 pb-10">
           <Outlet />
         </div>
       </div>
