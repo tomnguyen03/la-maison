@@ -5,13 +5,17 @@ const authMiddleware = require('../middleware/auth.middleware')
 
 route.post('/register/user', controller.registerUser)
 route.post('/login', controller.login)
-route.put('/update', authMiddleware.isUser, controller.update)
+route.put('/update', authMiddleware.isOptionLogin, controller.update)
 route.put(
   '/change-password',
-  authMiddleware.isUser,
+  authMiddleware.isOptionLogin,
   controller.changePassword
 )
-route.get('/statistical', controller.statistical)
-route.get('/user', controller.getAllUser)
+route.get(
+  '/statistical',
+  authMiddleware.isAdmin,
+  controller.statistical
+)
+route.get('/user', authMiddleware.isAdmin, controller.getAllUser)
 
 module.exports = route

@@ -7,13 +7,13 @@ const authMiddleware = require('../../resources/middleware/auth.middleware')
 
 route.post(
   '/:id',
-  authMiddleware.isUser,
+  authMiddleware.isOptionLogin,
   controller.createLikeComment
 )
 route.get('/:id', controller.getLikeCommentByCommentId)
 route.delete(
   '/:id',
-  authMiddleware.isUser,
+  authMiddleware.isOptionLogin,
   controller.deleteLikeCommentByAccountId
 )
 

@@ -7,7 +7,7 @@ route.post('', authMiddleware.isStaff, controller.createCafe)
 route.get('', controller.getListCafe)
 route.put(
   '/updateAllLocation',
-  authMiddleware.isUser,
+  authMiddleware.isStaff,
   controller.updateAllCafe
 )
 route.get(
