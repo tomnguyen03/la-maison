@@ -31,6 +31,10 @@ const cafeApi = {
 
   getListLocation() {
     return http.get(`cafe/location`)
+  },
+
+  searchCafe(data) {
+    return http.get(`cafe/search?search=${data}`)
   }
 }
 
