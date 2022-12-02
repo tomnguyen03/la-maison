@@ -14,7 +14,7 @@ export default function CafeSlick() {
   useEffect(() => {
     dispatch(getListCafe())
       .then(unwrapResult)
-      .then(res => setListCafe(res.data))
+      .then(res => setListCafe(res.data.slice(0, 5)))
   }, [dispatch])
 
   const settings = { dots: true, slidesToShow: 1, slidesToScroll: 1 }

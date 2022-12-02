@@ -16,6 +16,7 @@ route.get(
   controller.getCafesRecommend
 )
 route.get('/location', controller.getListLocationCafe)
+route.get('/search', controller.searchCafe)
 route.get(
   '/:id',
   authMiddleware.isOptionLogin,

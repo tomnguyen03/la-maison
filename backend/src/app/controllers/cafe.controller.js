@@ -83,6 +83,25 @@ const cafeController = {
     })
   },
 
+  searchCafe: async (req, res) => {
+    try {
+      let query = {}
+      let listCafe = {}
+
+      if (!lodash.isEmpty(req.query.search)) {
+        query['name'] = new RegExp(req.query.search, 'i')
+        listCafe = await cafeService.search(query)
+      }
+
+      const response = {
+        message: 'Lấy danh sách list cafe thành công',
+        data: listCafe
+      }
+
+      return res.status(200).json(response)
+    } catch (error) {}
+  },
+
   getListCafe: async (req, res) => {
     try {
       let query = {}

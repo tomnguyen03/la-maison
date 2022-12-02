@@ -33,6 +33,18 @@ const cafeService = {
     }
   },
 
+  search: async data => {
+    try {
+      if (data) {
+        return CafeModel.find(data).limit(5).select('_id name')
+      } else {
+        return CafeModel.find()
+      }
+    } catch (error) {
+      return error
+    }
+  },
+
   findLocation: async () => {
     try {
       return CafeModel.find().select(
