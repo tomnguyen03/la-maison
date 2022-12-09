@@ -175,7 +175,7 @@ const cafeService = {
           }
 
           //Pagination
-          const limit = 9
+          const limit = 15
           const page = req.query.page || 1
 
           listPage = getListPage(responseList, limit, page)

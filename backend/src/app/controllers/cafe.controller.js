@@ -106,7 +106,7 @@ const cafeController = {
     try {
       let query = {}
 
-      query['limit'] = 9
+      query['limit'] = 15
       query['page'] = req.query.page
 
       if (!lodash.isEmpty(req.query.search))

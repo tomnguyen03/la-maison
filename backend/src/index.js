@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 app.use('/auth', authRoute)
 app.use('/', filterRoute)
 app.use('/address', addressRoute)
-app.use('/collection', authMiddleware.isUser, collectionRoute)
+app.use('/collection', authMiddleware.isOptionLogin, collectionRoute)
 app.use('/share-location', shareLocationRoute)
 app.use('/cafe', cafeRoute)
 app.use('/upload-image', imageRoute)
