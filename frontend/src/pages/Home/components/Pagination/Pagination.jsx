@@ -33,7 +33,7 @@ export default function Pagination({ totalItem }) {
     Scroll.animateScroll.scrollToTop()
   }
 
-  const page = Math.ceil(totalItem / 9)
+  const page = Math.ceil(totalItem / 15)
 
   return (
     <div className="flex items-center justify-between">
