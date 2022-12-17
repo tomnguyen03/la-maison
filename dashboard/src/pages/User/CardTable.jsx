@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import Scroll from 'react-scroll'
+import Switch from '@mui/material/Switch'
+import ModalRole from './ModalRole'
+import { useDispatch } from 'react-redux'
+import { updateRole } from '../Login/auth.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 // components
 
-export default function CardTable({ color, data }) {
-  Scroll.animateScroll.scrollToTop()
+export default function CardTable({
+  color,
+  data,
+  handleChange,
+  handleUpdateRole
+}) {
+  const dispatch = useDispatch()
 
   const [dataShow, setDataShow] = useState([])
   const [page, setPage] = useState(1)
+  const [itemUpdate, setItemUpdate] = useState({})
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     const start = (page - 1) * 10
@@ -27,6 +39,38 @@ export default function CardTable({ color, data }) {
   const handleClickNext = () => {
     if (page === totalPage) return
     return setPage(page + 1)
+  }
+
+  const callbackShowModal = () => {
+    setShowModal(false)
+  }
+
+  const handleClickUpdateRole = itemUser => {
+    setItemUpdate(itemUser)
+
+    setShowModal(true)
+  }
+
+  const handleClickUpdate = async (id, role) => {
+    try {
+      const data = {
+        id: id,
+        roleId: role
+      }
+      await dispatch(updateRole(data)).then(unwrapResult)
+
+      handleUpdateRole()
+
+      setShowModal(false)
+
+      toast.success('Cập nhật role thành công', {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: true
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -166,6 +210,24 @@ export default function CardTable({ color, data }) {
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 uppercase">
                       {item.roleId.name}
                     </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 uppercase">
+                      {item.roleId.name !== 'admin' && (
+                        <Switch
+                          checked={item.isActive}
+                          onChange={e => handleChange(e, item._id)}
+                        />
+                      )}
+                    </td>
+                    <td className="border-t-0 align-middle border-l-0 border-r-0 text-xs pr-6">
+                      {item.roleId.name !== 'admin' && (
+                        <div
+                          className="px-3 py-2 bg-blue-600 text-white flex items-center justify-center rounded cursor-pointer"
+                          onClick={() => handleClickUpdateRole(item)}
+                        >
+                          Update role
+                        </div>
+                      )}
+                    </td>
                   </tr>
                 ))}
             </tbody>
@@ -196,6 +258,14 @@ export default function CardTable({ color, data }) {
           Next
         </div>
       </div>
+
+      {showModal ? (
+        <ModalRole
+          closeModal={callbackShowModal}
+          dataUser={itemUpdate}
+          handleClickUpdate={handleClickUpdate}
+        />
+      ) : null}
     </>
   )
 }

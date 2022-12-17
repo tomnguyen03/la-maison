@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { payloadCreator } from 'src/utils/helper'
 import statisticalApi from 'src/api/statistical.api'
+import cafeApi from '../../api/cafe.api'
 
 export const getCount = createAsyncThunk(
   'getCount',
@@ -20,4 +21,9 @@ export const statisticalUser = createAsyncThunk(
 export const getAllCafe = createAsyncThunk(
   'getAllCafe',
   payloadCreator(statisticalApi.getAllCafe)
+)
+
+export const updateActiveCafe = createAsyncThunk(
+  'updateActiveCafe',
+  payloadCreator(cafeApi.updateActiveCafe)
 )

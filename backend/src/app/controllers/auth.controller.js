@@ -47,6 +47,11 @@ const AuthController = {
       if (!loginResult) {
         throw new Error('Sai tài khoản hoặc mật khẩu')
       }
+      if (loginResult.isActive === false) {
+        return res
+          .status(405)
+          .json({ message: 'Tài khoản đã bị khóa' })
+      }
 
       return res.json({ message: 'Successfully', data: loginResult })
     } catch (error) {
@@ -132,6 +137,49 @@ const AuthController = {
       return res.status(200).json({
         message: 'Successfully',
         data: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  updateAccountActive: async (req, res) => {
+    try {
+      const id = req.body.id
+      const isActive = req.body.isActive
+
+      await accountService.update(id, { isActive: isActive })
+
+      return res.status(200).json({
+        message: 'Successfully'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  updateRole: async (req, res) => {
+    try {
+      const id = req.body.id
+      const roleId = req.body.roleId
+
+      await accountService.update(id, { roleId: roleId })
+
+      return res.status(200).json({
+        message: 'Successfully'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  getRole: async (_, res) => {
+    try {
+      const role = await roleService.getRole()
+
+      return res.status(200).json({
+        message: 'Successfully',
+        data: role
       })
     } catch (error) {
       console.log(error)

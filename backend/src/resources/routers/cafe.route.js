@@ -22,5 +22,10 @@ route.get(
   authMiddleware.isOptionLogin,
   controller.getCafeDetail
 )
+route.put(
+  '/updateActive',
+  authMiddleware.isAdmin,
+  controller.updateActive
+)
 
 module.exports = route

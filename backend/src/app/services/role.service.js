@@ -7,6 +7,14 @@ const RoleService = {
     } catch (error) {
       return error
     }
+  },
+
+  getRole: async () => {
+    try {
+      return roleModel.find()
+    } catch (error) {
+      return error
+    }
   }
 }
 
