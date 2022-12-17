@@ -48,6 +48,14 @@ export default function Login({ closeModal }) {
           message: error.message
         })
       }
+
+      if (error.status === 405) {
+        toast.error('Tài khoản đã bị khóa', {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: true
+        })
+      }
     }
   }
 

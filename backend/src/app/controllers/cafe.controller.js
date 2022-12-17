@@ -87,6 +87,7 @@ const cafeController = {
     try {
       let query = {}
       let listCafe = {}
+      query['isActive'] = true
 
       if (!lodash.isEmpty(req.query.search)) {
         query['name'] = new RegExp(req.query.search, 'i')
@@ -108,6 +109,7 @@ const cafeController = {
 
       query['limit'] = 15
       query['page'] = req.query.page
+      query['isActive'] = true
 
       if (!lodash.isEmpty(req.query.search))
         query['name'] = new RegExp(req.query.search, 'i')
@@ -153,7 +155,10 @@ const cafeController = {
 
   getCafeDetail: async (req, res) => {
     try {
-      const listCafeDetail = await cafeService.findById(req.params.id)
+      const listCafeDetail = await cafeService.findById({
+        _id: req.params.id,
+        isActive: true
+      })
 
       const getWard = await addressService.getWardsByCode({
         code: listCafeDetail.wardId
@@ -300,6 +305,14 @@ const cafeController = {
       } else
         await cafeService.getCafesRecommends(req, res, userId._id)
     }
+  },
+
+  updateActive: async (req, res) => {
+    await cafeService.update(req.body.id, {
+      isActive: req.body.isActive
+    })
+
+    return res.status(200).json({ message: 'Successfully' })
   }
 }
 

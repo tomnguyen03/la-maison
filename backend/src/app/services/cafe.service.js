@@ -65,9 +65,9 @@ const cafeService = {
     }
   },
 
-  findById: async data => {
+  find: async data => {
     try {
-      return CafeModel.findById(data)
+      return CafeModel.find(data)
     } catch (error) {
       return error
     }

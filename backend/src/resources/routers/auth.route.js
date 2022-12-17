@@ -17,5 +17,16 @@ route.get(
   controller.statistical
 )
 route.get('/user', authMiddleware.isAdmin, controller.getAllUser)
+route.put(
+  '/updateActive',
+  authMiddleware.isAdmin,
+  controller.updateAccountActive
+)
+route.put(
+  '/updateRole',
+  authMiddleware.isAdmin,
+  controller.updateRole
+)
+route.get('/roles', controller.getRole)
 
 module.exports = route

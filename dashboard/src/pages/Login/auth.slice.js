@@ -8,6 +8,21 @@ export const login = createAsyncThunk(
   payloadCreator(authApi.login)
 )
 
+export const updateActive = createAsyncThunk(
+  'auth/updateActive',
+  payloadCreator(authApi.updateActive)
+)
+
+export const updateRole = createAsyncThunk(
+  'auth/updateRole',
+  payloadCreator(authApi.updateRole)
+)
+
+export const getRole = createAsyncThunk(
+  'auth/getRole',
+  payloadCreator(authApi.getRole)
+)
+
 const handleAuthFulfilled = (state, action) => {
   const { token, refreshToken, ...other } = action.payload.data
 

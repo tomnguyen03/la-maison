@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import Scroll from 'react-scroll'
+import Switch from '@mui/material/Switch'
 
 // components
 
-export default function CardTable({ color, data }) {
-  Scroll.animateScroll.scrollToTop()
-
+export default function CardTable({ color, data, handleUpdateCafe }) {
   const [dataShow, setDataShow] = useState([])
   const [page, setPage] = useState(1)
 
@@ -127,6 +125,15 @@ export default function CardTable({ color, data }) {
 
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                       {item.detail_address}
+                    </td>
+
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 uppercase">
+                      <Switch
+                        checked={item.isActive}
+                        onChange={e =>
+                          handleUpdateCafe(item._id, e.target.checked)
+                        }
+                      />
                     </td>
                   </tr>
                 ))}
