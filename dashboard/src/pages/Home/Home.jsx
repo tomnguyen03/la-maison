@@ -4,7 +4,6 @@ import React from 'react'
 
 import CardLineChart from 'src/components/Cards/CardLineChart'
 import CardPageVisits from 'src/components/Cards/CardPageVisits'
-import CardSocialTraffic from 'src/components/Cards/CardSocialTraffic'
 
 export default function Home() {
   return (
@@ -16,11 +15,6 @@ export default function Home() {
         <div className="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <CardPageVisits />
         </div>
-      </div>
-      <div className="flex flex-wrap mt-4">
-        {/* <div className="w-full xl:w-4/12 px-4">
-          <CardSocialTraffic />
-        </div> */}
       </div>
     </>
   )

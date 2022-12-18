@@ -4,7 +4,11 @@ import Scroll from 'react-scroll'
 
 // components
 
-export default function CardTable({ color, data }) {
+export default function CardTable({
+  color,
+  data,
+  handleClickUpdateApproval
+}) {
   Scroll.animateScroll.scrollToTop()
 
   const [dataShow, setDataShow] = useState([])
@@ -163,7 +167,46 @@ export default function CardTable({ color, data }) {
                       {item.website}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 uppercase">
-                      {item.facebook}
+                      <div className="flex items-center gap-2">
+                        {!item.approval === true ? (
+                          item.approval === undefined && (
+                            <div
+                              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 duration-300 text-white flex items-center justify-center rounded cursor-pointer"
+                              onClick={() =>
+                                handleClickUpdateApproval(
+                                  item._id,
+                                  true
+                                )
+                              }
+                            >
+                              Approve
+                            </div>
+                          )
+                        ) : (
+                          <div className="text-sm italic text-green-600">
+                            Approved
+                          </div>
+                        )}
+                        {item.approval === undefined ? (
+                          <div
+                            className="px-3 py-2 bg-blue-600 hover:bg-blue-500 duration-300 text-white flex items-center justify-center rounded cursor-pointer"
+                            onClick={() =>
+                              handleClickUpdateApproval(
+                                item._id,
+                                false
+                              )
+                            }
+                          >
+                            Refuse
+                          </div>
+                        ) : (
+                          item.approval === false && (
+                            <div className="text-sm italic text-red-600">
+                              Refused
+                            </div>
+                          )
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

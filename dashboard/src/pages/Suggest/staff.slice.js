@@ -6,3 +6,8 @@ export const getSuggestList = createAsyncThunk(
   'getSuggestList',
   payloadCreator(staffApi.getSuggestList)
 )
+
+export const updateApproval = createAsyncThunk(
+  'updateApproval',
+  payloadCreator(staffApi.updateApproval)
+)

@@ -221,7 +221,7 @@ export default function CardTable({
                     <td className="border-t-0 align-middle border-l-0 border-r-0 text-xs pr-6">
                       {item.roleId.name !== 'admin' && (
                         <div
-                          className="px-3 py-2 bg-blue-600 text-white flex items-center justify-center rounded cursor-pointer"
+                          className="px-3 py-2 bg-blue-600 hover:bg-blue-500 duration-300 text-white flex items-center justify-center rounded cursor-pointer"
                           onClick={() => handleClickUpdateRole(item)}
                         >
                           Update role

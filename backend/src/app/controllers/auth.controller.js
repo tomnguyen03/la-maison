@@ -118,9 +118,16 @@ const AuthController = {
       const list = await accountService.statistical()
       const totalUser = await accountService.count()
 
+      const list2022 = list.filter(item => item._id.year === 2022)
+
+      let response = Array.from({ length: 12 }, (_, i) => 0)
+      list2022.map(
+        item => (response[item._id.month - 1] = item.count)
+      )
+
       return res.status(200).json({
         message: 'Successfully',
-        data: list,
+        data: response,
         totalUser: totalUser
       })
     } catch (error) {
