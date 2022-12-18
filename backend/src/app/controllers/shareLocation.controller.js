@@ -39,6 +39,23 @@ const shareLocationController = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  updateShareLocation: async (req, res) => {
+    try {
+      const id = req.body.id
+      const data = { approval: req.body.approval }
+
+      await shareLocationService.update(id, data)
+
+      const response = {
+        message: 'Successfully'
+      }
+
+      return res.status(200).json(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

@@ -15,6 +15,13 @@ const shareLocationService = {
     } catch (error) {
       return error
     }
+  },
+  update: async (id, data) => {
+    try {
+      return ShareLocationModel.updateOne({ _id: id }, data)
+    } catch (error) {
+      return error
+    }
   }
 }
 

@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Chart from 'chart.js'
+import { statisticalUser } from '../Headers/statistical.slice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 
 export default function CardLineChart() {
-  React.useEffect(() => {
+  const dispatch = useDispatch()
+  const [data, setData] = useState([])
+
+  useEffect(() => {
     var config = {
       type: 'line',
       data: {
@@ -13,14 +19,19 @@ export default function CardLineChart() {
           'April',
           'May',
           'June',
-          'July'
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
         ],
         datasets: [
           {
             label: new Date().getFullYear(),
             backgroundColor: '#4c51bf',
             borderColor: '#4c51bf',
-            data: [65, 78, 66, 44, 56, 67, 75],
+            data: data,
             fill: false
           }
         ]
@@ -30,7 +41,7 @@ export default function CardLineChart() {
         responsive: true,
         title: {
           display: false,
-          text: 'Sales Charts',
+          text: 'Users Charts',
           fontColor: 'white'
         },
         legend: {
@@ -98,7 +109,13 @@ export default function CardLineChart() {
     }
     var ctx = document.getElementById('line-chart').getContext('2d')
     window.myLine = new Chart(ctx, config)
-  }, [])
+  }, [data])
+
+  useEffect(() => {
+    dispatch(statisticalUser())
+      .then(unwrapResult)
+      .then(res => setData(res.data))
+  }, [dispatch])
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
@@ -109,7 +126,7 @@ export default function CardLineChart() {
                 Overview
               </h6>
               <h2 className="text-white text-xl font-semibold">
-                Sales value
+                Active Users
               </h2>
             </div>
           </div>

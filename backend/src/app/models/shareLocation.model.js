@@ -32,6 +32,10 @@ const ShareLocation = new Schema(
     website: {
       type: String,
       required: false
+    },
+    approval: {
+      type: Boolean,
+      required: false
     }
   },
   {
