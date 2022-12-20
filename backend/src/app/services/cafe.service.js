@@ -65,14 +65,6 @@ const cafeService = {
     }
   },
 
-  find: async data => {
-    try {
-      return CafeModel.find(data)
-    } catch (error) {
-      return error
-    }
-  },
-
   count: async data => {
     try {
       return CafeModel.count(data)
