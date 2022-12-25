@@ -155,7 +155,7 @@ const cafeController = {
 
   getCafeDetail: async (req, res) => {
     try {
-      const listCafeDetail = await cafeService.findById({
+      const listCafeDetail = await cafeService.findDetailCafe({
         _id: req.params.id,
         isActive: true
       })
