@@ -17,7 +17,7 @@ const bookmarkController = {
         cafeId: req.body.cafeId
       }
       const bookmark = await bookmarkService.createOne(data)
-      const cafe = await cafeService.findById(req.body.cafeId)
+      const cafe = await cafeService.findOne({ _id: req.body.cafeId })
       const collection = await collectionService.findOne({
         _id: req.body.collectionId
       })
