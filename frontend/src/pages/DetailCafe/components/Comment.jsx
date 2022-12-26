@@ -3,7 +3,14 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAuthenticated } from 'src/hooks/useAuthenticated'
-import { createComment, getListComment } from '../detailCafe.slice'
+import {
+  createComment,
+  createDislikeComment,
+  createLikeComment,
+  deleteDislikeComment,
+  deleteLikeComment,
+  getListComment
+} from '../detailCafe.slice'
 import CommentItem from './CommentItem'
 import lodash from 'lodash'
 import { Skeleton } from '@mui/material'
@@ -45,6 +52,60 @@ export default function Comment({ idCafe, isShowModal }) {
   }
   const loading = useSelector(state => state.app.loading)
 
+  //Comment Item
+
+  const handleClickLike = async id => {
+    if (!lodash.isEmpty(authenticated)) {
+      try {
+        await dispatch(createLikeComment(id)).then(unwrapResult)
+        await dispatch(getListComment(idCafe))
+          .then(unwrapResult)
+          .then(res => setDataComment(res.data))
+      } catch (error) {
+        console.log(error)
+      }
+    } else isShowModal()
+  }
+
+  const handleClickRemoveLike = async id => {
+    if (!lodash.isEmpty(authenticated)) {
+      try {
+        await dispatch(deleteLikeComment(id)).then(unwrapResult)
+        await dispatch(getListComment(idCafe))
+          .then(unwrapResult)
+          .then(res => setDataComment(res.data))
+      } catch (error) {
+        console.log(error)
+      }
+    } else isShowModal()
+  }
+
+  const handleClickDislike = async id => {
+    if (!lodash.isEmpty(authenticated)) {
+      try {
+        await dispatch(createDislikeComment(id)).then(unwrapResult)
+        await dispatch(getListComment(idCafe))
+          .then(unwrapResult)
+          .then(res => setDataComment(res.data))
+      } catch (error) {
+        console.log(error)
+      }
+    } else isShowModal()
+  }
+
+  const handleClickRemoveDislike = async id => {
+    if (!lodash.isEmpty(authenticated)) {
+      try {
+        await dispatch(deleteDislikeComment(id)).then(unwrapResult)
+        await dispatch(getListComment(idCafe))
+          .then(unwrapResult)
+          .then(res => setDataComment(res.data))
+      } catch (error) {
+        console.log(error)
+      }
+    } else isShowModal()
+  }
+
   return (
     <div className="w-full rounded-md shadow-lg pt-[10px]">
       {dataComment &&
@@ -60,8 +121,11 @@ export default function Comment({ idCafe, isShowModal }) {
                 dislikeCount={item.dislike_count}
                 isLike={item.isLike}
                 isDislike={item.isDislike}
-                isShowModal={isShowModal}
                 createdAt={item.createdAt}
+                handleClickLike={handleClickLike}
+                handleClickRemoveLike={handleClickRemoveLike}
+                handleClickDislike={handleClickDislike}
+                handleClickRemoveDislike={handleClickRemoveDislike}
                 key={index}
               />
             ))}

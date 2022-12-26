@@ -1,84 +1,21 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import {
-  createDislikeComment,
-  createLikeComment,
-  deleteDislikeComment,
-  deleteLikeComment
-} from '../detailCafe.slice'
-import { unwrapResult } from '@reduxjs/toolkit'
-import { useAuthenticated } from 'src/hooks/useAuthenticated'
+import React from 'react'
 import Timestamp from 'react-timestamp'
-import lodash from 'lodash'
 
-export default function CommentItem(props) {
-  const {
-    id,
-    image,
-    name,
-    content,
-    likeCount,
-    dislikeCount,
-    isLike,
-    isDislike,
-    isShowModal,
-    createdAt
-  } = props
-  const dispatch = useDispatch()
-  const authenticated = useAuthenticated()
-  const [like, setLike] = useState(likeCount)
-  const [dislike, setDislike] = useState(dislikeCount)
-  const [hasLike, setHasLike] = useState(isLike)
-  const [hasDislike, setHasDislike] = useState(isDislike)
-
-  const handleClickLike = async () => {
-    try {
-      if (!lodash.isEmpty(authenticated)) {
-        await dispatch(createLikeComment(id)).then(unwrapResult)
-        setLike(like + 1)
-        setHasLike(true)
-      } else isShowModal()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleClickRemoveLike = async () => {
-    try {
-      if (!lodash.isEmpty(authenticated)) {
-        await dispatch(deleteLikeComment(id)).then(unwrapResult)
-        setLike(like - 1)
-        setHasLike(false)
-      } else isShowModal()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleClickDislike = async () => {
-    try {
-      if (!lodash.isEmpty(authenticated)) {
-        await dispatch(createDislikeComment(id)).then(unwrapResult)
-        setDislike(dislike + 1)
-        setHasDislike(true)
-      } else isShowModal()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleClickRemoveDislike = async () => {
-    try {
-      if (!lodash.isEmpty(authenticated)) {
-        await dispatch(deleteDislikeComment(id)).then(unwrapResult)
-        setDislike(dislike - 1)
-        setHasDislike(false)
-      } else isShowModal()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+function CommentItem({
+  id,
+  image,
+  name,
+  content,
+  likeCount,
+  dislikeCount,
+  isLike,
+  isDislike,
+  createdAt,
+  handleClickLike,
+  handleClickRemoveLike,
+  handleClickDislike,
+  handleClickRemoveDislike
+}) {
   return (
     <div className="flex items-center gap-2 px-[20px] py-[10px] w-full">
       <img
@@ -94,34 +31,34 @@ export default function CommentItem(props) {
         <p className="">{content}</p>
         <div className="flex flex-col lg:flex-row justify-between gap-1">
           <div className="flex gap-8 text-grey-7 text-sm">
-            {hasLike ? (
+            {isLike ? (
               <p
                 className="cursor-pointer text-red-dd font-medium"
-                onClick={handleClickRemoveLike}
+                onClick={() => handleClickRemoveLike(id)}
               >
-                {like} Thích
+                {likeCount} Thích
               </p>
             ) : (
               <p
                 className="cursor-pointer "
-                onClick={handleClickLike}
+                onClick={() => handleClickLike(id)}
               >
-                {like} Thích
+                {likeCount} Thích
               </p>
             )}
-            {hasDislike ? (
+            {isDislike ? (
               <p
                 className="cursor-pointer text-red-dd font-medium"
-                onClick={handleClickRemoveDislike}
+                onClick={() => handleClickRemoveDislike(id)}
               >
-                {dislike} Không Thích
+                {dislikeCount} Không Thích
               </p>
             ) : (
               <p
                 className="cursor-pointer "
-                onClick={handleClickDislike}
+                onClick={() => handleClickDislike(id)}
               >
-                {dislike} Không Thích
+                {dislikeCount} Không Thích
               </p>
             )}
           </div>
@@ -135,3 +72,5 @@ export default function CommentItem(props) {
     </div>
   )
 }
+
+export default CommentItem
