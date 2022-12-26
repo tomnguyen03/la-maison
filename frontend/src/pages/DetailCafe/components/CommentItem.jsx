@@ -21,7 +21,7 @@ function CommentItem({
       <img
         src={
           image ||
-          'https://nld.mediacdn.vn/291774122806476800/2022/3/19/20200403104047-41cb-16476717856591379514951.jpg'
+          'https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png'
         }
         alt="Background auth"
         className="w-10 h-10 rounded-full bg-center bg-no-repeat bg-cover object-cover"
