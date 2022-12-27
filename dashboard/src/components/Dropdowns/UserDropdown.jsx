@@ -1,8 +1,7 @@
 import React from 'react'
-import bgAvatar from 'src/assets/img/team-1-800x800.jpg'
 import Popover from '@mui/material/Popover'
 import Typography from '@mui/material/Typography'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../pages/Login/auth.slice'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../constants/path'
@@ -31,6 +30,8 @@ const UserDropdown = () => {
     navigate(path.login)
   }
 
+  const avatar = useSelector(state => state.auth.profile.avatar)
+
   return (
     <>
       <div
@@ -40,8 +41,11 @@ const UserDropdown = () => {
         <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
           <img
             alt="..."
-            className="w-full rounded-full align-middle border-none shadow-lg"
-            src={bgAvatar}
+            className="w-full h-full rounded-full bg-center bg-no-repeat bg-cover object-cover shadow-lg"
+            src={
+              avatar ||
+              'https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png'
+            }
           />
         </span>
       </div>
